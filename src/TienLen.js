@@ -17,26 +17,26 @@ function setUp() {
   };
 }
 
-function playCards(G, ctx) {
+export function playCards(G, ctx) {
   nextTurn(G, ctx);
 }
 
-function tienLenPlay(G, ctx) {
+export function tienLenPlay(G, ctx) {
   nextTurn(G, ctx);
 }
 
-function newRoundPlay(G, ctx) {
+export function newRoundPlay(G, ctx) {
   ctx.events.endStage();
   G.activePlayers = [0, 1, 2, 3];
   nextTurn(G, ctx);
 }
 
-function passTurn(G, ctx) {
+export function passTurn(G, ctx) {
   G.activePlayers[parseInt(ctx.currentPlayer)] = null;
   nextTurn(G, ctx);
 }
 
-function nextTurn(G, ctx) {
+export function nextTurn(G, ctx) {
   let currentPlayer = parseInt(ctx.currentPlayer);
   let playerList = G.activePlayers
     .slice(currentPlayer + 1, 4)

@@ -1,0 +1,30 @@
+ESPN,NFL,Equivalent ESPN Representation for NFL Position
+ '-',nan,
+'DE', 'DE',
+ 'S', 'SAF',
+ 'QB', 'QB',
+, 'SS', 'S'
+ 'LS', 'LS',
+ 'P', 'P',
+ 'FB', 'FB',
+ 'DL', 'DL',
+, 'OLB', 'LB'
+ 'PK', 'K',
+ 'G', 'OG',
+ 'OT', 'OT',
+ 'LB', 'LB',
+ 'RB', 'RB',
+ 'TE', 'TE',
+ 'C', 'C',
+ 'NT', 'NT',
+, 'FS', 'S'
+ 'OL', 'OL',
+ 'WR', 'WR',
+ 'DT', 'DT',
+ 'CB', 'CB',
+ 'DB', 'DB',
+, 'ILB', 'LB'
+, 'MLB', 'LB'
+ 'KR',,
+ 'PR',,
+ 'ATH',,

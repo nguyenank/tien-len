@@ -1,6 +1,6 @@
 import { Client } from "boardgame.io/react";
-import { TienLen } from "./Game";
-import { TienLenBoard } from "./Board";
+import { TienLen } from "./TienLen";
+import { TienLenBoard } from "./TienLenBoard";
 
 const App = Client({ game: TienLen, numPlayers: 4, board: TienLenBoard });
 
