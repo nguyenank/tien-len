@@ -13,3 +13,5 @@ when only one player left in the turn list,
 - if they ever take newRoundPlay: reset list of players in the round, and end the tien len stage
 
 maybe embed what the current play is into the type of round? but that might be unnecessarily complicated, because you have to check if a combo beats the middle one anyways
+
+- should prob just be a G variable then

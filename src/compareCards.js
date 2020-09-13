@@ -32,25 +32,31 @@ export function validCombination(cards) {
   if (cards.length === 1) {
     // single
     return true;
-  } else if (cards.length === 2 && cards[0].rank === cards[1].rank) {
+  } else if (
+    cards.length === 2 &&
+    cards.every(card => card.rank === cards[0].rank)
+  ) {
     // pair
     return true;
   } else if (
     cards.length === 3 &&
-    cards[0].rank === cards[1].rank &&
-    cards[0].rank === cards[2].rank
+    cards.every(card => card.rank === cards[0].rank)
   ) {
+    // triple
     return true;
   } else if (cards.length >= 3) {
     // straight
-    if (cards.some(card => card.rank === 2)) {
-      return false;
-    }
-
-    let sortedCards = cards.sort(compareCards);
+    cards.sort(compareCards);
     let ranks = cards.map(card => card.rank);
-    let firstIndex = RANKS.indexOf(ranks[0]);
-    if (_.isEqual(RANKS.slice(firstIndex, firstIndex + ranks.length), ranks)) {
+    // going to remove 2, so adjust index in advance
+    let firstIndex = RANKS.indexOf(ranks[0]) - 1;
+    if (
+      _.isEqual(
+        _.tail(RANKS) // remove 2
+          .slice(firstIndex, firstIndex + ranks.length),
+        ranks
+      )
+    ) {
       return true;
     }
   }
