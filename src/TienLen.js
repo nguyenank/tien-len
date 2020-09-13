@@ -1,4 +1,5 @@
 import { Constants } from "./constants";
+import { compareCards } from "./compareCards";
 
 export const TienLen = {
   setup: setUp,
@@ -28,7 +29,7 @@ function setUp(ctx) {
   let hands = {};
 
   for (let i = 0; i < 4; i++) {
-    hands[i] = deck.slice(i, i + 13);
+    hands[i] = deck.slice(i, i + 13).sort(compareCards);
   }
 
   return {

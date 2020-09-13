@@ -1,5 +1,6 @@
 import { Client } from "boardgame.io/client";
-import { TienLen, sortCards } from "../TienLen";
+import { TienLen } from "../TienLen";
+import { compareCards } from "../compareCards";
 
 describe("setUp", () => {
   let G;
@@ -18,5 +19,10 @@ describe("setUp", () => {
     }
   });
 
-  it("should sort the cards by ascending rank then suit", () => {});
+  it("should sort the cards in each hand by ascending rank then suit", () => {
+    for (let player in G.hands) {
+      let hand = G.hands[player];
+      expect(hand).toEqual(hand.sort(compareCards));
+    }
+  });
 });
