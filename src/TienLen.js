@@ -1,3 +1,5 @@
+import { Constants } from "./constants";
+
 export const TienLen = {
   setup: setUp,
   moves: {
@@ -11,8 +13,26 @@ export const TienLen = {
   },
 };
 
-function setUp() {
+function setUp(ctx) {
+  const SUITS = Constants.SUITS;
+  const RANKS = Constants.RANKS;
+
+  let deck = [];
+  for (let suit of SUITS) {
+    for (let rank of RANKS) {
+      deck.push({ suit: suit, rank: rank });
+    }
+  }
+  deck = ctx.random.Shuffle(deck);
+
+  let hands = {};
+
+  for (let i = 0; i < 4; i++) {
+    hands[i] = deck.slice(i, i + 13);
+  }
+
   return {
+    hands: hands,
     turnOrder: [0, 1, 2, 3],
   };
 }
