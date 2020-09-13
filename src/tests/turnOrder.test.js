@@ -107,5 +107,41 @@ describe("Turn order", () => {
       expect(ctx.currentPlayer).toEqual("2");
       expect(ctx.activePlayers).toEqual({ "2": "tienLen" });
     });
+
+    it("should persist as long as the player makes tien len moves", () => {
+      client.moves.passTurn();
+      ctx = client.store.getState()["ctx"];
+      expect(ctx.currentPlayer).toEqual("2");
+      expect(ctx.activePlayers).toEqual({ "2": "tienLen" });
+
+      client.moves.tienLenPlay();
+      ctx = client.store.getState()["ctx"];
+      expect(ctx.currentPlayer).toEqual("2");
+      expect(ctx.activePlayers).toEqual({ "2": "tienLen" });
+
+      client.moves.tienLenPlay();
+      ctx = client.store.getState()["ctx"];
+      expect(ctx.currentPlayer).toEqual("2");
+      expect(ctx.activePlayers).toEqual({ "2": "tienLen" });
+    });
+
+    it("should end when the player makes a non-tien len move", () => {
+      client.moves.passTurn();
+      ctx = client.store.getState()["ctx"];
+      expect(ctx.currentPlayer).toEqual("2");
+      expect(ctx.activePlayers).toEqual({ "2": "tienLen" });
+
+      client.moves.tienLenPlay();
+      ctx = client.store.getState()["ctx"];
+      expect(ctx.currentPlayer).toEqual("2");
+      expect(ctx.activePlayers).toEqual({ "2": "tienLen" });
+
+      client.moves.newRoundPlay();
+      ctx = client.store.getState()["ctx"];
+      G = client.store.getState()["G"];
+      expect(ctx.currentPlayer).toEqual("3");
+      expect(ctx.activePlayers).toEqual(null);
+      expect(G.turnOrder).toEqual([0, 1, 2, 3]);
+    });
   });
 });
