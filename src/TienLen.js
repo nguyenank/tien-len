@@ -1,9 +1,17 @@
 // src/TienLen.js
 
 import { Suits, Ranks, Combinations } from "./constants";
-import { playCards, passTurn, tienLenPlay, newRoundPlay } from "./turnMoves";
-import { compareCards } from "./compareCards";
-const _ = require("lodash");
+import {
+  playCards,
+  passTurn,
+  tienLenPlay,
+  newRoundPlay,
+} from "./moves/turnMoves";
+import {
+  cardToStagingArea,
+  cardFromStagingArea,
+} from "./moves/stagingAreaMoves";
+import { compareCards } from "./moves/compareCards";
 
 export const TienLen = {
   setup: setUp,
@@ -42,16 +50,4 @@ function setUp(ctx) {
     stagingArea: [],
     roundType: Combinations.ANY,
   };
-}
-
-function cardToStagingArea(G, ctx, card) {
-  G.stagingArea.push(card);
-  G.stagingArea.sort(compareCards);
-  _.pullAllWith(G.hands[ctx.currentPlayer], [card], _.isEqual);
-}
-
-function cardFromStagingArea(G, ctx, card) {
-  _.pullAllWith(G.stagingArea, [card], _.isEqual);
-  G.hands[ctx.currentPlayer].push(card);
-  G.hands[ctx.currentPlayer].sort(compareCards);
 }

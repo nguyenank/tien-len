@@ -1,7 +1,11 @@
 // src/tests/compareCards.test.js
 
 import { Client } from "boardgame.io/client";
-import { compareCards, validCombination, validChop } from "../compareCards";
+import {
+  compareCards,
+  validCombination,
+  validChop,
+} from "../moves/compareCards";
 import { Combinations } from "../constants.js";
 
 describe("compareCards", () => {

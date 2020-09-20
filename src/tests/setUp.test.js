@@ -2,7 +2,7 @@
 
 import { Client } from "boardgame.io/client";
 import { TienLen } from "../TienLen";
-import { compareCards } from "../compareCards";
+import { compareCards } from "../moves/compareCards";
 
 describe("setUp", () => {
   let G;
