@@ -52,21 +52,11 @@ export function validCombination(cards) {
   ) {
     // triple
     return true;
-  } else if (cards.length >= 3) {
+  } else if (cards.length >= 3 && cards.every(card => card.rank !== "2")) {
     // straight
     cards.sort(compareCards);
     let ranks = cards.map(card => card.rank);
-    // going to remove 2, so adjust index in advance
-    let firstIndex = RANKS.indexOf(ranks[0]) - 1;
-    if (
-      _.isEqual(
-        _.tail(RANKS) // remove 2
-          .slice(firstIndex, firstIndex + ranks.length),
-        ranks
-      )
-    ) {
-      return true;
-    }
+    return consecutive(ranks);
   }
   return false;
 }
@@ -91,13 +81,14 @@ export function validChop(cards) {
     let RANKS = Constants.RANKS;
     cards.sort(compareCards);
     let ranks = _.uniq(cards.map(card => card.rank));
-    let firstIndex = RANKS.indexOf(ranks[0]);
-    let consecutive = _.isEqual(
-      RANKS.slice(firstIndex, firstIndex + ranks.length),
-      ranks
-    );
+    let consecutive = consecutive(ranks);
 
     return onlyPairs && consecutive;
   }
   return false;
+}
+
+function consecutive(ranks) {
+  let firstIndex = RANKS.indexOf(ranks[0]);
+  return _.isEqual(RANKS.slice(firstIndex, firstIndex + ranks.length), ranks);
 }
