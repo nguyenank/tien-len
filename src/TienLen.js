@@ -1,9 +1,12 @@
 import { Constants } from "./constants";
 import { compareCards } from "./compareCards";
+const _ = require("lodash");
 
 export const TienLen = {
   setup: setUp,
   moves: {
+    cardToStagingArea: cardToStagingArea,
+    cardFromStagingArea: cardFromStagingArea,
     playCards: playCards,
     passTurn: passTurn,
     tienLenPlay: tienLenPlay,
@@ -26,7 +29,7 @@ function setUp(ctx) {
   }
   deck = ctx.random.Shuffle(deck);
 
-  let hands = {};
+  const hands = {};
 
   for (let i = 0; i < 4; i++) {
     hands[i] = deck.slice(i, i + 13).sort(compareCards);
@@ -35,7 +38,21 @@ function setUp(ctx) {
   return {
     hands: hands,
     turnOrder: [0, 1, 2, 3],
+    center: [],
+    stagingArea: [],
   };
+}
+
+function cardToStagingArea(G, ctx, card) {
+  G.stagingArea.push(card);
+  G.stagingArea.sort(compareCards);
+  _.pullAllWith(G.hands[ctx.currentPlayer], [card], _.isEqual);
+}
+
+function cardFromStagingArea(G, ctx, card) {
+  _.pullAllWith(G.stagingArea, [card], _.isEqual);
+  G.hands[ctx.currentPlayer].push(card);
+  G.hands[ctx.currentPlayer].sort(compareCards);
 }
 
 function playCards(G, ctx) {
