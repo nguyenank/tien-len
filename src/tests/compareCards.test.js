@@ -1,5 +1,6 @@
 import { Client } from "boardgame.io/client";
 import { compareCards, validCombination, validChop } from "../compareCards";
+import { Combinations } from "../constants.js";
 
 describe("compareCards", () => {
   let nineClubs = { suit: "C", rank: "9" };
@@ -40,50 +41,59 @@ describe("validCombination", () => {
 
   let threeClubs = { suit: "C", rank: "3" };
   let fourSpades = { suit: "S", rank: "4" };
+  let fiveDiamonds = { suit: "D", rank: "5" };
   let twoHearts = { suit: "H", rank: "2" };
   let aceDiamonds = { suit: "D", rank: "A" };
   let kingDiamonds = { suit: "D", rank: "K" };
 
   it("should allow singles", () => {
-    expect(validCombination([nineClubs])).toBe(true);
-    expect(validCombination([tenDiamonds])).toBe(true);
+    expect(validCombination([nineClubs])).toBe(Combinations.SINGLE);
+    expect(validCombination([tenDiamonds])).toBe(Combinations.SINGLE);
   });
 
   it("should allow pairs", () => {
-    expect(validCombination([nineClubs, nineDiamonds])).toBe(true);
+    expect(validCombination([nineClubs, nineDiamonds])).toBe(Combinations.PAIR);
 
-    expect(validCombination([tenDiamonds, tenClubs])).toBe(true);
+    expect(validCombination([tenDiamonds, tenClubs])).toBe(Combinations.PAIR);
   });
 
   it("should allow triples", () => {
-    expect(validCombination([nineClubs, nineDiamonds, nineHearts])).toBe(true);
+    expect(validCombination([nineClubs, nineDiamonds, nineHearts])).toBe(
+      Combinations.TRIPLE
+    );
 
-    expect(validCombination([tenDiamonds, tenClubs, tenHearts])).toBe(true);
+    expect(validCombination([tenDiamonds, tenClubs, tenHearts])).toBe(
+      Combinations.TRIPLE
+    );
   });
 
   it("should allow straights of at least length 3", () => {
     expect(validCombination([nineClubs, tenDiamonds, eightDiamonds])).toBe(
-      true
+      Combinations.STRAIGHT
     );
 
-    expect(validCombination([twoHearts, fourSpades, threeClubs])).toBe(false);
+    expect(validCombination([fiveDiamonds, fourSpades, threeClubs])).toBe(
+      Combinations.STRAIGHT
+    );
   });
 
   it("should not allow straights including a 2", () => {
     expect(validCombination([twoHearts, kingDiamonds, aceDiamonds])).toBe(
-      false
+      undefined
     );
   });
 
   it("should not allow anything not specified above", () => {
-    expect(validCombination([])).toBe(false);
+    expect(validCombination([])).toBe(undefined);
 
-    expect(validCombination([nineClubs, tenDiamonds])).toBe(false);
+    expect(validCombination([nineClubs, tenDiamonds])).toBe(undefined);
 
-    expect(validCombination([nineDiamonds, tenClubs, tenHearts])).toBe(false);
+    expect(validCombination([nineDiamonds, tenClubs, tenHearts])).toBe(
+      undefined
+    );
 
     expect(validCombination([nineDiamonds, sevenSpades, tenHearts])).toBe(
-      false
+      undefined
     );
   });
 });
@@ -119,14 +129,16 @@ describe("validChop", () => {
         eightSpades,
         eightDiamonds,
       ])
-    ).toBe(true);
+    ).toBe(Combinations.THREEPAIR);
   });
 
   it("should allow four of a kind", () => {
     expect(validChop([nineClubs, nineDiamonds, nineSpades, nineHearts])).toBe(
-      true
+      Combinations.FOUROFAKIND
     );
-    expect(validChop([tenDiamonds, tenClubs, tenSpades, tenHearts])).toBe(true);
+    expect(validChop([tenDiamonds, tenClubs, tenSpades, tenHearts])).toBe(
+      Combinations.FOUROFAKIND
+    );
   });
 
   it("should allow four pairs", () => {
@@ -141,11 +153,11 @@ describe("validChop", () => {
         sevenSpades,
         sevenHearts,
       ])
-    ).toBe(true);
+    ).toBe(Combinations.FOURPAIR);
   });
 
   it("should not allow anything not specified above", () => {
-    expect(validChop([])).toBe(false);
+    expect(validChop([])).toBe(undefined);
 
     // not pairs
     expect(
@@ -157,7 +169,7 @@ describe("validChop", () => {
         nineHearts,
         eightDiamonds,
       ])
-    ).toBe(false);
+    ).toBe(undefined);
 
     // not consecutive
     expect(
@@ -169,7 +181,7 @@ describe("validChop", () => {
         sevenSpades,
         sevenHearts,
       ])
-    ).toBe(false);
+    ).toBe(undefined);
 
     // no twos
     expect(
@@ -181,6 +193,6 @@ describe("validChop", () => {
         fourHearts,
         twoHearts,
       ])
-    ).toBe(false);
+    ).toBe(undefined);
   });
 });

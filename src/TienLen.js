@@ -1,4 +1,4 @@
-import { Constants } from "./constants";
+import { Suits, Ranks, Combinations } from "./constants";
 import { compareCards } from "./compareCards";
 const _ = require("lodash");
 
@@ -18,12 +18,9 @@ export const TienLen = {
 };
 
 function setUp(ctx) {
-  const SUITS = Constants.SUITS;
-  const RANKS = Constants.RANKS;
-
   let deck = [];
-  for (let suit of SUITS) {
-    for (let rank of RANKS) {
+  for (let suit of Suits) {
+    for (let rank of Ranks) {
       deck.push({ suit: suit, rank: rank });
     }
   }
@@ -40,6 +37,7 @@ function setUp(ctx) {
     turnOrder: [0, 1, 2, 3],
     center: [],
     stagingArea: [],
+    roundType: Combinations.ANY,
   };
 }
 
