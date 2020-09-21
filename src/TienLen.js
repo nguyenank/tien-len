@@ -12,6 +12,7 @@ import {
   cardFromStagingArea,
 } from "./moves/stagingAreaMoves";
 import { compareCards } from "./moves/compareCards";
+const _ = require("lodash");
 
 export const TienLen = {
   setup: setUp,
@@ -40,7 +41,7 @@ function setUp(ctx) {
   const hands = {};
 
   for (let i = 0; i < 4; i++) {
-    hands[i] = deck.slice(i, i + 13).sort(compareCards);
+    hands[i] = _.chunk(deck, 13)[i].sort(compareCards);
   }
 
   return {

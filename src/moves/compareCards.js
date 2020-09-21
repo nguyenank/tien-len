@@ -29,6 +29,23 @@ export function compareCards(card1, card2) {
   return 0;
 }
 
+export function compareHighest(cards1, cards2) {
+  /*
+    For two sets of cards, returns 1 if the highest card of cards1
+    is higher than the highest cards of cards2, -1 if opposite,
+    and undefined if card lists are empty or malformed
+  */
+  if (cards1.length === 0) {
+    return -1;
+  } else if (cards2.length === 0) {
+    return 1;
+  } else {
+    const card1 = _.last(cards1.sort(compareCards));
+    const card2 = _.last(cards2.sort(compareCards));
+    return compareCards(card1, card2);
+  }
+}
+
 export function validCombination(cards) {
   /*
     for an array of cards, returns true if

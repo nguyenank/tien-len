@@ -5,6 +5,7 @@ import {
   compareCards,
   validCombination,
   validChop,
+  compareHighest,
 } from "../moves/compareCards";
 import { Combinations } from "../constants.js";
 
@@ -32,6 +33,29 @@ describe("compareCards", () => {
     expect(compareCards(nineClubs, nineClubs)).toBe(0);
 
     expect(compareCards(tenDiamonds, tenDiamonds)).toBe(0);
+  });
+});
+describe("compareHighest", () => {
+  let nineClubs = { suit: "C", rank: "9" };
+  let nineDiamonds = { suit: "D", rank: "9" };
+  let tenClubs = { suit: "C", rank: "T" };
+  let tenDiamonds = { suit: "D", rank: "T" };
+
+  it("should return -1 if the first list is empty", () => {
+    expect(compareHighest([], [])).toBe(-1);
+    expect(compareHighest([], [tenDiamonds])).toBe(-1);
+  });
+
+  it("should return 1 if the second list is empty and first is non-empty", () => {
+    expect(compareHighest([tenDiamonds], [])).toBe(1);
+    expect(compareHighest([tenDiamonds, nineClubs], [])).toBe(1);
+  });
+
+  it("should compare by the highest card in each set", () => {
+    expect(compareHighest([nineClubs], [nineDiamonds])).toBe(-1);
+    expect(
+      compareHighest([tenDiamonds, nineClubs], [tenClubs, nineDiamonds])
+    ).toBe(1);
   });
 });
 

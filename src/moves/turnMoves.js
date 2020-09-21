@@ -1,7 +1,27 @@
 // src/moves/turnMoves.js
+import { Combinations } from "../constants";
+import { INVALID_MOVE } from "boardgame.io/core";
+import { validCombination, compareHighest } from "./compareCards";
+const _ = require("lodash");
 
 export function playCards(G, ctx) {
-  nextTurn(G, ctx);
+  if (G.stagingArea.length === 0) {
+    return INVALID_MOVE;
+  }
+  const handType = validCombination(G.stagingArea);
+  if (G.roundType === Combinations.ANY) {
+    G.roundType = handType;
+  }
+  if (
+    G.roundType === handType &&
+    compareHighest(G.stagingArea, G.center) === 1
+  ) {
+    G.center = _.cloneDeep(G.stagingArea);
+    G.stagingArea = [];
+    nextTurn(G, ctx);
+  } else {
+    return INVALID_MOVE;
+  }
 }
 
 export function tienLenPlay(G, ctx) {
