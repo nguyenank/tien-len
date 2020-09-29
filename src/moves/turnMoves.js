@@ -5,10 +5,10 @@ import { validCombination, compareHighest } from "./compareCards";
 const _ = require("lodash");
 
 export function playCards(G, ctx) {
-  if (G.stagingArea.length === 0) {
+  const handType = validCombination(G.stagingArea);
+  if (G.stagingArea.length === 0 || handType === undefined) {
     return INVALID_MOVE;
   }
-  const handType = validCombination(G.stagingArea);
   if (G.roundType === Combinations.ANY) {
     G.roundType = handType;
   }
@@ -32,7 +32,7 @@ export function tienLenPlay(G, ctx) {
   ) {
     ctx.events.endStage();
     G.turnOrder = [0, 1, 2, 3];
-    G.roundType === Combinations.ANY;
+    G.roundType = Combinations.ANY;
   }
   successfulPlay(G);
   nextTurn(G, ctx);

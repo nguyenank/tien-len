@@ -95,8 +95,15 @@ describe("playCards", () => {
   });
 
   it("should not allow plays of not roundType or too low", () => {
+    // invalid combination
     client.moves.cardToStagingArea({ suit: "S", rank: "6" });
     client.moves.cardToStagingArea({ suit: "D", rank: "6" });
+    client.moves.cardToStagingArea({ suit: "H", rank: "7" });
+    client.moves.playCards();
+    G = client.store.getState()["G"];
+    expect(G.stagingArea.length).toBe(3);
+
+    client.moves.cardFromStagingArea({ suit: "H", rank: "7" });
     client.moves.playCards();
 
     // not a pair

@@ -1,0 +1,18 @@
+.card {
+  border: 1px solid black;
+  background-color: white;
+  margin: 0.25em;
+  width: 1.5em;
+  float: left;
+}
+
+.staging-area {
+  background-color: red;
+  border: 1em solid green;
+  margin: 1em;
+}
+
+.hand {
+  border: 1em solid yellow;
+  margin: 2em;
+}
