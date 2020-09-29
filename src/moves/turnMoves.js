@@ -5,18 +5,17 @@ import { validCombination, compareHighest } from "./compareCards";
 const _ = require("lodash");
 
 export function playCards(G, ctx) {
-  const handType = validCombination(G.stagingArea);
-  if (G.stagingArea.length === 0 || handType === undefined) {
+  let stagingArea = G.players[ctx.currentPlayer].stagingArea;
+  const handType = validCombination(stagingArea);
+  if (stagingArea.length === 0 || handType === undefined) {
     return INVALID_MOVE;
   }
   if (G.roundType === Combinations.ANY) {
     G.roundType = handType;
   }
-  if (
-    G.roundType === handType &&
-    compareHighest(G.stagingArea, G.center) === 1
-  ) {
-    successfulPlay(G);
+  if (G.roundType === handType && compareHighest(stagingArea, G.center) === 1) {
+    G.center = _.cloneDeep(stagingArea);
+    G.players[ctx.currentPlayer].stagingArea = [];
     nextTurn(G, ctx);
   } else {
     return INVALID_MOVE;
@@ -24,24 +23,20 @@ export function playCards(G, ctx) {
 }
 
 export function tienLenPlay(G, ctx) {
-  const handType = validCombination(G.stagingArea);
+  let stagingArea = G.players[ctx.currentPlayer].stagingArea;
+  const handType = validCombination(stagingArea);
   if (
     // not a valid tien len play
     G.roundType !== handType ||
-    compareHighest(G.stagingArea, G.center) !== 1
+    compareHighest(stagingArea, G.center) !== 1
   ) {
     ctx.events.endStage();
     G.turnOrder = [0, 1, 2, 3];
     G.roundType = Combinations.ANY;
   }
-  successfulPlay(G);
+  G.center = _.cloneDeep(stagingArea);
+  G.players[ctx.currentPlayer].stagingArea = [];
   nextTurn(G, ctx);
-}
-
-function successfulPlay(G) {
-  // shift cards around for a successful play
-  G.center = _.cloneDeep(G.stagingArea);
-  G.stagingArea = [];
 }
 
 export function passTurn(G, ctx) {

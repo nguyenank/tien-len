@@ -16,25 +16,25 @@ describe("setUp", () => {
   });
 
   it("should give each player 13 cards", () => {
-    for (let player in G.hands) {
-      let hand = G.hands[player];
+    for (let player in G.players) {
+      let hand = G.players[player].hand;
       expect(hand.length).toBe(13);
     }
   });
 
   it("should sort the cards in each hand by ascending rank then suit", () => {
-    for (let player in G.hands) {
-      let hand = G.hands[player];
+    for (let player in G.players) {
+      let hand = G.players[player].hand;
       expect(hand).toEqual(hand.sort(compareCards));
     }
   });
 
   it("should not have duplicated any cards", () => {
     let hands = _.concat(
-      G.hands["0"],
-      G.hands["1"],
-      G.hands["2"],
-      G.hands["3"]
+      G.players["0"].hand,
+      G.players["1"].hand,
+      G.players["2"].hand,
+      G.players["3"].hand
     );
 
     expect(_.uniqWith(hands).length).toBe(52);

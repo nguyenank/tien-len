@@ -53,7 +53,6 @@ describe("Turn order", () => {
       client.moves.playCards();
 
       let { ctx } = client.store.getState();
-
       expect(ctx.currentPlayer).toEqual("2");
 
       client.moves.cardToStagingArea({ rank: "4", suit: "C" });

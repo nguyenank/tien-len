@@ -1,5 +1,6 @@
 // src/TienLen.js
 
+import { PlayerView } from "boardgame.io/core";
 import { Suits, Ranks, Combinations } from "./constants";
 import { playCards, passTurn, tienLenPlay } from "./moves/turnMoves";
 import {
@@ -21,6 +22,7 @@ export const TienLen = {
   stages: {
     tienLen: { moves: { tienLenPlay } },
   },
+  playerView: PlayerView.STRIP_SECRETS,
 };
 
 function setUp(ctx) {
@@ -31,18 +33,21 @@ function setUp(ctx) {
     }
   }
   deck = ctx.random.Shuffle(deck);
+  const chunkedDeck = _.chunk(deck, 13).map(x => x.sort(compareCards));
 
-  const hands = {};
+  const players = {};
 
   for (let i = 0; i < 4; i++) {
-    hands[i] = _.chunk(deck, 13)[i].sort(compareCards);
+    players[i] = {
+      hand: chunkedDeck[i],
+      stagingArea: [],
+    };
   }
 
   return {
-    hands: hands,
     turnOrder: [0, 1, 2, 3],
     center: [],
-    stagingArea: [],
+    players: players,
     roundType: Combinations.ANY,
   };
 }
