@@ -2,6 +2,7 @@
 
 import { Client } from "boardgame.io/client";
 import { TienLen } from "../TienLen";
+import { Combinations } from "../constants";
 
 describe("Turn order", () => {
   let client;
@@ -113,6 +114,8 @@ describe("Turn order", () => {
       ctx = client.store.getState()["ctx"];
       ctx.currentPlayer = "1";
       G.turnOrder = [null, 1, 2, null];
+      G.center = [{ rank: "4", suit: "C" }];
+      G.roundType = Combinations.SINGLE;
     });
 
     it("should start whenever 1 player is left in turn order", () => {
@@ -128,11 +131,13 @@ describe("Turn order", () => {
       expect(ctx.currentPlayer).toEqual("2");
       expect(ctx.activePlayers).toEqual({ "2": "tienLen" });
 
+      client.moves.cardToStagingArea({ rank: "4", suit: "D" });
       client.moves.tienLenPlay();
       ctx = client.store.getState()["ctx"];
       expect(ctx.currentPlayer).toEqual("2");
       expect(ctx.activePlayers).toEqual({ "2": "tienLen" });
 
+      client.moves.cardToStagingArea({ rank: "4", suit: "H" });
       client.moves.tienLenPlay();
       ctx = client.store.getState()["ctx"];
       expect(ctx.currentPlayer).toEqual("2");
@@ -145,12 +150,14 @@ describe("Turn order", () => {
       expect(ctx.currentPlayer).toEqual("2");
       expect(ctx.activePlayers).toEqual({ "2": "tienLen" });
 
+      client.moves.cardToStagingArea({ rank: "4", suit: "D" });
       client.moves.tienLenPlay();
       ctx = client.store.getState()["ctx"];
       expect(ctx.currentPlayer).toEqual("2");
       expect(ctx.activePlayers).toEqual({ "2": "tienLen" });
 
-      client.moves.newRoundPlay();
+      client.moves.cardToStagingArea({ rank: "4", suit: "S" });
+      client.moves.tienLenPlay();
       ctx = client.store.getState()["ctx"];
       G = client.store.getState()["G"];
       expect(ctx.currentPlayer).toEqual("3");

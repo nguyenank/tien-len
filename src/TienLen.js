@@ -1,12 +1,7 @@
 // src/TienLen.js
 
 import { Suits, Ranks, Combinations } from "./constants";
-import {
-  playCards,
-  passTurn,
-  tienLenPlay,
-  newRoundPlay,
-} from "./moves/turnMoves";
+import { playCards, passTurn, tienLenPlay } from "./moves/turnMoves";
 import {
   cardToStagingArea,
   cardFromStagingArea,
@@ -22,10 +17,9 @@ export const TienLen = {
     playCards: playCards,
     passTurn: passTurn,
     tienLenPlay: tienLenPlay,
-    newRoundPlay: newRoundPlay,
   },
   stages: {
-    tienLen: { moves: { tienLenPlay, newRoundPlay } },
+    tienLen: { moves: { tienLenPlay } },
   },
 };
 
