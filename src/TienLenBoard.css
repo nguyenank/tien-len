@@ -23,3 +23,9 @@
   height: 3em;
   margin: 1em;
 }
+
+.player-area {
+  background-color: #eeeeee;
+  padding: 1em;
+  margin: 0.25em;
+}
