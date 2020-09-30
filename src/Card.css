@@ -7,12 +7,19 @@
 }
 
 .staging-area {
-  background-color: red;
-  border: 1em solid green;
+  background-color: green;
+  height: 3em;
   margin: 1em;
 }
 
 .hand {
-  border: 1em solid yellow;
-  margin: 2em;
+  background-color: yellow;
+  height: 3em;
+  margin: 1em;
+}
+
+.center {
+  background-color: blue;
+  height: 3em;
+  margin: 1em;
 }

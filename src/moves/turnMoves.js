@@ -30,7 +30,7 @@ export function tienLenPlay(G, ctx) {
     G.roundType !== handType ||
     compareHighest(stagingArea, G.center) !== 1
   ) {
-    ctx.events.endStage();
+    ctx.events.setStage("notTurn");
     G.turnOrder = [0, 1, 2, 3];
     G.roundType = Combinations.ANY;
   }
@@ -53,8 +53,12 @@ function nextTurn(G, ctx) {
 
   ctx.events.endTurn({ next: nextPlayer });
   if (G.turnOrder.filter(x => x !== null).length === 1) {
-    let value = {};
-    value[nextPlayer] = "tienLen";
-    ctx.events.setActivePlayers({ value: value });
+    // let value = {};
+    // value[nextPlayer] = "tienLen";
+    // ctx.events.setActivePlayers({ value: value });
+    ctx.events.setActivePlayers({
+      currentPlayer: { stage: "tienLen" },
+      others: { stage: "notTurn" },
+    });
   }
 }

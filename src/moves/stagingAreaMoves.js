@@ -3,17 +3,17 @@ import { compareCards } from "./compareCards";
 const _ = require("lodash");
 
 export function cardToStagingArea(G, ctx, card) {
-  const currentPlayer = ctx.currentPlayer;
   let players = G.players;
-  players[currentPlayer].stagingArea.push(card);
-  players[currentPlayer].stagingArea.sort(compareCards);
-  _.pullAllWith(players[currentPlayer].hand, [card], _.isEqual);
+  let playerID = ctx.playerID;
+  players[playerID].stagingArea.push(card);
+  players[playerID].stagingArea.sort(compareCards);
+  _.pullAllWith(players[playerID].hand, [card], _.isEqual);
 }
 
 export function cardFromStagingArea(G, ctx, card) {
-  const currentPlayer = ctx.currentPlayer;
   let players = G.players;
-  _.pullAllWith(players[currentPlayer].stagingArea, [card], _.isEqual);
-  players[currentPlayer].hand.push(card);
-  players[currentPlayer].hand.sort(compareCards);
+  let playerID = ctx.playerID;
+  _.pullAllWith(players[playerID].stagingArea, [card], _.isEqual);
+  players[playerID].hand.push(card);
+  players[playerID].hand.sort(compareCards);
 }

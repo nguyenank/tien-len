@@ -1,6 +1,6 @@
 // src/TienLen.js
 
-import { PlayerView } from "boardgame.io/core";
+import { PlayerView, Stage } from "boardgame.io/core";
 import { Suits, Ranks, Combinations } from "./constants";
 import { playCards, passTurn, tienLenPlay } from "./moves/turnMoves";
 import {
@@ -21,8 +21,15 @@ export const TienLen = {
   },
   stages: {
     tienLen: { moves: { tienLenPlay } },
+    notTurn: { moves: { cardToStagingArea, cardFromStagingArea } },
   },
   playerView: PlayerView.STRIP_SECRETS,
+  turn: {
+    activePlayers: {
+      currentPlayer: { stage: Stage.NULL },
+      others: { stage: "notTurn" },
+    },
+  },
 };
 
 function setUp(ctx) {

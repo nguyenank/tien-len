@@ -10,6 +10,7 @@ describe("Turn order", () => {
   beforeEach(() => {
     client = Client({
       game: TienLen,
+      numPlayers: 4,
     });
   });
 
@@ -121,46 +122,81 @@ describe("Turn order", () => {
       client.moves.passTurn();
       ctx = client.store.getState()["ctx"];
       expect(ctx.currentPlayer).toEqual("2");
-      expect(ctx.activePlayers).toEqual({ "2": "tienLen" });
+      expect(ctx.activePlayers).toEqual({
+        "0": "notTurn",
+        "1": "notTurn",
+        "2": "tienLen",
+        "3": "notTurn",
+      });
     });
 
     it("should persist as long as the player makes tien len moves", () => {
       client.moves.passTurn();
       ctx = client.store.getState()["ctx"];
       expect(ctx.currentPlayer).toEqual("2");
-      expect(ctx.activePlayers).toEqual({ "2": "tienLen" });
+      expect(ctx.activePlayers).toEqual({
+        "0": "notTurn",
+        "1": "notTurn",
+        "2": "tienLen",
+        "3": "notTurn",
+      });
 
       client.moves.cardToStagingArea({ rank: "4", suit: "D" });
       client.moves.tienLenPlay();
       ctx = client.store.getState()["ctx"];
       expect(ctx.currentPlayer).toEqual("2");
-      expect(ctx.activePlayers).toEqual({ "2": "tienLen" });
+      expect(ctx.activePlayers).toEqual({
+        "0": "notTurn",
+        "1": "notTurn",
+        "2": "tienLen",
+        "3": "notTurn",
+      });
 
       client.moves.cardToStagingArea({ rank: "4", suit: "H" });
       client.moves.tienLenPlay();
       ctx = client.store.getState()["ctx"];
       expect(ctx.currentPlayer).toEqual("2");
-      expect(ctx.activePlayers).toEqual({ "2": "tienLen" });
+      expect(ctx.activePlayers).toEqual({
+        "0": "notTurn",
+        "1": "notTurn",
+        "2": "tienLen",
+        "3": "notTurn",
+      });
     });
 
     it("should end when the player makes a non-tien len move", () => {
       client.moves.passTurn();
       ctx = client.store.getState()["ctx"];
       expect(ctx.currentPlayer).toEqual("2");
-      expect(ctx.activePlayers).toEqual({ "2": "tienLen" });
+      expect(ctx.activePlayers).toEqual({
+        "0": "notTurn",
+        "1": "notTurn",
+        "2": "tienLen",
+        "3": "notTurn",
+      });
 
       client.moves.cardToStagingArea({ rank: "4", suit: "D" });
       client.moves.tienLenPlay();
       ctx = client.store.getState()["ctx"];
       expect(ctx.currentPlayer).toEqual("2");
-      expect(ctx.activePlayers).toEqual({ "2": "tienLen" });
+      expect(ctx.activePlayers).toEqual({
+        "0": "notTurn",
+        "1": "notTurn",
+        "2": "tienLen",
+        "3": "notTurn",
+      });
 
       client.moves.cardToStagingArea({ rank: "4", suit: "S" });
       client.moves.tienLenPlay();
       ctx = client.store.getState()["ctx"];
       G = client.store.getState()["G"];
       expect(ctx.currentPlayer).toEqual("3");
-      expect(ctx.activePlayers).toEqual(null);
+      expect(ctx.activePlayers).toEqual({
+        "0": "notTurn",
+        "1": "notTurn",
+        "2": "notTurn",
+        "3": null,
+      });
       expect(G.turnOrder).toEqual([0, 1, 2, 3]);
     });
   });
