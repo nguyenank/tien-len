@@ -1,7 +1,7 @@
 // src/TienLenBoard.js
 
 import React, { Component } from "react";
-import "./Card.css";
+import "./TienLenBoard.css";
 const _ = require("lodash");
 
 export class TienLenBoard extends Component {
