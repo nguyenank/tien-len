@@ -23,12 +23,20 @@ export const TienLen = {
     tienLen: { moves: { tienLenPlay } },
     notTurn: { moves: { cardToStagingArea, cardFromStagingArea } },
   },
-  playerView: PlayerView.STRIP_SECRETS,
   turn: {
     activePlayers: {
       currentPlayer: { stage: Stage.NULL },
       others: { stage: "notTurn" },
     },
+  },
+  playerView: PlayerView.STRIP_SECRETS,
+  endIf: (G, ctx) => {
+    if (G.winners.length === 3) {
+      w = G.winners.concat(
+        ["0", "1", "2", "3"].filter(x => G.winners.includes(x))
+      );
+      return { winners: w };
+    }
   },
 };
 
@@ -56,5 +64,6 @@ function setUp(ctx) {
     center: [],
     players: players,
     roundType: Combinations.ANY,
+    winners: [],
   };
 }
