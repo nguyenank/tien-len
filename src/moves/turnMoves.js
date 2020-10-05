@@ -1,7 +1,7 @@
 // src/moves/turnMoves.js
 import { Combinations } from "../constants";
 import { INVALID_MOVE } from "boardgame.io/core";
-import { validCombination, compareHighest } from "./compareCards";
+import { validCombination, validChop, compareHighest } from "./compareCards";
 const _ = require("lodash");
 
 export function playCards(G, ctx) {
@@ -14,16 +14,10 @@ export function playCards(G, ctx) {
     G.roundType = handType;
   }
   if (G.roundType === handType && compareHighest(stagingArea, G.center) === 1) {
-    G.center = _.cloneDeep(stagingArea);
-    G.players[ctx.currentPlayer].stagingArea = [];
-    if (G.players[ctx.currentPlayer].hand.length === 0) {
-      // won the game
-      G.winners.push(ctx.currentPlayer);
-      // get rid of any existing winner markers
-      G.turnOrder = G.turnOrder.map(x => (x === "W" ? null : x));
-      G.turnOrder[parseInt(ctx.currentPlayer)] = "W";
-    }
-    nextTurn(G, ctx);
+    cardsToCenter(G, ctx);
+  } else if (validChop(G.center, stagingArea)) {
+    G.roundType = handType;
+    cardsToCenter(G, ctx);
   } else {
     return INVALID_MOVE;
   }
@@ -44,8 +38,20 @@ export function tienLenPlay(G, ctx) {
     );
     G.roundType = Combinations.ANY;
   }
+  cardsToCenter(G, ctx);
+}
+
+function cardsToCenter(G, ctx) {
+  let stagingArea = G.players[ctx.currentPlayer].stagingArea;
   G.center = _.cloneDeep(stagingArea);
   G.players[ctx.currentPlayer].stagingArea = [];
+  if (G.players[ctx.currentPlayer].hand.length === 0) {
+    // won the game
+    G.winners.push(ctx.currentPlayer);
+    // get rid of any existing winner markers
+    G.turnOrder = G.turnOrder.map(x => (x === "W" ? null : x));
+    G.turnOrder[parseInt(ctx.currentPlayer)] = "W";
+  }
   nextTurn(G, ctx);
 }
 

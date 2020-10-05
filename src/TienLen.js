@@ -32,7 +32,7 @@ export const TienLen = {
   playerView: PlayerView.STRIP_SECRETS,
   endIf: (G, ctx) => {
     if (G.winners.length === 3) {
-      w = G.winners.concat(
+      let w = G.winners.concat(
         ["0", "1", "2", "3"].filter(x => G.winners.includes(x))
       );
       return { winners: w };

@@ -45,9 +45,9 @@ describe("playCards", () => {
           { suit: "C", rank: "T" },
           { suit: "H", rank: "T" },
           { suit: "S", rank: "Q" },
+          { suit: "C", rank: "Q" },
+          { suit: "D", rank: "Q" },
           { suit: "H", rank: "Q" },
-          { suit: "S", rank: "A" },
-          { suit: "D", rank: "A" },
         ],
         stagingArea: [],
       },
@@ -62,10 +62,10 @@ describe("playCards", () => {
           { suit: "H", rank: "9" },
           { suit: "D", rank: "T" },
           { suit: "D", rank: "J" },
-          { suit: "C", rank: "Q" },
           { suit: "C", rank: "K" },
           { suit: "D", rank: "K" },
           { suit: "H", rank: "K" },
+          { suit: "S", rank: "A" },
         ],
         stagingArea: [],
       },
@@ -80,9 +80,9 @@ describe("playCards", () => {
           { suit: "S", rank: "9" },
           { suit: "S", rank: "J" },
           { suit: "H", rank: "J" },
-          { suit: "D", rank: "Q" },
           { suit: "S", rank: "K" },
           { suit: "C", rank: "A" },
+          { suit: "D", rank: "A" },
           { suit: "H", rank: "2" },
         ],
         stagingArea: [],
@@ -158,5 +158,27 @@ describe("playCards", () => {
     ]);
     expect(G.players["0"].hand.length).toBe(11);
     expect(G.players["1"].hand.length).toBe(11);
+  });
+
+  it("should allow chops", () => {
+    client.moves.cardToStagingArea({ suit: "S", rank: "2" });
+    client.moves.playCards();
+
+    client.moves.cardToStagingArea({ suit: "S", rank: "Q" });
+    client.moves.cardToStagingArea({ suit: "C", rank: "Q" });
+    client.moves.cardToStagingArea({ suit: "D", rank: "Q" });
+    client.moves.cardToStagingArea({ suit: "H", rank: "Q" });
+
+    client.moves.playCards();
+    G = client.store.getState()["G"];
+    expect(G.roundType).toEqual(Combinations.FOUROFAKIND);
+    expect(G.center).toEqual([
+      { suit: "S", rank: "Q" },
+      { suit: "C", rank: "Q" },
+      { suit: "D", rank: "Q" },
+      { suit: "H", rank: "Q" },
+    ]);
+    expect(G.players["0"].hand.length).toBe(12);
+    expect(G.players["1"].hand.length).toBe(9);
   });
 });

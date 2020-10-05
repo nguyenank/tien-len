@@ -128,7 +128,7 @@ describe("validCombination", () => {
   });
 });
 
-describe("validChop", () => {
+describe("validCombination", () => {
   let sevenSpades = { suit: "S", rank: "7" };
   let sevenHearts = { suit: "H", rank: "7" };
   let eightSpades = { suit: "S", rank: "8" };
@@ -151,7 +151,7 @@ describe("validChop", () => {
 
   it("should allow three pairs", () => {
     expect(
-      validChop([
+      validCombination([
         nineClubs,
         nineSpades,
         tenHearts,
@@ -163,17 +163,17 @@ describe("validChop", () => {
   });
 
   it("should allow four of a kind", () => {
-    expect(validChop([nineClubs, nineDiamonds, nineSpades, nineHearts])).toBe(
-      Combinations.FOUROFAKIND
-    );
-    expect(validChop([tenDiamonds, tenClubs, tenSpades, tenHearts])).toBe(
-      Combinations.FOUROFAKIND
-    );
+    expect(
+      validCombination([nineClubs, nineDiamonds, nineSpades, nineHearts])
+    ).toBe(Combinations.FOUROFAKIND);
+    expect(
+      validCombination([tenDiamonds, tenClubs, tenSpades, tenHearts])
+    ).toBe(Combinations.FOUROFAKIND);
   });
 
   it("should allow four pairs", () => {
     expect(
-      validChop([
+      validCombination([
         nineClubs,
         nineSpades,
         tenHearts,
@@ -187,11 +187,11 @@ describe("validChop", () => {
   });
 
   it("should not allow anything not specified above", () => {
-    expect(validChop([])).toBe(undefined);
+    expect(validCombination([])).toBe(undefined);
 
     // not pairs
     expect(
-      validChop([
+      validCombination([
         nineClubs,
         nineSpades,
         tenHearts,
@@ -203,7 +203,7 @@ describe("validChop", () => {
 
     // not consecutive
     expect(
-      validChop([
+      validCombination([
         nineClubs,
         nineSpades,
         tenHearts,
@@ -215,7 +215,7 @@ describe("validChop", () => {
 
     // no twos
     expect(
-      validChop([
+      validCombination([
         threeClubs,
         threeSpades,
         fourSpades,
@@ -224,5 +224,118 @@ describe("validChop", () => {
         twoHearts,
       ])
     ).toBe(undefined);
+  });
+});
+
+describe("validChop", () => {
+  let sevenSpades = { suit: "S", rank: "7" };
+  let sevenHearts = { suit: "H", rank: "7" };
+  let eightSpades = { suit: "S", rank: "8" };
+  let eightDiamonds = { suit: "D", rank: "8" };
+  let nineSpades = { suit: "S", rank: "9" };
+  let nineClubs = { suit: "C", rank: "9" };
+  let nineDiamonds = { suit: "D", rank: "9" };
+  let nineHearts = { suit: "H", rank: "9" };
+  let tenSpades = { suit: "S", rank: "T" };
+  let tenClubs = { suit: "C", rank: "T" };
+  let tenDiamonds = { suit: "D", rank: "T" };
+  let tenHearts = { suit: "H", rank: "T" };
+
+  let twoHearts = { suit: "H", rank: "2" };
+  let twoClubs = { suit: "C", rank: "2" };
+
+  it("should allow four pairs to chop a pair of 2's", () => {
+    expect(
+      validChop(
+        [twoHearts, twoClubs],
+        [
+          nineClubs,
+          nineSpades,
+          tenHearts,
+          tenDiamonds,
+          eightSpades,
+          eightDiamonds,
+          sevenHearts,
+          sevenSpades,
+        ]
+      )
+    ).toBe(true);
+  });
+
+  it("should not allow any other chop to chop a pair of 2's", () => {
+    expect(
+      validChop(
+        [twoHearts, twoClubs],
+        [
+          nineClubs,
+          nineSpades,
+          eightSpades,
+          eightDiamonds,
+          sevenHearts,
+          sevenSpades,
+        ]
+      )
+    ).toBe(false);
+
+    expect(
+      validChop(
+        [twoHearts, twoClubs],
+        [tenHearts, tenDiamonds, tenSpades, tenClubs]
+      )
+    ).toBe(false);
+  });
+
+  it("should allow any chop to chop a single 2", () => {
+    expect(
+      validChop(
+        [twoHearts],
+        [
+          nineClubs,
+          nineSpades,
+          tenHearts,
+          tenDiamonds,
+          eightSpades,
+          eightDiamonds,
+          sevenHearts,
+          sevenSpades,
+        ]
+      )
+    ).toBe(true);
+
+    expect(
+      validChop(
+        [twoHearts],
+        [
+          nineClubs,
+          nineSpades,
+          eightSpades,
+          eightDiamonds,
+          sevenHearts,
+          sevenSpades,
+        ]
+      )
+    ).toBe(true);
+
+    expect(
+      validChop([twoHearts], [tenHearts, tenDiamonds, tenSpades, tenClubs])
+    ).toBe(true);
+  });
+
+  it("should not allow chops on non 2's", () => {
+    expect(
+      validChop(
+        [twoHearts, tenSpades],
+        [
+          nineClubs,
+          nineSpades,
+          tenHearts,
+          tenDiamonds,
+          eightSpades,
+          eightDiamonds,
+          sevenHearts,
+          sevenSpades,
+        ]
+      )
+    ).toBe(false);
   });
 });

@@ -52,6 +52,25 @@ describe("winners", () => {
     expect(G.winners).toEqual(["1", "2"]);
   });
 
+  it("should be added to even when the player is in tien len", () => {
+    client.moves.cardToStagingArea({ suit: "C", rank: "2" });
+    client.moves.playCards();
+    client.moves.passTurn();
+    client.moves.passTurn();
+    client.moves.passTurn();
+
+    let ctx = client.store.getState()["ctx"];
+    expect(ctx.activePlayers[0]).toEqual("tienLen");
+
+    client.moves.cardToStagingArea({ suit: "D", rank: "2" });
+    client.moves.tienLenPlay();
+
+    G = client.store.getState()["G"];
+    ctx = client.store.getState()["ctx"];
+    expect(G.winners).toEqual(["0"]);
+    expect(ctx.currentPlayer).toEqual("1");
+  });
+
   describe("turn order", () => {
     let G;
     let ctx;

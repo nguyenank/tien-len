@@ -74,13 +74,7 @@ export function validCombination(cards) {
     if (consecutive(ranks)) {
       return Combinations.STRAIGHT;
     }
-  }
-  return undefined;
-}
-
-export function validChop(cards) {
-  // cannot be 2's in a chop
-  if (cards.some(card => card.rank === 2)) {
+  } else if (cards.some(card => card.rank === 2)) {
     return undefined;
   }
   // four of a kind
@@ -106,6 +100,28 @@ export function validChop(cards) {
     }
   }
   return undefined;
+}
+
+export function validChop(center, cards) {
+  // can only chop combinations that are just 2's and have max 2 cards
+  const combo = validCombination(cards);
+  if (center.length > 2 || center.some(card => card.rank !== "2")) {
+    return false;
+  }
+  // can only chop pair of twos with four pair
+  else if (center.length === 2 && combo === Combinations.FOURPAIR) {
+    return true;
+  } else if (
+    center.length === 1 &&
+    [
+      Combinations.THREEPAIR,
+      Combinations.FOURPAIR,
+      Combinations.FOUROFAKIND,
+    ].some(c => c === combo)
+  ) {
+    return true;
+  }
+  return false;
 }
 
 function consecutive(ranks) {

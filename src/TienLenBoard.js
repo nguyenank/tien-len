@@ -30,16 +30,15 @@ export class TienLenBoard extends Component {
 
     const currentPlayer = this.props.ctx.currentPlayer;
     if (playerID === currentPlayer) {
-      playerArea.push(
-        <button onClick={this.props.moves.passTurn}>Pass Turn</button>
-      );
-
       if (this.props.ctx.activePlayers[currentPlayer] === "tienLen") {
         playerArea.push(<h3>Tien Len!</h3>);
         playerArea.push(
           <button onClick={this.props.moves.tienLenPlay}>Play Cards</button>
         );
       } else {
+        playerArea.push(
+          <button onClick={this.props.moves.passTurn}>Pass Turn</button>
+        );
         playerArea.push(
           <button onClick={this.props.moves.playCards}>Play Cards</button>
         );
