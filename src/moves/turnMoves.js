@@ -10,13 +10,13 @@ export function playCards(G, ctx) {
   if (stagingArea.length === 0 || handType === undefined) {
     return INVALID_MOVE;
   }
-  if (G.roundType === Combinations.ANY) {
+  if (G.roundType === Combinations.ANY || validChop(G.center, stagingArea)) {
     G.roundType = handType;
-  }
-  if (G.roundType === handType && compareHighest(stagingArea, G.center) === 1) {
     cardsToCenter(G, ctx);
-  } else if (validChop(G.center, stagingArea)) {
-    G.roundType = handType;
+  } else if (
+    G.roundType === handType &&
+    compareHighest(stagingArea, G.center) === 1
+  ) {
     cardsToCenter(G, ctx);
   } else {
     return INVALID_MOVE;
@@ -36,7 +36,7 @@ export function tienLenPlay(G, ctx) {
     G.turnOrder = [0, 1, 2, 3].map(x =>
       G.winners.includes(x.toString()) ? null : x
     );
-    G.roundType = Combinations.ANY;
+    G.roundType = handType;
   }
   cardsToCenter(G, ctx);
 }
