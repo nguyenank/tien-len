@@ -33,7 +33,7 @@ export const TienLen = {
   endIf: (G, ctx) => {
     if (G.winners.length === 3) {
       let w = G.winners.concat(
-        ["0", "1", "2", "3"].filter(x => G.winners.includes(x))
+        ["0", "1", "2", "3"].filter(x => !G.winners.includes(x))
       );
       return { winners: w };
     }

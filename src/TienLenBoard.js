@@ -45,15 +45,22 @@ export class TienLenBoard extends Component {
       }
     }
 
+    let gameover = "";
+    if (this.props.ctx.gameover) {
+      gameover = <h2>Game Over!</h2>;
+    }
+
     return (
       <div>
-        <h2>Center</h2>
+        <h2>Center (Round Type: {this.props.G.roundType})</h2>
         <CardArea
           className="center"
           cards={this.props.G.center}
           onClick={() => null}
         />
         <div className="player-area">{playerArea}</div>
+        <h3>Winners: {this.props.G.winners}</h3>
+        {gameover}
       </div>
     );
   }
