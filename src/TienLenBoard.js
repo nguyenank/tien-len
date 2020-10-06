@@ -15,7 +15,6 @@ export class TienLenBoard extends Component {
         <CardArea
           className="stagingArea"
           cards={this.props.G.players[playerID].stagingArea}
-          onClick={this.props.moves.cardFromStagingArea}
           setList={this.props.moves.reorderCards}
         />
       );
@@ -24,7 +23,6 @@ export class TienLenBoard extends Component {
         <CardArea
           className="hand"
           cards={this.props.G.players[playerID].hand}
-          onClick={this.props.moves.cardToStagingArea}
           setList={this.props.moves.reorderCards}
         />
       );

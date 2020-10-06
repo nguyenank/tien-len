@@ -37,42 +37,42 @@ describe("winners", () => {
     };
   });
 
-  // it("should be added to every time a player runs out of cards", () => {
-  //   client.moves.passTurn();
-  //   client.moves.cardToStagingArea({ suit: "H", rank: "K" });
-  //   client.moves.playCards();
-  //
-  //   G = client.store.getState()["G"];
-  //   expect(G.winners).toEqual(["1"]);
-  //   expect(G.roundType).toEqual(Combinations.SINGLE);
-  //
-  //   client.moves.cardToStagingArea({ suit: "H", rank: "A" });
-  //   client.moves.playCards();
-  //
-  //   G = client.store.getState()["G"];
-  //   expect(G.winners).toEqual(["1", "2"]);
-  //   expect(G.roundType).toEqual(Combinations.SINGLE);
-  // });
-  //
-  // it("should be added to even when the player is in tien len", () => {
-  //   client.moves.cardToStagingArea({ suit: "C", rank: "2" });
-  //   client.moves.playCards();
-  //   client.moves.passTurn();
-  //   client.moves.passTurn();
-  //   client.moves.passTurn();
-  //
-  //   let ctx = client.store.getState()["ctx"];
-  //   expect(ctx.activePlayers[0]).toEqual("tienLen");
-  //
-  //   client.moves.cardToStagingArea({ suit: "D", rank: "2" });
-  //   client.moves.tienLenPlay();
-  //
-  //   G = client.store.getState()["G"];
-  //   ctx = client.store.getState()["ctx"];
-  //   expect(G.winners).toEqual(["0"]);
-  //   expect(G.roundType).toEqual(Combinations.ANY);
-  //   expect(ctx.currentPlayer).toEqual("1");
-  // });
+  it("should be added to every time a player runs out of cards", () => {
+    client.moves.passTurn();
+    client.moves.cardToStagingArea({ suit: "H", rank: "K" });
+    client.moves.playCards();
+
+    G = client.store.getState()["G"];
+    expect(G.winners).toEqual(["1"]);
+    expect(G.roundType).toEqual(Combinations.SINGLE);
+
+    client.moves.cardToStagingArea({ suit: "H", rank: "A" });
+    client.moves.playCards();
+
+    G = client.store.getState()["G"];
+    expect(G.winners).toEqual(["1", "2"]);
+    expect(G.roundType).toEqual(Combinations.SINGLE);
+  });
+
+  it("should be added to even when the player is in tien len", () => {
+    client.moves.cardToStagingArea({ suit: "C", rank: "2" });
+    client.moves.playCards();
+    client.moves.passTurn();
+    client.moves.passTurn();
+    client.moves.passTurn();
+
+    let ctx = client.store.getState()["ctx"];
+    expect(ctx.activePlayers[0]).toEqual("tienLen");
+
+    client.moves.cardToStagingArea({ suit: "D", rank: "2" });
+    client.moves.tienLenPlay();
+
+    G = client.store.getState()["G"];
+    ctx = client.store.getState()["ctx"];
+    expect(G.winners).toEqual(["0"]);
+    expect(G.roundType).toEqual(Combinations.ANY);
+    expect(ctx.currentPlayer).toEqual("1");
+  });
 
   describe("turn order", () => {
     let G;
@@ -111,55 +111,55 @@ describe("winners", () => {
       };
     });
 
-    // it("should skip players who have won", () => {
-    //   client.moves.cardToStagingArea({ suit: "H", rank: "4" });
-    //   client.moves.playCards();
-    //
-    //   client.moves.cardToStagingArea({ suit: "H", rank: "K" });
-    //   client.moves.playCards();
-    //
-    //   client.moves.cardToStagingArea({ suit: "H", rank: "A" });
-    //   client.moves.playCards();
-    //
-    //   ctx = client.store.getState()["ctx"];
-    //   expect(ctx.currentPlayer).toEqual("3");
-    //
-    //   client.moves.cardToStagingArea({ suit: "C", rank: "2" });
-    //   client.moves.playCards();
-    //
-    //   ctx = client.store.getState()["ctx"];
-    //   expect(ctx.currentPlayer).toEqual("0");
-    //
-    //   client.moves.cardToStagingArea({ suit: "H", rank: "2" });
-    //   client.moves.playCards();
-    //
-    //   ctx = client.store.getState()["ctx"];
-    //   expect(ctx.currentPlayer).toEqual("3");
-    // });
-    //
-    // it("should pass to the next player on if no clear next player", () => {
-    //   client.moves.cardToStagingArea({ suit: "H", rank: "4" });
-    //   client.moves.playCards();
-    //
-    //   client.moves.cardToStagingArea({ suit: "H", rank: "K" });
-    //   client.moves.playCards();
-    //   G = client.store.getState()["G"];
-    //   expect(G.turnOrder).toEqual([0, "W", 2, 3]);
-    //
-    //   client.moves.cardToStagingArea({ suit: "H", rank: "A" });
-    //   client.moves.playCards();
-    //   G = client.store.getState()["G"];
-    //   expect(G.turnOrder).toEqual([0, null, "W", 3]);
-    //
-    //   client.moves.passTurn(); // player 3 passes
-    //   G = client.store.getState()["G"];
-    //   expect(G.turnOrder).toEqual([0, null, "W", null]);
-    //   client.moves.passTurn(); // player 1 passes
-    //   ctx = client.store.getState()["ctx"];
-    //   G = client.store.getState()["G"];
-    //   expect(ctx.currentPlayer).toEqual("3");
-    //   expect(G.turnOrder).toEqual([0, null, null, 3]);
-    // });
+    it("should skip players who have won", () => {
+      client.moves.cardToStagingArea({ suit: "H", rank: "4" });
+      client.moves.playCards();
+
+      client.moves.cardToStagingArea({ suit: "H", rank: "K" });
+      client.moves.playCards();
+
+      client.moves.cardToStagingArea({ suit: "H", rank: "A" });
+      client.moves.playCards();
+
+      ctx = client.store.getState()["ctx"];
+      expect(ctx.currentPlayer).toEqual("3");
+
+      client.moves.cardToStagingArea({ suit: "C", rank: "2" });
+      client.moves.playCards();
+
+      ctx = client.store.getState()["ctx"];
+      expect(ctx.currentPlayer).toEqual("0");
+
+      client.moves.cardToStagingArea({ suit: "H", rank: "2" });
+      client.moves.playCards();
+
+      ctx = client.store.getState()["ctx"];
+      expect(ctx.currentPlayer).toEqual("3");
+    });
+
+    it("should pass to the next player on if no clear next player", () => {
+      client.moves.cardToStagingArea({ suit: "H", rank: "4" });
+      client.moves.playCards();
+
+      client.moves.cardToStagingArea({ suit: "H", rank: "K" });
+      client.moves.playCards();
+      G = client.store.getState()["G"];
+      expect(G.turnOrder).toEqual([0, "W", 2, 3]);
+
+      client.moves.cardToStagingArea({ suit: "H", rank: "A" });
+      client.moves.playCards();
+      G = client.store.getState()["G"];
+      expect(G.turnOrder).toEqual([0, null, "W", 3]);
+
+      client.moves.passTurn(); // player 3 passes
+      G = client.store.getState()["G"];
+      expect(G.turnOrder).toEqual([0, null, "W", null]);
+      client.moves.passTurn(); // player 1 passes
+      ctx = client.store.getState()["ctx"];
+      G = client.store.getState()["G"];
+      expect(ctx.currentPlayer).toEqual("3");
+      expect(G.turnOrder).toEqual([0, null, null, 3]);
+    });
 
     it("should switch to a new round if winner finished in tien len", () => {
       client.moves.cardToStagingArea({ suit: "H", rank: "4" });
