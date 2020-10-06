@@ -4,17 +4,22 @@
   margin: 0.25em;
   width: 1.5em;
   float: left;
+  font-size: 1.25em;
 }
 
-.staging-area {
+.ghostCard {
+  opacity: 0;
+}
+
+.stagingArea {
   background-color: green;
-  height: 3em;
+  height: 4em;
   margin: 1em;
 }
 
 .hand {
   background-color: yellow;
-  height: 3em;
+  height: 4em;
   margin: 1em;
 }
 

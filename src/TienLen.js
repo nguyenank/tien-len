@@ -6,6 +6,7 @@ import { playCards, passTurn, tienLenPlay } from "./moves/turnMoves";
 import {
   cardToStagingArea,
   cardFromStagingArea,
+  reorderCards,
 } from "./moves/stagingAreaMoves";
 import { compareCards } from "./moves/compareCards";
 const _ = require("lodash");
@@ -15,13 +16,16 @@ export const TienLen = {
   moves: {
     cardToStagingArea: cardToStagingArea,
     cardFromStagingArea: cardFromStagingArea,
+    reorderCards: reorderCards,
     playCards: playCards,
     passTurn: passTurn,
     tienLenPlay: tienLenPlay,
   },
   stages: {
     tienLen: { moves: { tienLenPlay } },
-    notTurn: { moves: { cardToStagingArea, cardFromStagingArea } },
+    notTurn: {
+      moves: { cardToStagingArea, cardFromStagingArea, reorderCards },
+    },
   },
   turn: {
     activePlayers: {

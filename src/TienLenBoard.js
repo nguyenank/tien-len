@@ -9,13 +9,14 @@ export class TienLenBoard extends Component {
     let playerArea = [];
     const playerID = this.props.playerID;
     if (playerID) {
-      playerArea.push(<h1>Player {this.props.playerID}</h1>);
+      playerArea.push(<h1>Player {playerID}</h1>);
       playerArea.push(<h2>Staging Area</h2>);
       playerArea.push(
         <CardArea
-          className="staging-area"
+          className="stagingArea"
           cards={this.props.G.players[playerID].stagingArea}
           onClick={this.props.moves.cardFromStagingArea}
+          setList={this.props.moves.reorderCards}
         />
       );
       playerArea.push(<h2>Hand</h2>);
@@ -24,6 +25,7 @@ export class TienLenBoard extends Component {
           className="hand"
           cards={this.props.G.players[playerID].hand}
           onClick={this.props.moves.cardToStagingArea}
+          setList={this.props.moves.reorderCards}
         />
       );
     }
@@ -57,6 +59,8 @@ export class TienLenBoard extends Component {
           className="center"
           cards={this.props.G.center}
           onClick={() => null}
+          setList={() => null}
+          disabled={true}
         />
         <div className="player-area">{playerArea}</div>
         <h3>Winners: {this.props.G.winners}</h3>
