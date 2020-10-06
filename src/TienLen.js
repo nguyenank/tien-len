@@ -46,7 +46,11 @@ function setUp(ctx) {
       deck.push({ suit: suit, rank: rank });
     }
   }
-  deck = ctx.random.Shuffle(deck);
+
+  const n = ctx.random.Die(4);
+  for (let i = 1 + n; i > 0; i--) {
+    deck = ctx.random.Shuffle(deck);
+  }
   const chunkedDeck = _.chunk(deck, 13).map(x => x.sort(compareCards));
 
   const players = {};
