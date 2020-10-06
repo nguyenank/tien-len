@@ -12,6 +12,8 @@ export default function CardArea({
 }) {
   return (
     <ReactSortable
+      multiDrag={true}
+      selectedClass={"selectedCard"}
       list={cards}
       setList={newCards => setList(newCards, className)}
       className={className}
@@ -19,7 +21,7 @@ export default function CardArea({
       disabled={disabled}
     >
       {cards.map(card => (
-        <Card rank={card.rank} suit={card.suit} onClick={() => onClick(card)} />
+        <Card rank={card.rank} suit={card.suit} />
       ))}
     </ReactSortable>
   );

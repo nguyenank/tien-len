@@ -3,11 +3,7 @@ import React from "react";
 
 export default function Card({ rank, suit, onClick }) {
   return (
-    <div
-      className="card"
-      key={rank + " " + suit}
-      onClick={() => onClick.call(this, rank, suit)}
-    >
+    <div className="card" key={rank + " " + suit}>
       {rank} <br /> {renderSuit(suit)}
     </div>
   );
