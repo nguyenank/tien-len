@@ -1,8 +1,16 @@
 // src/moves/moveCards.js
-const _ = require("lodash");
 
 export function reorderCards(G, ctx, cards, source) {
-  let players = G.players;
-  let playerID = ctx.playerID;
+  const players = G.players;
+  const playerID = ctx.playerID;
   players[playerID][source] = cards;
+}
+
+export function clearStagingArea(G, ctx) {
+  const players = G.players;
+  const playerID = ctx.playerID;
+  players[playerID].hand = players[playerID].hand.concat(
+    players[playerID].stagingArea
+  );
+  players[playerID].stagingArea = [];
 }

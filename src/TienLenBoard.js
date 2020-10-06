@@ -18,6 +18,9 @@ export class TienLenBoard extends Component {
           setList={this.props.moves.reorderCards}
         />
       );
+      playerArea.push(
+        <button onClick={this.props.moves.clearStagingArea}>Clear</button>
+      );
       playerArea.push(<h2>Hand</h2>);
       playerArea.push(
         <CardArea
