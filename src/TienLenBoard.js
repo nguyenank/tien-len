@@ -18,32 +18,33 @@ export class TienLenBoard extends Component {
           setList={this.props.moves.reorderCards}
         />
       );
-      playerArea.push(
-        <button onClick={this.props.moves.clearStagingArea}>Clear</button>
-      );
-      playerArea.push(<h2>Hand</h2>);
-      playerArea.push(
-        <CardArea
-          className="hand"
-          cards={this.props.G.players[playerID].hand}
-          setList={this.props.moves.reorderCards}
-        />
-      );
-    }
-
-    const currentPlayer = this.props.ctx.currentPlayer;
-    if (playerID === currentPlayer) {
-      if (this.props.ctx.activePlayers[currentPlayer] === "tienLen") {
-        playerArea.push(<h3>Tien Len!</h3>);
+      const currentPlayer = this.props.ctx.currentPlayer;
+      if (playerID === currentPlayer) {
+        if (this.props.ctx.activePlayers[currentPlayer] === "tienLen") {
+          playerArea.push(<h3>Tien Len!</h3>);
+          playerArea.push(
+            <button onClick={this.props.moves.tienLenPlay}>Play Cards</button>
+          );
+        } else {
+          playerArea.push(
+            <button onClick={this.props.moves.passTurn}>Pass Turn</button>
+          );
+          playerArea.push(
+            <button onClick={this.props.moves.playCards}>Play Cards</button>
+          );
+        }
         playerArea.push(
-          <button onClick={this.props.moves.tienLenPlay}>Play Cards</button>
+          <button onClick={this.props.moves.clearStagingArea}>
+            Clear Staging Area
+          </button>
         );
-      } else {
+        playerArea.push(<h2>Hand</h2>);
         playerArea.push(
-          <button onClick={this.props.moves.passTurn}>Pass Turn</button>
-        );
-        playerArea.push(
-          <button onClick={this.props.moves.playCards}>Play Cards</button>
+          <CardArea
+            className="hand"
+            cards={this.props.G.players[playerID].hand}
+            setList={this.props.moves.reorderCards}
+          />
         );
       }
     }
