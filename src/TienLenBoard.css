@@ -40,3 +40,12 @@
   padding: 1em;
   margin: 0.25em;
 }
+
+.button {
+  margin: 0.5em;
+  background-color: green;
+  color: white;
+  font-weight: bold;
+  border-radius: 1em;
+  border: 0.25em solid darkgreen;
+}

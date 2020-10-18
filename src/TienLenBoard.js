@@ -23,19 +23,25 @@ export class TienLenBoard extends Component {
         if (this.props.ctx.activePlayers[currentPlayer] === "tienLen") {
           playerArea.push(<h3>Tien Len!</h3>);
           playerArea.push(
-            <button onClick={this.props.moves.tienLenPlay}>Play Cards</button>
+            <button className="button" onClick={this.props.moves.tienLenPlay}>
+              Play Cards
+            </button>
           );
         } else {
           playerArea.push(
-            <button onClick={this.props.moves.passTurn}>Pass Turn</button>
+            <button className="button" onClick={this.props.moves.playCards}>
+              Play Cards
+            </button>
           );
           playerArea.push(
-            <button onClick={this.props.moves.playCards}>Play Cards</button>
+            <button className="button" onClick={this.props.moves.passTurn}>
+              Pass Turn
+            </button>
           );
         }
       }
       playerArea.push(
-        <button onClick={this.props.moves.clearStagingArea}>
+        <button className="button" onClick={this.props.moves.clearStagingArea}>
           Clear Staging Area
         </button>
       );
