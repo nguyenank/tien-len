@@ -2,26 +2,25 @@
 
 import { PlayerView, Stage } from "boardgame.io/core";
 import { Suits, Ranks, Combinations } from "./constants";
-import { playCards, passTurn, tienLenPlay } from "./moves/turnMoves";
-import {
-  cardToStagingArea,
-  cardFromStagingArea,
-} from "./moves/stagingAreaMoves";
-import { compareCards } from "./moves/compareCards";
+import { playCards, passTurn, tienLenPlay } from "./moves/cardPlayMoves";
+import { relocateCards, clearStagingArea } from "./moves/cardAreaMoves";
+import { compareCards } from "./moves/helper-functions/cardComparison";
 const _ = require("lodash");
 
 export const TienLen = {
   setup: setUp,
   moves: {
-    cardToStagingArea: cardToStagingArea,
-    cardFromStagingArea: cardFromStagingArea,
+    relocateCards: relocateCards,
+    clearStagingArea: clearStagingArea,
     playCards: playCards,
     passTurn: passTurn,
     tienLenPlay: tienLenPlay,
   },
   stages: {
     tienLen: { moves: { tienLenPlay } },
-    notTurn: { moves: { cardToStagingArea, cardFromStagingArea } },
+    notTurn: {
+      moves: { relocateCards, clearStagingArea },
+    },
   },
   turn: {
     activePlayers: {
@@ -47,7 +46,11 @@ function setUp(ctx) {
       deck.push({ suit: suit, rank: rank });
     }
   }
-  deck = ctx.random.Shuffle(deck);
+
+  const n = ctx.random.Die(4);
+  for (let i = 1 + n; i > 0; i--) {
+    deck = ctx.random.Shuffle(deck);
+  }
   const chunkedDeck = _.chunk(deck, 13).map(x => x.sort(compareCards));
 
   const players = {};

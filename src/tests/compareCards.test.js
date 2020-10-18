@@ -6,7 +6,7 @@ import {
   validCombination,
   validChop,
   compareHighest,
-} from "../moves/compareCards";
+} from "../moves/helper-functions/cardComparison";
 import { Combinations } from "../constants.js";
 
 describe("compareCards", () => {

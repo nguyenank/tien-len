@@ -2,7 +2,7 @@
 
 import { Client } from "boardgame.io/client";
 import { TienLen } from "../TienLen";
-import { compareCards } from "../moves/compareCards";
+import { compareCards } from "../moves/helper-functions/cardComparison";
 const _ = require("lodash");
 
 describe("setUp", () => {

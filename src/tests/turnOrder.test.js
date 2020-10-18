@@ -16,24 +16,24 @@ describe("Turn order", () => {
 
   it("should pass to the next player, wrapping around", () => {
     // pass turn along
-    client.moves.cardToStagingArea({ rank: "3", suit: "C" });
+    client.moves.relocateCards([{ rank: "3", suit: "C" }], "stagingArea");
     client.moves.playCards();
 
     let { ctx } = client.store.getState();
 
     expect(ctx.currentPlayer).toEqual("1");
 
-    client.moves.cardToStagingArea({ rank: "4", suit: "C" });
+    client.moves.relocateCards([{ rank: "4", suit: "C" }], "stagingArea");
     client.moves.playCards();
     ctx = client.store.getState()["ctx"];
     expect(ctx.currentPlayer).toEqual("2");
 
-    client.moves.cardToStagingArea({ rank: "5", suit: "C" });
+    client.moves.relocateCards([{ rank: "5", suit: "C" }], "stagingArea");
     client.moves.playCards();
     ctx = client.store.getState()["ctx"];
     expect(ctx.currentPlayer).toEqual("3");
 
-    client.moves.cardToStagingArea({ rank: "6", suit: "C" });
+    client.moves.relocateCards([{ rank: "6", suit: "C" }], "stagingArea");
     client.moves.playCards();
     ctx = client.store.getState()["ctx"];
     let G = client.store.getState()["G"];
@@ -50,23 +50,23 @@ describe("Turn order", () => {
     });
 
     it("should skip any players who have passed", () => {
-      client.moves.cardToStagingArea({ rank: "3", suit: "C" });
+      client.moves.relocateCards([{ rank: "3", suit: "C" }], "stagingArea");
       client.moves.playCards();
 
       let { ctx } = client.store.getState();
       expect(ctx.currentPlayer).toEqual("2");
 
-      client.moves.cardToStagingArea({ rank: "4", suit: "C" });
+      client.moves.relocateCards([{ rank: "4", suit: "C" }], "stagingArea");
       client.moves.playCards();
       ctx = client.store.getState()["ctx"];
       expect(ctx.currentPlayer).toEqual("3");
 
-      client.moves.cardToStagingArea({ rank: "5", suit: "C" });
+      client.moves.relocateCards([{ rank: "5", suit: "C" }], "stagingArea");
       client.moves.playCards(); // player 3 passes
       ctx = client.store.getState()["ctx"];
       expect(ctx.currentPlayer).toEqual("0");
 
-      client.moves.cardToStagingArea({ rank: "6", suit: "C" });
+      client.moves.relocateCards([{ rank: "6", suit: "C" }], "stagingArea");
       client.moves.playCards();
       ctx = client.store.getState()["ctx"];
       expect(ctx.currentPlayer).toEqual("2");
@@ -75,14 +75,14 @@ describe("Turn order", () => {
     });
 
     it("should remove players who pass from the turn order", () => {
-      client.moves.cardToStagingArea({ rank: "3", suit: "C" });
+      client.moves.relocateCards([{ rank: "3", suit: "C" }], "stagingArea");
       client.moves.playCards();
 
       let { ctx } = client.store.getState();
 
       expect(ctx.currentPlayer).toEqual("2");
 
-      client.moves.cardToStagingArea({ rank: "4", suit: "C" });
+      client.moves.relocateCards([{ rank: "4", suit: "C" }], "stagingArea");
       client.moves.playCards();
       ctx = client.store.getState()["ctx"];
       expect(ctx.currentPlayer).toEqual("3");
@@ -91,12 +91,12 @@ describe("Turn order", () => {
       ctx = client.store.getState()["ctx"];
       expect(ctx.currentPlayer).toEqual("0");
 
-      client.moves.cardToStagingArea({ rank: "5", suit: "C" });
+      client.moves.relocateCards([{ rank: "5", suit: "C" }], "stagingArea");
       client.moves.playCards();
       ctx = client.store.getState()["ctx"];
       expect(ctx.currentPlayer).toEqual("2");
 
-      client.moves.cardToStagingArea({ rank: "6", suit: "C" });
+      client.moves.relocateCards([{ rank: "6", suit: "C" }], "stagingArea");
       client.moves.playCards();
       ctx = client.store.getState()["ctx"];
       expect(ctx.currentPlayer).toEqual("0");
@@ -141,7 +141,7 @@ describe("Turn order", () => {
         "3": "notTurn",
       });
 
-      client.moves.cardToStagingArea({ rank: "4", suit: "D" });
+      client.moves.relocateCards([{ rank: "4", suit: "D" }], "stagingArea");
       client.moves.tienLenPlay();
       ctx = client.store.getState()["ctx"];
       expect(ctx.currentPlayer).toEqual("2");
@@ -152,7 +152,7 @@ describe("Turn order", () => {
         "3": "notTurn",
       });
 
-      client.moves.cardToStagingArea({ rank: "4", suit: "H" });
+      client.moves.relocateCards([{ rank: "4", suit: "H" }], "stagingArea");
       client.moves.tienLenPlay();
       ctx = client.store.getState()["ctx"];
       expect(ctx.currentPlayer).toEqual("2");
@@ -175,7 +175,7 @@ describe("Turn order", () => {
         "3": "notTurn",
       });
 
-      client.moves.cardToStagingArea({ rank: "4", suit: "D" });
+      client.moves.relocateCards([{ rank: "4", suit: "D" }], "stagingArea");
       client.moves.tienLenPlay();
       ctx = client.store.getState()["ctx"];
       expect(ctx.currentPlayer).toEqual("2");
@@ -186,7 +186,7 @@ describe("Turn order", () => {
         "3": "notTurn",
       });
 
-      client.moves.cardToStagingArea({ rank: "4", suit: "S" });
+      client.moves.relocateCards([{ rank: "4", suit: "S" }], "stagingArea");
       client.moves.tienLenPlay();
       ctx = client.store.getState()["ctx"];
       G = client.store.getState()["G"];

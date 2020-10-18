@@ -91,8 +91,13 @@ describe("playCards", () => {
   });
 
   it("should change the roundType at the start of each round", () => {
-    client.moves.cardToStagingArea({ suit: "S", rank: "6" });
-    client.moves.cardToStagingArea({ suit: "D", rank: "6" });
+    client.moves.relocateCards(
+      [
+        { suit: "S", rank: "6" },
+        { suit: "D", rank: "6" },
+      ],
+      "stagingArea"
+    );
     client.moves.playCards();
 
     G = client.store.getState()["G"];
@@ -102,52 +107,74 @@ describe("playCards", () => {
       { suit: "S", rank: "6" },
       { suit: "D", rank: "6" },
     ]);
-    expect(G.players["0"].hand.length).toBe(11);
     expect(G.players["0"].stagingArea.length).toBe(0);
   });
 
   it("should not allow plays of not roundType or too low", () => {
     // invalid combination
-    client.moves.cardToStagingArea({ suit: "S", rank: "6" });
-    client.moves.cardToStagingArea({ suit: "D", rank: "6" });
-    client.moves.cardToStagingArea({ suit: "H", rank: "7" });
+    client.moves.relocateCards(
+      [
+        { suit: "S", rank: "6" },
+        { suit: "D", rank: "6" },
+        { suit: "H", rank: "7" },
+      ],
+      "stagingArea"
+    );
     client.moves.playCards();
     G = client.store.getState()["G"];
     expect(G.players["0"].stagingArea.length).toBe(3);
 
-    client.moves.cardFromStagingArea({ suit: "H", rank: "7" });
+    client.moves.relocateCards(
+      [
+        { suit: "S", rank: "6" },
+        { suit: "D", rank: "6" },
+      ],
+      "stagingArea"
+    );
     client.moves.playCards();
 
     // not a pair
-    client.moves.cardToStagingArea({ suit: "C", rank: "5" });
-    client.moves.cardToStagingArea({ suit: "H", rank: "6" });
+    client.moves.relocateCards(
+      [
+        { suit: "C", rank: "5" },
+        { suit: "H", rank: "6" },
+      ],
+      "stagingArea"
+    );
 
     client.moves.playCards();
     G = client.store.getState()["G"];
     expect(G.players["1"].stagingArea.length).toBe(2);
 
-    client.moves.cardFromStagingArea({ suit: "C", rank: "5" });
-    client.moves.cardFromStagingArea({ suit: "H", rank: "6" });
-
-    // not high enough
-    client.moves.cardToStagingArea({ suit: "C", rank: "5" });
-    client.moves.cardToStagingArea({ suit: "S", rank: "5" });
+    client.moves.relocateCards(
+      [
+        { suit: "C", rank: "5" },
+        { suit: "S", rank: "5" },
+      ],
+      "stagingArea"
+    );
 
     client.moves.playCards();
     G = client.store.getState()["G"];
     expect(G.players["1"].stagingArea.length).toBe(2);
-
-    client.moves.cardFromStagingArea({ suit: "C", rank: "5" });
-    client.moves.cardFromStagingArea({ suit: "S", rank: "5" });
   });
 
   it("should allow higher plays of the same roundType", () => {
-    client.moves.cardToStagingArea({ suit: "S", rank: "6" });
-    client.moves.cardToStagingArea({ suit: "D", rank: "6" });
+    client.moves.relocateCards(
+      [
+        { suit: "S", rank: "6" },
+        { suit: "D", rank: "6" },
+      ],
+      "stagingArea"
+    );
     client.moves.playCards();
-
-    client.moves.cardToStagingArea({ suit: "C", rank: "T" });
-    client.moves.cardToStagingArea({ suit: "H", rank: "T" });
+    client.moves.relocateCards(
+      [
+        { suit: "C", rank: "T" },
+        { suit: "H", rank: "T" },
+      ],
+      "stagingArea"
+    );
 
     client.moves.playCards();
     G = client.store.getState()["G"];
@@ -156,18 +183,27 @@ describe("playCards", () => {
       { suit: "C", rank: "T" },
       { suit: "H", rank: "T" },
     ]);
-    expect(G.players["0"].hand.length).toBe(11);
-    expect(G.players["1"].hand.length).toBe(11);
   });
 
   it("should allow chops", () => {
-    client.moves.cardToStagingArea({ suit: "S", rank: "2" });
+    client.moves.relocateCards(
+      [
+        { suit: "S", rank: "2" },
+        { suit: "D", rank: "6" },
+      ],
+      "stagingArea"
+    );
     client.moves.playCards();
 
-    client.moves.cardToStagingArea({ suit: "S", rank: "Q" });
-    client.moves.cardToStagingArea({ suit: "C", rank: "Q" });
-    client.moves.cardToStagingArea({ suit: "D", rank: "Q" });
-    client.moves.cardToStagingArea({ suit: "H", rank: "Q" });
+    client.moves.relocateCards(
+      [
+        { suit: "S", rank: "Q" },
+        { suit: "D", rank: "Q" },
+        { suit: "C", rank: "Q" },
+        { suit: "H", rank: "Q" },
+      ],
+      "stagingArea"
+    );
 
     client.moves.playCards();
     G = client.store.getState()["G"];
@@ -178,7 +214,5 @@ describe("playCards", () => {
       { suit: "D", rank: "Q" },
       { suit: "H", rank: "Q" },
     ]);
-    expect(G.players["0"].hand.length).toBe(12);
-    expect(G.players["1"].hand.length).toBe(9);
   });
 });
