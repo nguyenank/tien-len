@@ -30,6 +30,9 @@ export function playCards(G, ctx) {
 export function tienLenPlay(G, ctx) {
   let stagingArea = G.players[ctx.currentPlayer].stagingArea;
   const handType = validCombination(stagingArea);
+  if (stagingArea.length === 0) {
+    return INVALID_MOVE;
+  }
   if (
     // not a valid tien len play
     G.roundType !== handType ||
