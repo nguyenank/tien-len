@@ -69,6 +69,7 @@ function nextTurn(G, ctx) {
     // need to remove winning "W" marker
     G.turnOrder = G.turnOrder.map(x => (x === "W" ? null : x));
     nextPlayer = findNextPlayer(G.turnOrder, currentPlayer);
+    removeNulls = G.turnOrder.filter(x => x !== null);
   } else if (nextPlayer === "W" && removeNulls.length === 1) {
     // next player has already won, no more players left in turn order
     // need to pass free play to player after "W"

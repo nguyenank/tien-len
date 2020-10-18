@@ -8,7 +8,7 @@ export class TienLenBoard extends Component {
   render() {
     let playerArea = [];
     const playerID = this.props.playerID;
-    if (playerID) {
+    if (playerID && !this.props.ctx.gameover) {
       playerArea.push(<h1>Player {playerID}</h1>);
       playerArea.push(<h2>Staging Area</h2>);
       playerArea.push(
@@ -33,20 +33,20 @@ export class TienLenBoard extends Component {
             <button onClick={this.props.moves.playCards}>Play Cards</button>
           );
         }
-        playerArea.push(
-          <button onClick={this.props.moves.clearStagingArea}>
-            Clear Staging Area
-          </button>
-        );
-        playerArea.push(<h2>Hand</h2>);
-        playerArea.push(
-          <CardArea
-            className="hand"
-            cards={this.props.G.players[playerID].hand}
-            setList={this.props.moves.reorderCards}
-          />
-        );
       }
+      playerArea.push(
+        <button onClick={this.props.moves.clearStagingArea}>
+          Clear Staging Area
+        </button>
+      );
+      playerArea.push(<h2>Hand</h2>);
+      playerArea.push(
+        <CardArea
+          className="hand"
+          cards={this.props.G.players[playerID].hand}
+          setList={this.props.moves.reorderCards}
+        />
+      );
     }
 
     let gameover = "";

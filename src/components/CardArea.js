@@ -12,7 +12,7 @@ export default function CardArea({
 }) {
   return (
     <ReactSortable
-      multiDrag={true}
+      multiDrag={false}
       group={"shared"}
       dragoverBubble={true}
       selectedClass={"selectedCard"}
