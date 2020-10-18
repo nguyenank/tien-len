@@ -40,8 +40,8 @@ describe("winners", () => {
 
   it("should be added to every time a player runs out of cards", () => {
     client.moves.passTurn();
-    client.moves.reorderCards([{ rank: "K", suit: "H" }], "stagingArea");
-    client.moves.reorderCards([], "hand");
+    client.moves.relocateCards([{ rank: "K", suit: "H" }], "stagingArea");
+    client.moves.relocateCards([], "hand");
     client.moves.playCards();
 
     G = client.store.getState()["G"];
@@ -49,8 +49,8 @@ describe("winners", () => {
     expect(G.winners).toEqual(["1"]);
     expect(G.roundType).toEqual(Combinations.SINGLE);
 
-    client.moves.reorderCards([{ rank: "A", suit: "H" }], "stagingArea");
-    client.moves.reorderCards([], "hand");
+    client.moves.relocateCards([{ rank: "A", suit: "H" }], "stagingArea");
+    client.moves.relocateCards([], "hand");
     G = client.store.getState()["G"];
     client.moves.playCards();
 
@@ -61,8 +61,8 @@ describe("winners", () => {
   });
 
   it("should be added to even when the player is in tien len", () => {
-    client.moves.reorderCards([{ suit: "C", rank: "2" }], "stagingArea");
-    client.moves.reorderCards([{ suit: "D", rank: "2" }], "hand");
+    client.moves.relocateCards([{ suit: "C", rank: "2" }], "stagingArea");
+    client.moves.relocateCards([{ suit: "D", rank: "2" }], "hand");
     client.moves.playCards();
     client.moves.passTurn();
     client.moves.passTurn();
@@ -71,8 +71,8 @@ describe("winners", () => {
     let ctx = client.store.getState()["ctx"];
     expect(ctx.activePlayers[0]).toEqual("tienLen");
 
-    client.moves.reorderCards([{ suit: "D", rank: "2" }], "stagingArea");
-    client.moves.reorderCards([], "hand");
+    client.moves.relocateCards([{ suit: "D", rank: "2" }], "stagingArea");
+    client.moves.relocateCards([], "hand");
     client.moves.tienLenPlay();
 
     G = client.store.getState()["G"];
@@ -120,8 +120,8 @@ describe("winners", () => {
     });
 
     it("should skip players who have won", () => {
-      client.moves.reorderCards([{ suit: "H", rank: "4" }], "stagingArea");
-      client.moves.reorderCards(
+      client.moves.relocateCards([{ suit: "H", rank: "4" }], "stagingArea");
+      client.moves.relocateCards(
         [
           { suit: "C", rank: "K" },
           { suit: "H", rank: "2" },
@@ -132,28 +132,28 @@ describe("winners", () => {
       ctx = client.store.getState()["ctx"];
       expect(ctx.currentPlayer).toEqual("1");
 
-      client.moves.reorderCards([{ suit: "H", rank: "K" }], "stagingArea");
-      client.moves.reorderCards([], "hand");
+      client.moves.relocateCards([{ suit: "H", rank: "K" }], "stagingArea");
+      client.moves.relocateCards([], "hand");
       client.moves.playCards();
       ctx = client.store.getState()["ctx"];
       expect(ctx.currentPlayer).toEqual("2");
 
-      client.moves.reorderCards([{ suit: "H", rank: "A" }], "stagingArea");
-      client.moves.reorderCards([], "hand");
+      client.moves.relocateCards([{ suit: "H", rank: "A" }], "stagingArea");
+      client.moves.relocateCards([], "hand");
       client.moves.playCards();
 
       ctx = client.store.getState()["ctx"];
       expect(ctx.currentPlayer).toEqual("3");
 
-      client.moves.reorderCards([{ suit: "C", rank: "2" }], "stagingArea");
-      client.moves.reorderCards([{ suit: "H", rank: "5" }], "hand");
+      client.moves.relocateCards([{ suit: "C", rank: "2" }], "stagingArea");
+      client.moves.relocateCards([{ suit: "H", rank: "5" }], "hand");
       client.moves.playCards();
 
       ctx = client.store.getState()["ctx"];
       expect(ctx.currentPlayer).toEqual("0");
 
-      client.moves.reorderCards([{ suit: "H", rank: "2" }], "stagingArea");
-      client.moves.reorderCards([], "hand");
+      client.moves.relocateCards([{ suit: "H", rank: "2" }], "stagingArea");
+      client.moves.relocateCards([], "hand");
       client.moves.playCards();
 
       ctx = client.store.getState()["ctx"];
@@ -161,8 +161,8 @@ describe("winners", () => {
     });
 
     it("should pass to the next player on if no clear next player", () => {
-      client.moves.reorderCards([{ suit: "H", rank: "4" }], "stagingArea");
-      client.moves.reorderCards(
+      client.moves.relocateCards([{ suit: "H", rank: "4" }], "stagingArea");
+      client.moves.relocateCards(
         [
           { suit: "H", rank: "K" },
           { suit: "H", rank: "2" },
@@ -171,14 +171,14 @@ describe("winners", () => {
       );
       client.moves.playCards();
 
-      client.moves.reorderCards([{ suit: "H", rank: "K" }], "stagingArea");
-      client.moves.reorderCards([], "hand");
+      client.moves.relocateCards([{ suit: "H", rank: "K" }], "stagingArea");
+      client.moves.relocateCards([], "hand");
       client.moves.playCards();
       G = client.store.getState()["G"];
       expect(G.turnOrder).toEqual([0, "W", 2, 3]);
 
-      client.moves.reorderCards([{ suit: "H", rank: "A" }], "stagingArea");
-      client.moves.reorderCards([], "hand");
+      client.moves.relocateCards([{ suit: "H", rank: "A" }], "stagingArea");
+      client.moves.relocateCards([], "hand");
       client.moves.playCards();
       G = client.store.getState()["G"];
       expect(G.turnOrder).toEqual([0, null, "W", 3]);
@@ -194,8 +194,8 @@ describe("winners", () => {
     });
 
     it("should switch to a new round if winner finished in tien len", () => {
-      client.moves.reorderCards([{ suit: "H", rank: "4" }], "stagingArea");
-      client.moves.reorderCards(
+      client.moves.relocateCards([{ suit: "H", rank: "4" }], "stagingArea");
+      client.moves.relocateCards(
         [
           { suit: "H", rank: "K" },
           { suit: "H", rank: "2" },
@@ -210,14 +210,14 @@ describe("winners", () => {
       ctx = client.store.getState()["ctx"];
       expect(ctx.activePlayers[0]).toEqual("tienLen");
 
-      client.moves.reorderCards([{ suit: "H", rank: "K" }], "stagingArea");
-      client.moves.reorderCards([{ suit: "H", rank: "2" }], "hand");
+      client.moves.relocateCards([{ suit: "H", rank: "K" }], "stagingArea");
+      client.moves.relocateCards([{ suit: "H", rank: "2" }], "hand");
       client.moves.tienLenPlay();
       ctx = client.store.getState()["ctx"];
       expect(ctx.activePlayers[0]).toEqual("tienLen");
 
-      client.moves.reorderCards([{ suit: "H", rank: "2" }], "stagingArea");
-      client.moves.reorderCards([], "hand");
+      client.moves.relocateCards([{ suit: "H", rank: "2" }], "stagingArea");
+      client.moves.relocateCards([], "hand");
       client.moves.tienLenPlay();
 
       ctx = client.store.getState()["ctx"];
@@ -228,8 +228,8 @@ describe("winners", () => {
     });
 
     it("should give players an opportunity to beat the last card played otherwise", () => {
-      client.moves.reorderCards([{ suit: "H", rank: "4" }], "stagingArea");
-      client.moves.reorderCards(
+      client.moves.relocateCards([{ suit: "H", rank: "4" }], "stagingArea");
+      client.moves.relocateCards(
         [
           { suit: "H", rank: "K" },
           { suit: "H", rank: "2" },
@@ -244,14 +244,14 @@ describe("winners", () => {
       ctx = client.store.getState()["ctx"];
       expect(ctx.activePlayers[0]).toEqual("tienLen");
 
-      client.moves.reorderCards([{ suit: "H", rank: "2" }], "stagingArea");
-      client.moves.reorderCards([{ suit: "H", rank: "K" }], "hand");
+      client.moves.relocateCards([{ suit: "H", rank: "2" }], "stagingArea");
+      client.moves.relocateCards([{ suit: "H", rank: "K" }], "hand");
       client.moves.tienLenPlay();
       ctx = client.store.getState()["ctx"];
       expect(ctx.activePlayers[0]).toEqual("tienLen");
 
-      client.moves.reorderCards([{ suit: "H", rank: "K" }], "stagingArea");
-      client.moves.reorderCards([], "hand");
+      client.moves.relocateCards([{ suit: "H", rank: "K" }], "stagingArea");
+      client.moves.relocateCards([], "hand");
       client.moves.tienLenPlay();
 
       ctx = client.store.getState()["ctx"];

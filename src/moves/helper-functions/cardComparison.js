@@ -1,6 +1,6 @@
-// src/moves/compareCards.js
+// src/moves/cardComparisonFunctions.js
 
-import { Suits, Ranks, Combinations } from "../constants";
+import { Suits, Ranks, Combinations } from "../../constants";
 const _ = require("lodash");
 
 export function compareCards(card1, card2) {

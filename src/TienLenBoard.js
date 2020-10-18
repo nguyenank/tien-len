@@ -15,7 +15,7 @@ export class TienLenBoard extends Component {
         <CardArea
           className="stagingArea"
           cards={this.props.G.players[playerID].stagingArea}
-          setList={this.props.moves.reorderCards}
+          setList={this.props.moves.relocateCards}
         />
       );
       const currentPlayer = this.props.ctx.currentPlayer;
@@ -44,7 +44,7 @@ export class TienLenBoard extends Component {
         <CardArea
           className="hand"
           cards={this.props.G.players[playerID].hand}
-          setList={this.props.moves.reorderCards}
+          setList={this.props.moves.relocateCards}
         />
       );
     }

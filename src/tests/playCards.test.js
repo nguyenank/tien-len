@@ -91,7 +91,7 @@ describe("playCards", () => {
   });
 
   it("should change the roundType at the start of each round", () => {
-    client.moves.reorderCards(
+    client.moves.relocateCards(
       [
         { suit: "S", rank: "6" },
         { suit: "D", rank: "6" },
@@ -112,7 +112,7 @@ describe("playCards", () => {
 
   it("should not allow plays of not roundType or too low", () => {
     // invalid combination
-    client.moves.reorderCards(
+    client.moves.relocateCards(
       [
         { suit: "S", rank: "6" },
         { suit: "D", rank: "6" },
@@ -124,7 +124,7 @@ describe("playCards", () => {
     G = client.store.getState()["G"];
     expect(G.players["0"].stagingArea.length).toBe(3);
 
-    client.moves.reorderCards(
+    client.moves.relocateCards(
       [
         { suit: "S", rank: "6" },
         { suit: "D", rank: "6" },
@@ -134,7 +134,7 @@ describe("playCards", () => {
     client.moves.playCards();
 
     // not a pair
-    client.moves.reorderCards(
+    client.moves.relocateCards(
       [
         { suit: "C", rank: "5" },
         { suit: "H", rank: "6" },
@@ -146,7 +146,7 @@ describe("playCards", () => {
     G = client.store.getState()["G"];
     expect(G.players["1"].stagingArea.length).toBe(2);
 
-    client.moves.reorderCards(
+    client.moves.relocateCards(
       [
         { suit: "C", rank: "5" },
         { suit: "S", rank: "5" },
@@ -160,7 +160,7 @@ describe("playCards", () => {
   });
 
   it("should allow higher plays of the same roundType", () => {
-    client.moves.reorderCards(
+    client.moves.relocateCards(
       [
         { suit: "S", rank: "6" },
         { suit: "D", rank: "6" },
@@ -168,7 +168,7 @@ describe("playCards", () => {
       "stagingArea"
     );
     client.moves.playCards();
-    client.moves.reorderCards(
+    client.moves.relocateCards(
       [
         { suit: "C", rank: "T" },
         { suit: "H", rank: "T" },
@@ -186,7 +186,7 @@ describe("playCards", () => {
   });
 
   it("should allow chops", () => {
-    client.moves.reorderCards(
+    client.moves.relocateCards(
       [
         { suit: "S", rank: "2" },
         { suit: "D", rank: "6" },
@@ -195,7 +195,7 @@ describe("playCards", () => {
     );
     client.moves.playCards();
 
-    client.moves.reorderCards(
+    client.moves.relocateCards(
       [
         { suit: "S", rank: "Q" },
         { suit: "D", rank: "Q" },

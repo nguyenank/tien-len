@@ -1,7 +1,11 @@
-// src/moves/turnMoves.js
+// src/moves/cardPlayMoves.js
 import { Combinations } from "../constants";
 import { INVALID_MOVE } from "boardgame.io/core";
-import { validCombination, validChop, compareHighest } from "./compareCards";
+import {
+  validCombination,
+  validChop,
+  compareHighest,
+} from "./helper-functions/cardComparison";
 const _ = require("lodash");
 
 export function playCards(G, ctx) {

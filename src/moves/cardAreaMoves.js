@@ -1,6 +1,6 @@
-// src/moves/moveCards.js
+// src/moves/cardAreaMoves.js
 
-export function reorderCards(G, ctx, cards, source) {
+export function relocateCards(G, ctx, cards, source) {
   const players = G.players;
   const playerID = ctx.playerID;
   players[playerID][source] = cards;
