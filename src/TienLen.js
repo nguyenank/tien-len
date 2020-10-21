@@ -23,6 +23,9 @@ export const TienLen = {
     },
   },
   turn: {
+    order: {
+      first: (G, ctx) => G.firstPlayer,
+    },
     activePlayers: {
       currentPlayer: { stage: Stage.NULL },
       others: { stage: "notTurn" },
@@ -55,7 +58,11 @@ function setUp(ctx) {
 
   const players = {};
 
+  let firstPlayer;
   for (let i = 0; i < 4; i++) {
+    if (_.find(chunkedDeck[i], { rank: "3", suit: "S" })) {
+      firstPlayer = i.toString();
+    }
     players[i] = {
       hand: chunkedDeck[i],
       stagingArea: [],
@@ -68,5 +75,6 @@ function setUp(ctx) {
     players: players,
     roundType: Combinations.ANY,
     winners: [],
+    firstPlayer: firstPlayer,
   };
 }
