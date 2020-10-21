@@ -4,9 +4,74 @@ body {
     "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #6ba368;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.card {
+  width: 6.75vw;
+  margin: 0.25vw;
+}
+
+.ghostCard {
+  opacity: 0;
+}
+
+.selectedCard {
+  position: relative;
+  top: -0.5em;
+}
+.stagingArea {
+  background-color: #3a7e42;
+  padding: 0.5em;
+  min-height: 10vw;
+  flex-wrap: wrap;
+  width: 25vw;
+  display: flex;
+  align-items: center;
+  align-self: center;
+}
+
+.hand {
+  background-color: #3a7e42;
+  padding: 0.75%;
+  flex-wrap: wrap;
+  width: 95vw;
+  align-items: flex;
+  display: flex;
+  justify-content: center;
+}
+
+.center {
+  background-color: #3a7e42;
+  padding: 0.5em;
+  min-height: 10vw;
+  flex-wrap: wrap;
+  width: 25vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.centerContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.break {
+  flex-basis: 100%;
+  height: 0;
+}
+
+.button {
+  margin: 0.5em;
+  background-color: green;
+  color: white;
+  font-weight: bold;
+  border-radius: 1em;
+  border: 0.25em solid darkgreen;
 }

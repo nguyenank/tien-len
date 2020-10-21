@@ -1,7 +1,6 @@
 // src/TienLenBoard.js
 
 import React, { Component } from "react";
-import "./TienLenBoard.css";
 import CardArea from "./components/CardArea";
 
 export class TienLenBoard extends Component {
@@ -12,46 +11,52 @@ export class TienLenBoard extends Component {
       playerArea.push(<h1>Player {playerID}</h1>);
       playerArea.push(<h2>Staging Area</h2>);
       playerArea.push(
-        <CardArea
-          className="stagingArea"
-          cards={this.props.G.players[playerID].stagingArea}
-          setList={this.props.moves.relocateCards}
-        />
+        <div className="centerContainer">
+          <CardArea
+            className="stagingArea"
+            cards={this.props.G.players[playerID].stagingArea}
+            setList={this.props.moves.relocateCards}
+          />
+        </div>
       );
       const currentPlayer = this.props.ctx.currentPlayer;
+      let buttons = [];
       if (playerID === currentPlayer) {
         if (this.props.ctx.activePlayers[currentPlayer] === "tienLen") {
-          playerArea.push(<h3>Tien Len!</h3>);
-          playerArea.push(
+          buttons.push(<h3>Tien Len!</h3>);
+          buttons.push(
             <button className="button" onClick={this.props.moves.tienLenPlay}>
               Play Cards
             </button>
           );
         } else {
-          playerArea.push(
+          buttons.push(
             <button className="button" onClick={this.props.moves.playCards}>
               Play Cards
             </button>
           );
-          playerArea.push(
+          buttons.push(
             <button className="button" onClick={this.props.moves.passTurn}>
               Pass Turn
             </button>
           );
         }
       }
-      playerArea.push(
+      buttons.push(
         <button className="button" onClick={this.props.moves.clearStagingArea}>
           Clear Staging Area
         </button>
       );
+      playerArea.push(<div className="centerContainer">{buttons}</div>);
       playerArea.push(<h2>Hand</h2>);
       playerArea.push(
-        <CardArea
-          className="hand"
-          cards={this.props.G.players[playerID].hand}
-          setList={this.props.moves.relocateCards}
-        />
+        <div className="centerContainer">
+          <CardArea
+            className="hand"
+            cards={this.props.G.players[playerID].hand}
+            setList={this.props.moves.relocateCards}
+          />
+        </div>
       );
     }
 
@@ -63,13 +68,15 @@ export class TienLenBoard extends Component {
     return (
       <div>
         <h2>Center (Round Type: {this.props.G.roundType})</h2>
-        <CardArea
-          className="center"
-          cards={this.props.G.center}
-          onClick={() => null}
-          setList={() => null}
-          disabled={true}
-        />
+        <div className="centerContainer">
+          <CardArea
+            className="center"
+            cards={this.props.G.center}
+            onClick={() => null}
+            setList={() => null}
+            disabled={true}
+          />
+        </div>
         <div className="player-area">{playerArea}</div>
         <h3>Winners: {this.props.G.winners}</h3>
         {gameover}
