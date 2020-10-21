@@ -49,12 +49,14 @@ export function tienLenPlay(G, ctx) {
 }
 
 function cardsToCenter(G, ctx) {
-  let stagingArea = G.players[ctx.currentPlayer].stagingArea;
+  const currentPlayer = ctx.currentPlayer;
+  let stagingArea = G.players[currentPlayer].stagingArea;
   G.center = _.cloneDeep(stagingArea);
-  G.players[ctx.currentPlayer].stagingArea = [];
-  if (G.players[ctx.currentPlayer].hand.length === 0) {
+  G.players[currentPlayer].stagingArea = [];
+  G.cardsLeft[currentPlayer] -= G.center.length;
+  if (G.cardsLeft[currentPlayer] === 0) {
     // won the game
-    G.winners.push(ctx.currentPlayer);
+    G.winners.push(currentPlayer);
     // get rid of any existing winner markers
     G.turnOrder = G.turnOrder.map(x => (x === "W" ? null : x));
     G.turnOrder[parseInt(ctx.currentPlayer)] = "W";

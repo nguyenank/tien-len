@@ -76,5 +76,6 @@ function setUp(ctx) {
     roundType: Combinations.ANY,
     winners: [],
     firstPlayer: firstPlayer,
+    cardsLeft: { 0: 13, 1: 13, 2: 13, 3: 13 },
   };
 }
