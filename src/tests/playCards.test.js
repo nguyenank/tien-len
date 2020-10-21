@@ -8,6 +8,7 @@ import { INVALID_MOVE } from "boardgame.io/core";
 describe("playCards", () => {
   let G;
   let client;
+  let ctx;
   beforeEach(() => {
     client = Client({
       game: TienLen,
@@ -88,6 +89,8 @@ describe("playCards", () => {
         stagingArea: [],
       },
     };
+    ctx = client.store.getState()["ctx"];
+    ctx.currentPlayer = "0";
   });
 
   it("should change the roundType at the start of each round", () => {

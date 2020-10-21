@@ -61,7 +61,7 @@ function setUp(ctx) {
   let firstPlayer;
   for (let i = 0; i < 4; i++) {
     if (_.find(chunkedDeck[i], { rank: "3", suit: "S" })) {
-      firstPlayer = i.toString();
+      firstPlayer = i;
     }
     players[i] = {
       hand: chunkedDeck[i],

@@ -36,6 +36,8 @@ describe("winners", () => {
         stagingArea: [],
       },
     };
+    ctx = client.store.getState()["ctx"];
+    ctx.currentPlayer = "0";
   });
 
   it("should be added to every time a player runs out of cards", () => {
@@ -117,6 +119,8 @@ describe("winners", () => {
           stagingArea: [],
         },
       };
+      ctx = client.store.getState()["ctx"];
+      ctx.currentPlayer = "0";
     });
 
     it("should skip players who have won", () => {

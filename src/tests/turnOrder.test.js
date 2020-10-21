@@ -6,12 +6,15 @@ import { Combinations } from "../constants";
 
 describe("Turn order", () => {
   let client;
+  let ctx;
 
   beforeEach(() => {
     client = Client({
       game: TienLen,
       numPlayers: 4,
     });
+    ctx = client.store.getState()["ctx"];
+    ctx.currentPlayer = "0";
   });
 
   it("should pass to the next player, wrapping around", () => {
