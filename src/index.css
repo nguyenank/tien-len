@@ -30,7 +30,7 @@ code {
   padding: 0.5em;
   min-height: 10vw;
   flex-wrap: wrap;
-  width: 25vw;
+  min-width: 25vw;
   display: flex;
   align-items: center;
   align-self: center;
@@ -47,7 +47,7 @@ code {
 }
 
 .center {
-  background-color: #3a7e42;
+  background-color: darkgreen;
   padding: 0.5em;
   min-height: 10vw;
   flex-wrap: wrap;
@@ -74,4 +74,25 @@ code {
   font-weight: bold;
   border-radius: 1em;
   border: 0.25em solid darkgreen;
+}
+
+.status {
+  font-family: monospace;
+  font-size: 3em;
+}
+
+.currentPlayer {
+  text-decoration: underline;
+}
+
+.playerID {
+  font-weight: bold;
+}
+
+.passed {
+  color: #555;
+}
+
+.winner {
+  color: #ffff00;
 }

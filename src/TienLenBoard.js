@@ -9,7 +9,6 @@ export class TienLenBoard extends Component {
     const playerID = this.props.playerID;
     if (playerID && !this.props.ctx.gameover) {
       playerArea.push(<h1>Player {playerID}</h1>);
-      playerArea.push(<h2>Staging Area</h2>);
       playerArea.push(
         <div className="centerContainer">
           <CardArea
@@ -48,7 +47,6 @@ export class TienLenBoard extends Component {
         </button>
       );
       playerArea.push(<div className="centerContainer">{buttons}</div>);
-      playerArea.push(<h2>Hand</h2>);
       playerArea.push(
         <div className="centerContainer">
           <CardArea
@@ -58,6 +56,25 @@ export class TienLenBoard extends Component {
           />
         </div>
       );
+    }
+
+    let status = [];
+
+    for (let i = 0; i < 4; i++) {
+      let className = "";
+      if (i.toString() === this.props.ctx.currentPlayer) {
+        className += " currentPlayer";
+      }
+      if (i.toString() === playerID) {
+        className += " playerID";
+      }
+      if (!this.props.G.turnOrder.includes(i)) {
+        className += " passed";
+      }
+      if (this.props.G.winners.includes(i)) {
+        className += " winner";
+      }
+      status.push(<text className={className}>{i}</text>);
     }
 
     let gameover = "";
@@ -78,7 +95,9 @@ export class TienLenBoard extends Component {
           />
         </div>
         <div className="player-area">{playerArea}</div>
-        <h3>Winners: {this.props.G.winners}</h3>
+        <div className="centerContainer">
+          <div className="status">{status}</div>
+        </div>
         {gameover}
       </div>
     );
