@@ -33,7 +33,9 @@ export function tienLenPlay(G, ctx) {
   if (stagingArea.length === 0) {
     return INVALID_MOVE;
   }
-  if (
+  if (validChop(G.center, stagingArea)) {
+    G.roundType = handType;
+  } else if (
     // not a valid tien len play
     G.roundType !== handType ||
     compareHighest(stagingArea, G.center) !== 1
