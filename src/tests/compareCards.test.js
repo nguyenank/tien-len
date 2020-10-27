@@ -1,6 +1,5 @@
 // src/tests/compareCards.test.js
 
-import { Client } from "boardgame.io/client";
 import {
   compareCards,
   validCombination,
@@ -128,7 +127,7 @@ describe("validCombination", () => {
   });
 });
 
-describe("validCombination", () => {
+describe("validCombination for chops", () => {
   let sevenSpades = { suit: "S", rank: "7" };
   let sevenHearts = { suit: "H", rank: "7" };
   let eightSpades = { suit: "S", rank: "8" };
@@ -234,8 +233,6 @@ describe("validChop", () => {
   let eightDiamonds = { suit: "D", rank: "8" };
   let nineSpades = { suit: "S", rank: "9" };
   let nineClubs = { suit: "C", rank: "9" };
-  let nineDiamonds = { suit: "D", rank: "9" };
-  let nineHearts = { suit: "H", rank: "9" };
   let tenSpades = { suit: "S", rank: "T" };
   let tenClubs = { suit: "C", rank: "T" };
   let tenDiamonds = { suit: "D", rank: "T" };

@@ -3,7 +3,6 @@
 import { Client } from "boardgame.io/client";
 import { TienLen } from "../TienLen";
 import { Combinations } from "../constants";
-import { INVALID_MOVE } from "boardgame.io/core";
 
 describe("playCards", () => {
   let G;

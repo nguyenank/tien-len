@@ -2,6 +2,7 @@
 
 import React, { Component } from "react";
 import CardArea from "./components/CardArea";
+import PropTypes from "prop-types";
 
 export class TienLenBoard extends Component {
   render() {
@@ -9,7 +10,7 @@ export class TienLenBoard extends Component {
     const playerID = this.props.playerID;
     if (playerID && !this.props.ctx.gameover) {
       playerArea.push(
-        <div className="centerContainer">
+        <div className="centerContainer" key="stagingArea">
           <CardArea
             className="stagingArea"
             cards={this.props.G.players[playerID].stagingArea}
@@ -21,33 +22,53 @@ export class TienLenBoard extends Component {
       let buttons = [];
       if (playerID === currentPlayer) {
         if (this.props.ctx.activePlayers[currentPlayer] === "tienLen") {
-          buttons.push(<h3>Tien Len!</h3>);
+          buttons.push(<h3 key="tienLenText">Tien Len!</h3>);
           buttons.push(
-            <button className="button" onClick={this.props.moves.tienLenPlay}>
+            <button
+              className="button"
+              key="tienLenPlay"
+              onClick={this.props.moves.tienLenPlay}
+            >
               Play Cards
             </button>
           );
         } else {
           buttons.push(
-            <button className="button" onClick={this.props.moves.playCards}>
+            <button
+              className="button"
+              key="playcards"
+              onClick={this.props.moves.playCards}
+            >
               Play Cards
             </button>
           );
           buttons.push(
-            <button className="button" onClick={this.props.moves.passTurn}>
+            <button
+              className="button"
+              key="passTurn"
+              onClick={this.props.moves.passTurn}
+            >
               Pass Turn
             </button>
           );
         }
       }
       buttons.push(
-        <button className="button" onClick={this.props.moves.clearStagingArea}>
+        <button
+          className="button"
+          key="clearStagingArea"
+          onClick={this.props.moves.clearStagingArea}
+        >
           Clear Staging Area
         </button>
       );
-      playerArea.push(<div className="centerContainer">{buttons}</div>);
       playerArea.push(
-        <div className="centerContainer">
+        <div className="centerContainer" key="buttons">
+          {buttons}
+        </div>
+      );
+      playerArea.push(
+        <div className="centerContainer" key="hand">
           <CardArea
             className="hand"
             cards={this.props.G.players[playerID].hand}
@@ -73,7 +94,11 @@ export class TienLenBoard extends Component {
       if (this.props.G.winners.includes(i)) {
         className += " winner";
       }
-      status.push(<text className={className}>{i}</text>);
+      status.push(
+        <span className={className} key={i}>
+          {i}
+        </span>
+      );
     }
 
     let gameover = "";
@@ -104,3 +129,10 @@ export class TienLenBoard extends Component {
     );
   }
 }
+
+TienLenBoard.propTypes = {
+  G: PropTypes.object,
+  ctx: PropTypes.object,
+  moves: PropTypes.object,
+  playerID: PropTypes.string,
+};

@@ -24,7 +24,7 @@ export const TienLen = {
   },
   turn: {
     order: {
-      first: (G, ctx) => G.firstPlayer,
+      first: G => G.firstPlayer,
     },
     activePlayers: {
       currentPlayer: { stage: Stage.NULL },
@@ -32,7 +32,7 @@ export const TienLen = {
     },
   },
   playerView: PlayerView.STRIP_SECRETS,
-  endIf: (G, ctx) => {
+  endIf: G => {
     if (G.winners.length === 3) {
       let w = G.winners.concat(
         ["0", "1", "2", "3"].filter(x => !G.winners.includes(x))
