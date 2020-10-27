@@ -16,7 +16,6 @@ GameTienLen.minPlayers = GameTienLen.maxPlayers = 2;
 
 const { protocol, hostname, port } = window.location;
 const server = `${protocol}//${hostname}:${port}`;
-const importedGames = [{ game: TicTacToe, board: TicTacToeBoard }];
 
 const importedGames = [{ game: GameTienLen, board: BoardTienLen }];
 
