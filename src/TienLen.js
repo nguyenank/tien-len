@@ -8,7 +8,7 @@ import { compareCards } from "./moves/helper-functions/cardComparison";
 const _ = require("lodash");
 
 const TienLen = {
-  name: "tien len",
+  name: "tien-len",
   setup: setUp,
   moves: {
     relocateCards: relocateCards,

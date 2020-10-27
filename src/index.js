@@ -3,7 +3,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-//import App from "./App";
+// import { default as App } from "./App";
 import LobbyView from "./components/LobbyView";
 import * as serviceWorker from "./serviceWorker";
 
