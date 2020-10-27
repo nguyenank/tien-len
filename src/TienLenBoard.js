@@ -4,7 +4,7 @@ import React, { Component } from "react";
 import CardArea from "./components/CardArea";
 import PropTypes from "prop-types";
 
-export class TienLenBoard extends Component {
+class TienLenBoard extends Component {
   render() {
     let playerArea = [];
     const playerID = this.props.playerID;
@@ -136,3 +136,5 @@ TienLenBoard.propTypes = {
   moves: PropTypes.object,
   playerID: PropTypes.string,
 };
+
+export default TienLenBoard;

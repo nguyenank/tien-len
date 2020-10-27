@@ -3,12 +3,13 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
+//import App from "./App";
+import LobbyView from "./components/LobbyView";
 import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
   <React.StrictMode>
-    <App playerID="0" />
+    <LobbyView />
   </React.StrictMode>,
   document.getElementById("root")
 );

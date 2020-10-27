@@ -7,7 +7,8 @@ import { relocateCards, clearStagingArea } from "./moves/cardAreaMoves";
 import { compareCards } from "./moves/helper-functions/cardComparison";
 const _ = require("lodash");
 
-export const TienLen = {
+const TienLen = {
+  name: "tien len",
   setup: setUp,
   moves: {
     relocateCards: relocateCards,
@@ -79,3 +80,5 @@ function setUp(ctx) {
     cardsLeft: { 0: 13, 1: 13, 2: 13, 3: 13 },
   };
 }
+
+export default TienLen;
