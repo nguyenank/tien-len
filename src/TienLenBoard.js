@@ -8,7 +8,6 @@ export class TienLenBoard extends Component {
     let playerArea = [];
     const playerID = this.props.playerID;
     if (playerID && !this.props.ctx.gameover) {
-      playerArea.push(<h1>Player {playerID}</h1>);
       playerArea.push(
         <div className="centerContainer">
           <CardArea
@@ -84,7 +83,9 @@ export class TienLenBoard extends Component {
 
     return (
       <div>
-        <h2>Center (Round Type: {this.props.G.roundType})</h2>
+        <center>
+          <h2>Center (Round Type: {this.props.G.roundType})</h2>
+        </center>
         <div className="centerContainer">
           <CardArea
             className="center"

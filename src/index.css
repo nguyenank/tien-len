@@ -28,6 +28,7 @@ code {
 .stagingArea {
   background-color: #3a7e42;
   padding: 0.5em;
+  margin: 0.5em;
   min-height: 10vw;
   flex-wrap: wrap;
   min-width: 25vw;
@@ -49,6 +50,7 @@ code {
 .center {
   background-color: darkgreen;
   padding: 0.5em;
+  margin: 0.5em;
   min-height: 10vw;
   flex-wrap: wrap;
   width: 25vw;
