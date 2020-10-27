@@ -14,7 +14,10 @@ import "./lobby.css";
 
 GameTienLen.minPlayers = GameTienLen.maxPlayers = 2;
 
-const hostname = window.location.hostname;
+const { protocol, hostname, port } = window.location;
+const server = `${protocol}//${hostname}:${port}`;
+const importedGames = [{ game: TicTacToe, board: TicTacToeBoard }];
+
 const importedGames = [{ game: GameTienLen, board: BoardTienLen }];
 
 const LobbyView = () => (
@@ -22,8 +25,8 @@ const LobbyView = () => (
     <h1>Lobby</h1>
 
     <Lobby
-      gameServer={`http://${hostname}:8000`}
-      lobbyServer={`http://${hostname}:8000`}
+      gameServer={server}
+      lobbyServer={server}
       gameComponents={importedGames}
     />
   </div>
