@@ -12,7 +12,7 @@ import { default as BoardTienLen } from "../TienLenBoard";
 import { default as GameTienLen } from "../TienLen";
 import "./lobby.css";
 
-GameTienLen.minPlayers = GameTienLen.maxPlayers = 2;
+GameTienLen.minPlayers = GameTienLen.maxPlayers = 4;
 
 const { protocol, hostname, port } = window.location;
 const server = `${protocol}//${hostname}:${port}`;
