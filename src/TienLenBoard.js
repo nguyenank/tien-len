@@ -3,6 +3,8 @@
 import React, { Component } from "react";
 import CardArea from "./components/CardArea";
 import PropTypes from "prop-types";
+import { validPlay } from "./moves/cardPlayMoves";
+import { validCombination } from "./moves/helper-functions/cardComparison";
 
 class TienLenBoard extends Component {
   render() {
@@ -20,9 +22,31 @@ class TienLenBoard extends Component {
       );
       const currentPlayer = this.props.ctx.currentPlayer;
       let buttons = [];
+      buttons.push(
+        <button
+          className="button"
+          key="clearStagingArea"
+          onClick={this.props.moves.clearStagingArea}
+        >
+          Clear Staging Area
+        </button>
+      );
+      if (this.props.ctx.activePlayers[currentPlayer] !== "tienLen") {
+        buttons.push(playCardsButton(this.props, playerID, currentPlayer));
+      }
       if (playerID === currentPlayer) {
         if (this.props.ctx.activePlayers[currentPlayer] === "tienLen") {
-          buttons.push(<h3 key="tienLenText">Tien Len!</h3>);
+          let stagingArea = this.props.G.players[playerID].stagingArea;
+          if (
+            stagingArea.length === 0 ||
+            validCombination(stagingArea) === undefined
+          ) {
+            buttons.push(
+              <button className="button disabled" key="playcards">
+                Invalid Combination
+              </button>
+            );
+          }
           buttons.push(
             <button
               className="button"
@@ -36,15 +60,6 @@ class TienLenBoard extends Component {
           buttons.push(
             <button
               className="button"
-              key="playcards"
-              onClick={this.props.moves.playCards}
-            >
-              Play Cards
-            </button>
-          );
-          buttons.push(
-            <button
-              className="button"
               key="passTurn"
               onClick={this.props.moves.passTurn}
             >
@@ -53,15 +68,6 @@ class TienLenBoard extends Component {
           );
         }
       }
-      buttons.push(
-        <button
-          className="button"
-          key="clearStagingArea"
-          onClick={this.props.moves.clearStagingArea}
-        >
-          Clear Staging Area
-        </button>
-      );
       playerArea.push(
         <div className="centerContainer" key="buttons">
           {buttons}
@@ -126,6 +132,34 @@ class TienLenBoard extends Component {
         </div>
         {gameover}
       </div>
+    );
+  }
+}
+
+function playCardsButton(props, playerID, currentPlayer) {
+  let stagingArea = props.G.players[playerID].stagingArea;
+  const p = validPlay(stagingArea, props.G.roundType, props.G.center);
+  if (typeof p === "string") {
+    return (
+      <button className="button disabled" key="playcards">
+        {p}
+      </button>
+    );
+  } else if (playerID !== currentPlayer) {
+    return (
+      <button className="button wait" key="playcards">
+        Not Your Turn
+      </button>
+    );
+  } else {
+    return (
+      <button
+        className="button"
+        key="playcards"
+        onClick={props.moves.cardsToCenter}
+      >
+        Play Cards
+      </button>
     );
   }
 }

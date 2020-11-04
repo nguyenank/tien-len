@@ -69,13 +69,24 @@ code {
   height: 0;
 }
 
-.button {
+button {
   margin: 0.5em;
   background-color: green;
   color: white;
   font-weight: bold;
   border-radius: 1em;
   border: 0.25em solid darkgreen;
+}
+
+.disabled {
+  background-color: #95ad95;
+  border: 0.25em solid #647564;
+  color: black;
+}
+
+.wait {
+  background-color: darkgreen;
+  border: 0.25em solid black;
 }
 
 .status {

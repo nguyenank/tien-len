@@ -1,6 +1,5 @@
 // src/moves/cardPlayMoves.js
 import { Combinations } from "../constants";
-import { INVALID_MOVE } from "boardgame.io/core";
 import {
   validCombination,
   validChop,
@@ -8,31 +7,26 @@ import {
 } from "./helper-functions/cardComparison";
 const _ = require("lodash");
 
-export function playCards(G, ctx) {
-  let stagingArea = G.players[ctx.currentPlayer].stagingArea;
+export function validPlay(stagingArea, roundType, center) {
   const handType = validCombination(stagingArea);
   if (stagingArea.length === 0 || handType === undefined) {
-    return INVALID_MOVE;
-  }
-  if (G.roundType === Combinations.ANY || validChop(G.center, stagingArea)) {
-    G.roundType = handType;
-    cardsToCenter(G, ctx);
-  } else if (
-    G.roundType === handType &&
-    compareHighest(stagingArea, G.center) === 1
-  ) {
-    cardsToCenter(G, ctx);
+    return "Invalid Combination";
+  } else if (roundType === Combinations.ANY || validChop(center, stagingArea)) {
+    return true;
+  } else if (roundType !== handType) {
+    return "Does Not Match Center";
+  } else if (stagingArea.length !== center.length) {
+    return "Does Not Match Center";
+  } else if (compareHighest(stagingArea, center) !== 1) {
+    return "Does Not Beat Center";
   } else {
-    return INVALID_MOVE;
+    return true;
   }
 }
 
 export function tienLenPlay(G, ctx) {
   let stagingArea = G.players[ctx.currentPlayer].stagingArea;
   const handType = validCombination(stagingArea);
-  if (stagingArea.length === 0) {
-    return INVALID_MOVE;
-  }
   if (validChop(G.center, stagingArea)) {
     G.roundType = handType;
   } else if (
@@ -50,9 +44,11 @@ export function tienLenPlay(G, ctx) {
   cardsToCenter(G, ctx);
 }
 
-function cardsToCenter(G, ctx) {
+export function cardsToCenter(G, ctx) {
   const currentPlayer = ctx.currentPlayer;
   let stagingArea = G.players[currentPlayer].stagingArea;
+  G.roundType = validCombination(stagingArea);
+
   G.center = _.cloneDeep(stagingArea);
   G.players[currentPlayer].stagingArea = [];
   G.cardsLeft[currentPlayer] -= G.center.length;
