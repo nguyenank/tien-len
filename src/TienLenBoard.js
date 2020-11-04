@@ -20,54 +20,7 @@ class TienLenBoard extends Component {
           />
         </div>
       );
-      const currentPlayer = this.props.ctx.currentPlayer;
-      let buttons = [];
-      buttons.push(
-        <button
-          className="button"
-          key="clearStagingArea"
-          onClick={this.props.moves.clearStagingArea}
-        >
-          Clear Staging Area
-        </button>
-      );
-      if (this.props.ctx.activePlayers[currentPlayer] !== "tienLen") {
-        buttons.push(playCardsButton(this.props, playerID, currentPlayer));
-      }
-      if (playerID === currentPlayer) {
-        if (this.props.ctx.activePlayers[currentPlayer] === "tienLen") {
-          let stagingArea = this.props.G.players[playerID].stagingArea;
-          if (
-            stagingArea.length === 0 ||
-            validCombination(stagingArea) === undefined
-          ) {
-            buttons.push(
-              <button className="button disabled" key="playcards">
-                Invalid Combination
-              </button>
-            );
-          }
-          buttons.push(
-            <button
-              className="button"
-              key="tienLenPlay"
-              onClick={this.props.moves.tienLenPlay}
-            >
-              Play Cards
-            </button>
-          );
-        } else {
-          buttons.push(
-            <button
-              className="button"
-              key="passTurn"
-              onClick={this.props.moves.passTurn}
-            >
-              Pass Turn
-            </button>
-          );
-        }
-      }
+      let buttons = createButtons(this.props);
       playerArea.push(
         <div className="centerContainer" key="buttons">
           {buttons}
@@ -136,7 +89,57 @@ class TienLenBoard extends Component {
   }
 }
 
-function playCardsButton(props, playerID, currentPlayer) {
+function createButtons(props) {
+  const currentPlayer = props.ctx.currentPlayer === props.playerID;
+  const tienLen =
+    props.ctx.activePlayers[props.ctx.currentPlayer] === "tienLen";
+  let buttons = [];
+
+  buttons.push(
+    <button
+      className="button"
+      key="clearStagingArea"
+      onClick={props.moves.clearStagingArea}
+    >
+      Clear Staging Area
+    </button>
+  );
+
+  if (currentPlayer && tienLen) {
+    let stagingArea = props.G.players[props.playerID].stagingArea;
+    const invalidPlay =
+      stagingArea.length === 0 || validCombination(stagingArea) === undefined;
+    buttons.push(
+      <button
+        className={invalidPlay ? "button disabled" : "button"}
+        key="tienLenPlay"
+        onClick={invalidPlay ? () => null : props.moves.tienLenPlay}
+      >
+        {invalidPlay ? "Invalid Combination" : "Play Cards"}
+      </button>
+    );
+  } else {
+    buttons.push(
+      playCardsButton(props, props.playerID, props.ctx.currentPlayer)
+    );
+    if (currentPlayer && !tienLen) {
+      buttons.push(
+        <button
+          className="button"
+          key="passTurn"
+          onClick={props.moves.passTurn}
+        >
+          Pass Turn
+        </button>
+      );
+    }
+  }
+  return buttons;
+}
+
+function playCardsButton(props) {
+  const currentPlayer = props.ctx.currentPlayer;
+  const playerID = props.playerID;
   let stagingArea = props.G.players[playerID].stagingArea;
   const p = validPlay(stagingArea, props.G.roundType, props.G.center);
   if (typeof p === "string") {
