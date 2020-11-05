@@ -13,9 +13,7 @@ export function validPlay(stagingArea, roundType, center) {
     return "Invalid Combination";
   } else if (roundType === Combinations.ANY || validChop(center, stagingArea)) {
     return true;
-  } else if (roundType !== handType) {
-    return "Does Not Match Center";
-  } else if (stagingArea.length !== center.length) {
+  } else if (roundType !== handType || stagingArea.length !== center.length) {
     return "Does Not Match Center";
   } else if (compareHighest(stagingArea, center) !== 1) {
     return "Does Not Beat Center";

@@ -1,7 +1,7 @@
 // src/tests/turnOrder.test.js
 
 import { Client } from "boardgame.io/client";
-import { TienLen } from "../TienLen";
+import { default as TienLen } from "../TienLen";
 import { Combinations } from "../constants";
 
 describe("Turn order", () => {
@@ -20,24 +20,24 @@ describe("Turn order", () => {
   it("should pass to the next player, wrapping around", () => {
     // pass turn along
     client.moves.relocateCards([{ rank: "3", suit: "C" }], "stagingArea");
-    client.moves.playCards();
+    client.moves.cardsToCenter();
 
     let { ctx } = client.store.getState();
 
     expect(ctx.currentPlayer).toEqual("1");
 
     client.moves.relocateCards([{ rank: "4", suit: "C" }], "stagingArea");
-    client.moves.playCards();
+    client.moves.cardsToCenter();
     ctx = client.store.getState()["ctx"];
     expect(ctx.currentPlayer).toEqual("2");
 
     client.moves.relocateCards([{ rank: "5", suit: "C" }], "stagingArea");
-    client.moves.playCards();
+    client.moves.cardsToCenter();
     ctx = client.store.getState()["ctx"];
     expect(ctx.currentPlayer).toEqual("3");
 
     client.moves.relocateCards([{ rank: "6", suit: "C" }], "stagingArea");
-    client.moves.playCards();
+    client.moves.cardsToCenter();
     ctx = client.store.getState()["ctx"];
     let G = client.store.getState()["G"];
     expect(ctx.currentPlayer).toEqual("0");
@@ -54,23 +54,23 @@ describe("Turn order", () => {
 
     it("should skip any players who have passed", () => {
       client.moves.relocateCards([{ rank: "3", suit: "C" }], "stagingArea");
-      client.moves.playCards();
+      client.moves.cardsToCenter();
 
       let { ctx } = client.store.getState();
       expect(ctx.currentPlayer).toEqual("2");
 
       client.moves.relocateCards([{ rank: "4", suit: "C" }], "stagingArea");
-      client.moves.playCards();
+      client.moves.cardsToCenter();
       ctx = client.store.getState()["ctx"];
       expect(ctx.currentPlayer).toEqual("3");
 
       client.moves.relocateCards([{ rank: "5", suit: "C" }], "stagingArea");
-      client.moves.playCards(); // player 3 passes
+      client.moves.cardsToCenter(); // player 3 passes
       ctx = client.store.getState()["ctx"];
       expect(ctx.currentPlayer).toEqual("0");
 
       client.moves.relocateCards([{ rank: "6", suit: "C" }], "stagingArea");
-      client.moves.playCards();
+      client.moves.cardsToCenter();
       ctx = client.store.getState()["ctx"];
       expect(ctx.currentPlayer).toEqual("2");
       G = client.store.getState()["G"];
@@ -79,14 +79,14 @@ describe("Turn order", () => {
 
     it("should remove players who pass from the turn order", () => {
       client.moves.relocateCards([{ rank: "3", suit: "C" }], "stagingArea");
-      client.moves.playCards();
+      client.moves.cardsToCenter();
 
       let { ctx } = client.store.getState();
 
       expect(ctx.currentPlayer).toEqual("2");
 
       client.moves.relocateCards([{ rank: "4", suit: "C" }], "stagingArea");
-      client.moves.playCards();
+      client.moves.cardsToCenter();
       ctx = client.store.getState()["ctx"];
       expect(ctx.currentPlayer).toEqual("3");
 
@@ -95,12 +95,12 @@ describe("Turn order", () => {
       expect(ctx.currentPlayer).toEqual("0");
 
       client.moves.relocateCards([{ rank: "5", suit: "C" }], "stagingArea");
-      client.moves.playCards();
+      client.moves.cardsToCenter();
       ctx = client.store.getState()["ctx"];
       expect(ctx.currentPlayer).toEqual("2");
 
       client.moves.relocateCards([{ rank: "6", suit: "C" }], "stagingArea");
-      client.moves.playCards();
+      client.moves.cardsToCenter();
       ctx = client.store.getState()["ctx"];
       expect(ctx.currentPlayer).toEqual("0");
       G = client.store.getState()["G"];

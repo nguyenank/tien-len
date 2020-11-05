@@ -1,7 +1,7 @@
-// src/tests/playCards.test.js
+// src/tests/cardsToCenter.test.js
 
 import { Client } from "boardgame.io/client";
-import { TienLen } from "../TienLen";
+import { default as TienLen } from "../TienLen";
 import { Combinations } from "../constants";
 
 describe("winners", () => {
@@ -35,6 +35,12 @@ describe("winners", () => {
         stagingArea: [],
       },
     };
+    G.cardsLeft = {
+      "0": 2,
+      "1": 1,
+      "2": 1,
+      "3": 1,
+    };
     ctx = client.store.getState()["ctx"];
     ctx.currentPlayer = "0";
   });
@@ -43,7 +49,7 @@ describe("winners", () => {
     client.moves.passTurn();
     client.moves.relocateCards([{ rank: "K", suit: "H" }], "stagingArea");
     client.moves.relocateCards([], "hand");
-    client.moves.playCards();
+    client.moves.cardsToCenter();
 
     G = client.store.getState()["G"];
     ctx = client.store.getState()["ctx"];
@@ -53,7 +59,7 @@ describe("winners", () => {
     client.moves.relocateCards([{ rank: "A", suit: "H" }], "stagingArea");
     client.moves.relocateCards([], "hand");
     G = client.store.getState()["G"];
-    client.moves.playCards();
+    client.moves.cardsToCenter();
 
     G = client.store.getState()["G"];
     ctx = client.store.getState()["ctx"];
@@ -64,7 +70,7 @@ describe("winners", () => {
   it("should be added to even when the player is in tien len", () => {
     client.moves.relocateCards([{ suit: "C", rank: "2" }], "stagingArea");
     client.moves.relocateCards([{ suit: "D", rank: "2" }], "hand");
-    client.moves.playCards();
+    client.moves.cardsToCenter();
     client.moves.passTurn();
     client.moves.passTurn();
     client.moves.passTurn();
@@ -118,6 +124,12 @@ describe("winners", () => {
           stagingArea: [],
         },
       };
+      G.cardsLeft = {
+        "0": 3,
+        "1": 1,
+        "2": 1,
+        "3": 2,
+      };
       ctx = client.store.getState()["ctx"];
       ctx.currentPlayer = "0";
     });
@@ -131,34 +143,49 @@ describe("winners", () => {
         ],
         "hand"
       );
-      client.moves.playCards();
+      client.moves.cardsToCenter();
       ctx = client.store.getState()["ctx"];
       expect(ctx.currentPlayer).toEqual("1");
+      G = client.store.getState()["G"];
+      expect(G.cardsLeft["0"]).toEqual(2);
 
       client.moves.relocateCards([{ suit: "H", rank: "K" }], "stagingArea");
       client.moves.relocateCards([], "hand");
-      client.moves.playCards();
+      client.moves.cardsToCenter();
+      G = client.store.getState()["G"];
+      expect(G.winners).toEqual(["1"]);
       ctx = client.store.getState()["ctx"];
       expect(ctx.currentPlayer).toEqual("2");
 
       client.moves.relocateCards([{ suit: "H", rank: "A" }], "stagingArea");
       client.moves.relocateCards([], "hand");
-      client.moves.playCards();
-
+      client.moves.cardsToCenter();
+      G = client.store.getState()["G"];
+      expect(G.winners).toEqual(["1", "2"]);
       ctx = client.store.getState()["ctx"];
       expect(ctx.currentPlayer).toEqual("3");
 
       client.moves.relocateCards([{ suit: "C", rank: "2" }], "stagingArea");
       client.moves.relocateCards([{ suit: "H", rank: "5" }], "hand");
-      client.moves.playCards();
+      client.moves.cardsToCenter();
 
       ctx = client.store.getState()["ctx"];
       expect(ctx.currentPlayer).toEqual("0");
 
       client.moves.relocateCards([{ suit: "H", rank: "2" }], "stagingArea");
-      client.moves.relocateCards([], "hand");
-      client.moves.playCards();
+      client.moves.relocateCards([{ suit: "C", rank: "K" }], "hand");
+      client.moves.cardsToCenter();
+      ctx = client.store.getState()["ctx"];
+      expect(ctx.currentPlayer).toEqual("3");
 
+      client.moves.passTurn();
+
+      client.moves.relocateCards([{ suit: "C", rank: "K" }], "stagingArea");
+      client.moves.relocateCards([], "hand");
+      client.moves.cardsToCenter();
+
+      G = client.store.getState()["G"];
+      expect(G.winners).toEqual(["1", "2", "0"]);
       ctx = client.store.getState()["ctx"];
       expect(ctx.gameover).toEqual({ winners: ["1", "2", "0", "3"] });
     });
@@ -172,17 +199,17 @@ describe("winners", () => {
         ],
         "hand"
       );
-      client.moves.playCards();
+      client.moves.cardsToCenter();
 
       client.moves.relocateCards([{ suit: "H", rank: "K" }], "stagingArea");
       client.moves.relocateCards([], "hand");
-      client.moves.playCards();
+      client.moves.cardsToCenter();
       G = client.store.getState()["G"];
       expect(G.turnOrder).toEqual([0, "W", 2, 3]);
 
       client.moves.relocateCards([{ suit: "H", rank: "A" }], "stagingArea");
       client.moves.relocateCards([], "hand");
-      client.moves.playCards();
+      client.moves.cardsToCenter();
       G = client.store.getState()["G"];
       expect(G.turnOrder).toEqual([0, null, "W", 3]);
 
@@ -205,7 +232,7 @@ describe("winners", () => {
         ],
         "hand"
       );
-      client.moves.playCards();
+      client.moves.cardsToCenter();
       client.moves.passTurn();
       client.moves.passTurn();
       client.moves.passTurn();
@@ -239,7 +266,7 @@ describe("winners", () => {
         ],
         "hand"
       );
-      client.moves.playCards();
+      client.moves.cardsToCenter();
       client.moves.passTurn();
       client.moves.passTurn();
       client.moves.passTurn();

@@ -1,13 +1,15 @@
 // src/tests/playCards.test.js
 
 import { Client } from "boardgame.io/client";
-import { TienLen } from "../TienLen";
+import { default as TienLen } from "../TienLen";
 import { Combinations } from "../constants";
+import { validPlay } from "../moves/cardPlayMoves";
 
 describe("playCards", () => {
   let G;
   let client;
   let ctx;
+  let state;
   beforeEach(() => {
     client = Client({
       game: TienLen,
@@ -100,7 +102,11 @@ describe("playCards", () => {
       ],
       "stagingArea"
     );
-    client.moves.playCards();
+    G = client.store.getState()["G"];
+    expect(validPlay(G.players["0"].stagingArea, G.roundType, G.center)).toBe(
+      true
+    );
+    client.moves.cardsToCenter();
 
     G = client.store.getState()["G"];
 
@@ -122,7 +128,10 @@ describe("playCards", () => {
       ],
       "stagingArea"
     );
-    client.moves.playCards();
+    G = client.store.getState()["G"];
+    expect(
+      validPlay(G.players["0"].stagingArea, G.roundType, G.center)
+    ).toEqual("Invalid Combination");
     G = client.store.getState()["G"];
     expect(G.players["0"].stagingArea.length).toBe(3);
 
@@ -133,7 +142,7 @@ describe("playCards", () => {
       ],
       "stagingArea"
     );
-    client.moves.playCards();
+    client.moves.cardsToCenter();
 
     // not a pair
     client.moves.relocateCards(
@@ -144,8 +153,10 @@ describe("playCards", () => {
       "stagingArea"
     );
 
-    client.moves.playCards();
     G = client.store.getState()["G"];
+    expect(
+      validPlay(G.players["1"].stagingArea, G.roundType, G.center)
+    ).toEqual("Invalid Combination");
     expect(G.players["1"].stagingArea.length).toBe(2);
 
     client.moves.relocateCards(
@@ -156,7 +167,10 @@ describe("playCards", () => {
       "stagingArea"
     );
 
-    client.moves.playCards();
+    G = client.store.getState()["G"];
+    expect(
+      validPlay(G.players["1"].stagingArea, G.roundType, G.center)
+    ).toEqual("Does Not Beat Center");
     G = client.store.getState()["G"];
     expect(G.players["1"].stagingArea.length).toBe(2);
   });
@@ -169,7 +183,7 @@ describe("playCards", () => {
       ],
       "stagingArea"
     );
-    client.moves.playCards();
+    client.moves.cardsToCenter();
     client.moves.relocateCards(
       [
         { suit: "C", rank: "T" },
@@ -178,7 +192,11 @@ describe("playCards", () => {
       "stagingArea"
     );
 
-    client.moves.playCards();
+    G = client.store.getState()["G"];
+    expect(validPlay(G.players["1"].stagingArea, G.roundType, G.center)).toBe(
+      true
+    );
+    client.moves.cardsToCenter();
     G = client.store.getState()["G"];
     expect(G.roundType).toEqual(Combinations.PAIR);
     expect(G.center).toEqual([
@@ -188,14 +206,8 @@ describe("playCards", () => {
   });
 
   it("should allow chops", () => {
-    client.moves.relocateCards(
-      [
-        { suit: "S", rank: "2" },
-        { suit: "D", rank: "6" },
-      ],
-      "stagingArea"
-    );
-    client.moves.playCards();
+    client.moves.relocateCards([{ suit: "S", rank: "2" }], "stagingArea");
+    client.moves.cardsToCenter();
 
     client.moves.relocateCards(
       [
@@ -207,7 +219,11 @@ describe("playCards", () => {
       "stagingArea"
     );
 
-    client.moves.playCards();
+    G = client.store.getState()["G"];
+    expect(validPlay(G.players["1"].stagingArea, G.roundType, G.center)).toBe(
+      true
+    );
+    client.moves.cardsToCenter();
     G = client.store.getState()["G"];
     expect(G.roundType).toEqual(Combinations.FOUROFAKIND);
     expect(G.center).toEqual([

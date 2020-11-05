@@ -1,7 +1,7 @@
 // src/tests/setUp.test.js
 
 import { Client } from "boardgame.io/client";
-import { TienLen } from "../TienLen";
+import { default as TienLen } from "../TienLen";
 import { compareCards } from "../moves/helper-functions/cardComparison";
 const _ = require("lodash");
 
@@ -11,6 +11,7 @@ describe("setUp", () => {
   beforeEach(() => {
     let client = Client({
       game: TienLen,
+      numPlayers: 4,
     });
     G = client.store.getState()["G"];
   });
