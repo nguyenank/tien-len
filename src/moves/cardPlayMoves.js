@@ -92,6 +92,7 @@ function nextTurn(G, ctx) {
     nextPlayer = findNextPlayer(G.turnOrder, currentPlayer);
   }
   ctx.events.endTurn({ next: nextPlayer });
+  removeNulls = G.turnOrder.filter(x => x !== null);
   if (removeNulls.length === 1) {
     // need to place new currentPlayer into tien len
     ctx.events.setActivePlayers({

@@ -4,7 +4,11 @@ import React, { Component } from "react";
 import CardArea from "./components/CardArea";
 import PropTypes from "prop-types";
 import { validPlay } from "./moves/cardPlayMoves";
-import { validCombination } from "./moves/helper-functions/cardComparison";
+import {
+  validCombination,
+  validChop,
+  compareHighest,
+} from "./moves/helper-functions/cardComparison";
 
 class TienLenBoard extends Component {
   render() {
@@ -79,7 +83,7 @@ class TienLenBoard extends Component {
             disabled={true}
           />
         </div>
-        <div className="player-area">{playerArea}</div>
+        <div className="playerArea">{playerArea}</div>
         <div className="centerContainer">
           <div className="status">{status}</div>
         </div>
@@ -106,22 +110,9 @@ function createButtons(props) {
   );
 
   if (currentPlayer && tienLen) {
-    let stagingArea = props.G.players[props.playerID].stagingArea;
-    const invalidPlay =
-      stagingArea.length === 0 || validCombination(stagingArea) === undefined;
-    buttons.push(
-      <button
-        className={invalidPlay ? "button disabled" : "button"}
-        key="tienLenPlay"
-        onClick={invalidPlay ? () => null : props.moves.tienLenPlay}
-      >
-        {invalidPlay ? "Invalid Combination" : "Play Cards"}
-      </button>
-    );
+    buttons.push(tienLenButton(props));
   } else {
-    buttons.push(
-      playCardsButton(props, props.playerID, props.ctx.currentPlayer)
-    );
+    buttons.push(playCardsButton(props));
     if (currentPlayer && !tienLen) {
       buttons.push(
         <button
@@ -135,6 +126,40 @@ function createButtons(props) {
     }
   }
   return buttons;
+}
+
+function tienLenButton(props) {
+  let stagingArea = props.G.players[props.playerID].stagingArea;
+  const handType = validCombination(stagingArea);
+  let classList = "button ";
+  let text = "Tien Len - ";
+  const invalidPlay =
+    stagingArea.length === 0 || validCombination(stagingArea) === undefined;
+  if (invalidPlay) {
+    text += "Invalid Combination";
+    classList += "disabled";
+  } else if (validChop(props.G.center, stagingArea)) {
+    text += "Tien Len";
+    classList += "tienlen";
+  } else if (
+    props.G.roundType !== handType ||
+    compareHighest(stagingArea, props.G.center) !== 1
+  ) {
+    text += stagingArea.length === 1 ? "Play Card" : "Play Cards";
+  } else {
+    text += "Tien Len";
+    classList += "tienlen";
+  }
+  return (
+    <button
+      className={classList}
+      disabled={invalidPlay}
+      key="tienLenPlay"
+      onClick={invalidPlay ? () => null : props.moves.tienLenPlay}
+    >
+      {text}
+    </button>
+  );
 }
 
 function playCardsButton(props) {
@@ -161,7 +186,7 @@ function playCardsButton(props) {
         key="playcards"
         onClick={props.moves.cardsToCenter}
       >
-        Play Cards
+        {stagingArea.length === 1 ? "Play Card" : "Play Cards"}
       </button>
     );
   }

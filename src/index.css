@@ -25,6 +25,7 @@ code {
   position: relative;
   top: -0.5em;
 }
+
 .stagingArea {
   background-color: #3a7e42;
   padding: 0.5em;
@@ -76,6 +77,11 @@ button {
   font-weight: bold;
   border-radius: 1em;
   border: 0.25em solid darkgreen;
+}
+
+.tienlen {
+  background-color: yellow;
+  color: black;
 }
 
 .disabled {
