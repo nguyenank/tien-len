@@ -1,0 +1,161 @@
+$cornsilk: #f7f3dc;
+$yellow: #f4d666;
+$orange: #f7b88b;
+$darkorange: #e8775a;
+$red: #bd4a39;
+$grey: #ebe3e1;
+$darkgrey: #bfb6b4;
+$darkergrey: #615b5a;
+
+body {
+  margin: 0;
+  font-family: -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: $cornsilk;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+/* placeholder classes */
+%card-area {
+  border-radius: 0.5em;
+  padding: 0.75vw;
+  margin: 1vw;
+  min-height: 10vw;
+  flex-wrap: wrap;
+  min-width: 25vw;
+  display: flex;
+  justify-content: center;
+}
+
+%hand {
+  @extend %card-area;
+  width: 95vw;
+}
+
+%player-status {
+  border-radius: 1em;
+  margin: 1vw;
+  padding: 2vw;
+}
+
+%player-area {
+  border-radius: 1em;
+  margin: 1vw;
+}
+
+/* card related */
+.card {
+  width: 6.75vw;
+  margin: 0.25vw;
+}
+
+.card-small {
+  width: 1em;
+}
+
+.ghost-card {
+  opacity: 0;
+}
+
+.selected-card {
+  position: relative;
+  top: -0.5em;
+}
+
+/* board related */
+.center-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.center {
+  @extend %card-area;
+  background-color: $yellow;
+}
+
+.center-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.current-player-status {
+  @extend %player-status;
+  background-color: $darkorange;
+}
+
+.player-status {
+  @extend %player-status;
+  background-color: $orange;
+}
+
+.current-player-area {
+  @extend %player-area;
+  background-color: $darkorange;
+}
+
+.player-area {
+  @extend %player-area;
+  background-color: $orange;
+}
+
+/* internal player area related*/
+
+.staging-area {
+  @extend %card-area;
+  background-color: $darkorange;
+}
+
+.current-staging-area {
+  @extend %card-area;
+  background-color: $red;
+}
+
+.hand {
+  @extend %hand;
+  background-color: $darkorange;
+}
+
+.current-hand {
+  @extend %hand;
+  background-color: $red;
+}
+
+.round-type {
+  text-align: center;
+  font-weight: bold;
+  font-variant: small-caps;
+}
+
+/* button related */
+button {
+  margin: 0.5em;
+  background-color: $cornsilk;
+  font-weight: bold;
+  border-radius: 1em;
+  border: 0.25em solid $yellow;
+}
+
+.tien-len {
+  background-color: $yellow;
+  border-color: $orange;
+}
+
+.disabled {
+  background-color: $grey;
+  border-color: $darkgrey;
+  color: $darkergrey;
+}
+
+.wait {
+  background-color: $darkgrey;
+  border-color: $darkergrey;
+  color: $darkergrey;
+}

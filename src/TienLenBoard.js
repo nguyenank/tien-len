@@ -15,13 +15,17 @@ class TienLenBoard extends Component {
   render() {
     const playerID = this.props.playerID;
     const currentPlayer = this.props.ctx.currentPlayer;
+    const currentPlayerBool = currentPlayer === this.props.playerID;
 
     let playerArea = [];
     if (playerID && !this.props.ctx.gameover) {
       playerArea.push(
-        <div className="centerContainer" key="stagingArea">
+        <div className="center-container" key="stagingArea">
           <CardArea
-            className="stagingArea"
+            className={
+              currentPlayerBool ? "current-staging-area" : "staging-area"
+            }
+            listName="stagingArea"
             cards={this.props.G.players[playerID].stagingArea}
             setList={this.props.moves.relocateCards}
           />
@@ -29,14 +33,15 @@ class TienLenBoard extends Component {
       );
       let buttons = createButtons(this.props);
       playerArea.push(
-        <div className="centerContainer" key="buttons">
+        <div className="center-container" key="buttons">
           {buttons}
         </div>
       );
       playerArea.push(
-        <div className="centerContainer" key="hand">
+        <div className="center-container" key="hand">
           <CardArea
-            className="hand"
+            className={currentPlayerBool ? "current-hand" : "hand"}
+            listName="hand"
             cards={this.props.G.players[playerID].hand}
             setList={this.props.moves.relocateCards}
           />
@@ -50,7 +55,7 @@ class TienLenBoard extends Component {
     for (let i of [2, 3, "center", 1, 0]) {
       if (i === "center") {
         centerRow.push(
-          <div key="center" className="roundType">
+          <div key="center" className="round-type">
             {this.props.G.roundType}
             <CardArea
               className="center"
@@ -65,28 +70,28 @@ class TienLenBoard extends Component {
         const index = (i + pID) % 4;
         if (i == 0 && playerID) {
           playerArea.push(
-            <div className="centerContainer">
+            <div className="center-container">
               <PlayerStatus
                 playerName={index.toString()}
                 cardsLeft={this.props.G.cardsLeft[index]}
                 className={
                   index.toString() === currentPlayer
-                    ? "currentPlayerStatus"
-                    : "playerStatus"
+                    ? "current-player-status"
+                    : "player-status"
                 }
               />
             </div>
           );
         } else if (i % 2 === 0) {
           gameArea.push(
-            <div className="centerContainer">
+            <div className="center-container">
               <PlayerStatus
                 playerName={index.toString()}
                 cardsLeft={this.props.G.cardsLeft[index]}
                 className={
                   index.toString() === currentPlayer
-                    ? "currentPlayerStatus"
-                    : "playerStatus"
+                    ? "current-player-status"
+                    : "player-status"
                 }
               />
             </div>
@@ -98,13 +103,13 @@ class TienLenBoard extends Component {
               cardsLeft={this.props.G.cardsLeft[index]}
               className={
                 index.toString() === currentPlayer
-                  ? "currentPlayerStatus"
-                  : "playerStatus"
+                  ? "current-player-status"
+                  : "player-status"
               }
             />
           );
           if (i === 1) {
-            gameArea.push(<div className="centerRow">{centerRow}</div>);
+            gameArea.push(<div className="center-row">{centerRow}</div>);
           }
         }
       }
@@ -121,13 +126,13 @@ class TienLenBoard extends Component {
         <div
           className={
             currentPlayer === this.props.playerID
-              ? "currentPlayerArea"
-              : "playerArea"
+              ? "current-player-area"
+              : "player-area"
           }
         >
           {playerArea}
         </div>
-        <div className="centerContainer">
+        <div className="center-container">
           <div className="status">{status}</div>
         </div>
         {gameover}
@@ -174,16 +179,16 @@ function createButtons(props) {
 function tienLenButton(props) {
   let stagingArea = props.G.players[props.playerID].stagingArea;
   const handType = validCombination(stagingArea);
-  let classList = "button ";
+  let classList;
   let text = "Tien Len - ";
   const invalidPlay =
     stagingArea.length === 0 || validCombination(stagingArea) === undefined;
   if (invalidPlay) {
     text += "Invalid Combination";
-    classList += "disabled";
+    classList = "disabled";
   } else if (validChop(props.G.center, stagingArea)) {
     text += "Tien Len";
-    classList += "tienlen";
+    classList = "tien-len";
   } else if (
     props.G.roundType !== handType ||
     compareHighest(stagingArea, props.G.center) !== 1
@@ -191,7 +196,7 @@ function tienLenButton(props) {
     text += stagingArea.length === 1 ? "Play Card" : "Play Cards";
   } else {
     text += "Tien Len";
-    classList += "tienlen";
+    classList = "tien-len";
   }
   return (
     <button
@@ -212,23 +217,19 @@ function playCardsButton(props) {
   const p = validPlay(stagingArea, props.G.roundType, props.G.center);
   if (typeof p === "string") {
     return (
-      <button className="button disabled" key="playcards">
+      <button className="disabled" disabled={true} key="playcards">
         {p}
       </button>
     );
   } else if (playerID !== currentPlayer) {
     return (
-      <button className="button wait" key="playcards">
+      <button className="wait" key="playcards">
         Not Your Turn
       </button>
     );
   } else {
     return (
-      <button
-        className="button"
-        key="playcards"
-        onClick={props.moves.cardsToCenter}
-      >
+      <button key="playcards" onClick={props.moves.cardsToCenter}>
         {stagingArea.length === 1 ? "Play Card" : "Play Cards"}
       </button>
     );

@@ -4,17 +4,23 @@ import Card from "./Card";
 import { ReactSortable } from "react-sortablejs";
 import PropTypes from "prop-types";
 
-export default function CardArea({ cards, className, setList, disabled }) {
+export default function CardArea({
+  cards,
+  className,
+  listName,
+  setList,
+  disabled,
+}) {
   return (
     <ReactSortable
       multiDrag={false}
       group={"shared"}
       dragoverBubble={true}
-      selectedClass={"selectedCard"}
+      selectedClass={"selected-card"}
       list={cards}
-      setList={newCards => setList(newCards, className)}
+      setList={newCards => setList(newCards, listName)}
       className={className}
-      ghostClass={"ghostCard"}
+      ghostClass={"ghost-card"}
       disabled={disabled}
     >
       {cards.map(card => (
@@ -29,4 +35,5 @@ CardArea.propTypes = {
   className: PropTypes.string,
   setList: PropTypes.func,
   disabled: PropTypes.bool,
+  listName: PropTypes.string,
 };
