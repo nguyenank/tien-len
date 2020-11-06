@@ -2,6 +2,7 @@
 
 import React, { Component } from "react";
 import CardArea from "./components/CardArea";
+import PlayerStatus from "./components/PlayerStatus";
 import PropTypes from "prop-types";
 import { validPlay } from "./moves/cardPlayMoves";
 import {
@@ -12,8 +13,10 @@ import {
 
 class TienLenBoard extends Component {
   render() {
-    let playerArea = [];
     const playerID = this.props.playerID;
+    const currentPlayer = this.props.ctx.currentPlayer;
+
+    let playerArea = [];
     if (playerID && !this.props.ctx.gameover) {
       playerArea.push(
         <div className="centerContainer" key="stagingArea">
@@ -41,27 +44,70 @@ class TienLenBoard extends Component {
       );
     }
 
-    let status = [];
-
-    for (let i = 0; i < 4; i++) {
-      let className = "";
-      if (i.toString() === this.props.ctx.currentPlayer) {
-        className += " currentPlayer";
+    const pID = playerID ? parseInt(playerID) : 0;
+    let gameArea = [];
+    let centerRow = [];
+    for (let i of [2, 3, "center", 1, 0]) {
+      if (i === "center") {
+        centerRow.push(
+          <div key="center" className="roundType">
+            {this.props.G.roundType}
+            <CardArea
+              className="center"
+              cards={this.props.G.center}
+              onClick={() => null}
+              setList={() => null}
+              disabled={true}
+            />
+          </div>
+        );
+      } else {
+        const index = (i + pID) % 4;
+        if (i == 0 && playerID) {
+          playerArea.push(
+            <div className="centerContainer">
+              <PlayerStatus
+                playerName={index.toString()}
+                cardsLeft={this.props.G.cardsLeft[index]}
+                className={
+                  index.toString() === currentPlayer
+                    ? "currentPlayerStatus"
+                    : "playerStatus"
+                }
+              />
+            </div>
+          );
+        } else if (i % 2 === 0) {
+          gameArea.push(
+            <div className="centerContainer">
+              <PlayerStatus
+                playerName={index.toString()}
+                cardsLeft={this.props.G.cardsLeft[index]}
+                className={
+                  index.toString() === currentPlayer
+                    ? "currentPlayerStatus"
+                    : "playerStatus"
+                }
+              />
+            </div>
+          );
+        } else {
+          centerRow.push(
+            <PlayerStatus
+              playerName={index.toString()}
+              cardsLeft={this.props.G.cardsLeft[index]}
+              className={
+                index.toString() === currentPlayer
+                  ? "currentPlayerStatus"
+                  : "playerStatus"
+              }
+            />
+          );
+          if (i === 1) {
+            gameArea.push(<div className="centerRow">{centerRow}</div>);
+          }
+        }
       }
-      if (i.toString() === playerID) {
-        className += " playerID";
-      }
-      if (!this.props.G.turnOrder.includes(i)) {
-        className += " passed";
-      }
-      if (this.props.G.winners.includes(i)) {
-        className += " winner";
-      }
-      status.push(
-        <span className={className} key={i}>
-          {i}
-        </span>
-      );
     }
 
     let gameover = "";
@@ -71,19 +117,16 @@ class TienLenBoard extends Component {
 
     return (
       <div>
-        <center>
-          <h2>Center (Round Type: {this.props.G.roundType})</h2>
-        </center>
-        <div className="centerContainer">
-          <CardArea
-            className="center"
-            cards={this.props.G.center}
-            onClick={() => null}
-            setList={() => null}
-            disabled={true}
-          />
+        <div className="gameArea">{gameArea}</div>
+        <div
+          className={
+            currentPlayer === this.props.playerID
+              ? "currentPlayerArea"
+              : "playerArea"
+          }
+        >
+          {playerArea}
         </div>
-        <div className="playerArea">{playerArea}</div>
         <div className="centerContainer">
           <div className="status">{status}</div>
         </div>

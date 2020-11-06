@@ -9,7 +9,6 @@ describe("playCards", () => {
   let G;
   let client;
   let ctx;
-  let state;
   beforeEach(() => {
     client = Client({
       game: TienLen,
