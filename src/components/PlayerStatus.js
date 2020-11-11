@@ -6,14 +6,17 @@ import cardback from "../assets/cards/2B.svg";
 export default function PlayerStatus({ playerName, cardsLeft, className }) {
   return (
     <div className={className}>
-      {playerName}: {cardsLeft}
-      <img className="card-small" src={cardback} alt={cardsLeft} />
+      {playerName}
+      <div>
+        <img className="card-small" src={cardback} alt={cardsLeft} />:
+        {cardsLeft}
+      </div>
     </div>
   );
 }
 
 PlayerStatus.propTypes = {
   playerName: PropTypes.string,
-  cardsLeft: PropTypes.integer,
+  cardsLeft: PropTypes.number,
   className: PropTypes.string,
 };

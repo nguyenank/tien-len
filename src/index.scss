@@ -3,8 +3,8 @@ $yellow: #f4d666;
 $orange: #f7b88b;
 $darkorange: #e8775a;
 $red: #bd4a39;
-$grey: #ebe3e1;
-$darkgrey: #bfb6b4;
+$grey: #dbd8d5;
+$darkgrey: #a6a09f;
 $darkergrey: #615b5a;
 
 body {
@@ -35,13 +35,13 @@ code {
 
 %hand {
   @extend %card-area;
-  width: 95vw;
+  // width: 95vw;
 }
 
 %player-status {
   border-radius: 1em;
-  margin: 1vw;
   padding: 2vw;
+  text-align: center;
 }
 
 %player-area {
@@ -91,6 +91,11 @@ code {
   background-color: $darkorange;
 }
 
+.passed-player-status {
+  @extend %player-status;
+  background-color: $grey;
+}
+
 .player-status {
   @extend %player-status;
   background-color: $orange;
@@ -99,6 +104,11 @@ code {
 .current-player-area {
   @extend %player-area;
   background-color: $darkorange;
+}
+
+.passed-player-area {
+  @extend %player-area;
+  background-color: $grey;
 }
 
 .player-area {
@@ -113,6 +123,11 @@ code {
   background-color: $darkorange;
 }
 
+.passed-staging-area {
+  @extend %card-area;
+  background-color: $darkgrey;
+}
+
 .current-staging-area {
   @extend %card-area;
   background-color: $red;
@@ -121,6 +136,11 @@ code {
 .hand {
   @extend %hand;
   background-color: $darkorange;
+}
+
+.passed-hand {
+  @extend %card-area;
+  background-color: $darkgrey;
 }
 
 .current-hand {
