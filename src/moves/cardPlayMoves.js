@@ -30,7 +30,8 @@ export function tienLenPlay(G, ctx) {
   } else if (
     // not a valid tien len play
     G.roundType !== handType ||
-    compareHighest(stagingArea, G.center) !== 1
+    compareHighest(stagingArea, G.center) !== 1 ||
+    stagingArea.length !== G.center.length
   ) {
     ctx.events.setStage("notTurn");
     // remove any winners from turn order

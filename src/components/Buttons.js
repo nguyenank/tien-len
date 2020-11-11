@@ -57,7 +57,8 @@ function tienLenButton(props) {
     classList = "tien-len";
   } else if (
     props.G.roundType !== handType ||
-    compareHighest(stagingArea, props.G.center) !== 1
+    compareHighest(stagingArea, props.G.center) !== 1 ||
+    stagingArea.length !== props.G.center.length
   ) {
     text += stagingArea.length === 1 ? "Play Card" : "Play Cards";
   } else {
