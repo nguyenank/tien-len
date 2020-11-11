@@ -23,53 +23,96 @@ code {
 }
 
 /* placeholder classes */
+@mixin shadow {
+  box-shadow: 0.25em 0.25em 0.125em $shadow;
+}
+
 %shadow {
-  box-shadow: 0.5vw 0.5vw 0.25vw $shadow;
+  @include shadow;
 }
 
 %card-area {
   @extend %shadow;
   border-radius: 0.5em;
-  padding: 0.75vw;
-  margin: 1vw;
-  min-height: 10vw;
+  padding: 0.5em;
+  margin: 0.5em;
   flex-wrap: wrap;
-  min-width: 25vw;
+  min-width: 11em;
+  height: auto;
+  min-height: 7em;
   display: flex;
   justify-content: center;
 }
 
 %hand {
   @extend %card-area;
-  margin: 1vw 1vw 2vw;
+  margin: 0.5em 0.5em 1em;
 }
 
 %player-status {
   @extend %shadow;
   border-radius: 1em;
-  padding: 2vw;
-  margin: 0vw 0vw 1vw;
+  padding: 0.75em;
   text-align: center;
   font-weight: bold;
-  width: 6vw;
+  width: 2.5em;
 }
 
 %player-area {
   @extend %shadow;
   border-radius: 1em;
-  margin: 1vw;
+  margin: 0.5em;
   font-weight: bold;
   font-variant: small-caps;
 }
 
 /* card related */
 .card {
-  width: 6.75vw;
-  margin: 0.25vw;
+  height: 6.75em;
+  width: 4.5em;
+  margin: 0.1em;
 }
 
-.card-small {
-  width: 1em;
+@media screen and (max-width: 992px) {
+  .card {
+    height: 5.5em;
+    width: 3.75em;
+    margin: 0.1em;
+  }
+
+  %card-area {
+    @include shadow;
+    border-radius: 0.5em;
+    padding: 0.5em;
+    margin: 0.5em;
+    flex-wrap: wrap;
+    min-width: 8em;
+    height: auto;
+    min-height: 5.5em;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .card {
+    height: 4.5em;
+    width: 3.25em;
+    margin: 0.1em;
+  }
+
+  %card-area {
+    @include shadow;
+    border-radius: 0.5em;
+    padding: 0.5em;
+    margin: 0.5em;
+    flex-wrap: wrap;
+    min-width: 8em;
+    height: auto;
+    min-height: 4.75em;
+    display: flex;
+    justify-content: center;
+  }
 }
 
 .ghost-card {
@@ -82,18 +125,18 @@ code {
 }
 
 /* board related */
+
 .center-container {
   display: flex;
   justify-content: center;
-  width: 100%;
 }
 
 .no-shadow {
-  box-shadow: 0vw 0vw;
+  box-shadow: 0 0;
 }
 
 .game-area {
-  margin: 1vw;
+  margin: 0.5em;
 }
 
 .center {

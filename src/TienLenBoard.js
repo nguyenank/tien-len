@@ -9,7 +9,7 @@ import PlayerArea from "./components/PlayerArea";
 class TienLenBoard extends Component {
   render() {
     return (
-      <div>
+      <div className="game">
         <GameArea {...this.props} />
         <PlayerArea {...this.props} />
       </div>
