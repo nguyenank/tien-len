@@ -7,6 +7,8 @@ import {
 } from "../moves/helper-functions/cardComparison";
 import { validPlay } from "../moves/cardPlayMoves";
 
+const _ = require("lodash");
+
 export default function Buttons(props) {
   const currentPlayer = props.ctx.currentPlayer === props.playerID;
   const tienLen =
@@ -81,7 +83,16 @@ function playCardsButton(props) {
   const currentPlayer = props.ctx.currentPlayer;
   const playerID = props.playerID;
   let stagingArea = props.G.players[playerID].stagingArea;
-  const p = validPlay(stagingArea, props.G.roundType, props.G.center);
+  let threeSpadesInHand = _.find(props.G.players[playerID].hand, {
+    rank: "3",
+    suit: "S",
+  });
+  const p = validPlay(
+    stagingArea,
+    props.G.roundType,
+    props.G.center,
+    threeSpadesInHand
+  );
   if (typeof p === "string") {
     return (
       <button className="disabled" disabled={true} key="playcards">

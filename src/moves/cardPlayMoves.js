@@ -7,10 +7,13 @@ import {
 } from "./helper-functions/cardComparison";
 const _ = require("lodash");
 
-export function validPlay(stagingArea, roundType, center) {
+export function validPlay(stagingArea, roundType, center, threeSpadesInHand) {
+  console.log(threeSpadesInHand);
   const handType = validCombination(stagingArea);
   if (stagingArea.length === 0 || handType === undefined) {
     return "Invalid Combination";
+  } else if (threeSpadesInHand) {
+    return "First Play Must Include 3♠";
   } else if (roundType === Combinations.ANY || validChop(center, stagingArea)) {
     return true;
   } else if (roundType !== handType || stagingArea.length !== center.length) {
