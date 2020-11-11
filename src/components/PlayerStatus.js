@@ -1,22 +1,54 @@
 // src/PlayerStatus.js
 import React from "react";
 import PropTypes from "prop-types";
-import cardback from "../assets/cards/2B.svg";
+import Emoji from "a11y-react-emoji";
 
-export default function PlayerStatus({ playerName, cardsLeft, className }) {
+export default function PlayerStatus({
+  playerName,
+  cardsLeft,
+  className,
+  winner,
+}) {
   return (
     <div className={className}>
       {playerName}
-      <div>
-        <img className="card-small" src={cardback} alt={cardsLeft} />:
-        {cardsLeft}
-      </div>
+      {winners(winner, cardsLeft)}
     </div>
   );
+}
+
+function winners(winner, cardsLeft) {
+  switch (winner) {
+    case 0:
+      return (
+        <div>
+          <Emoji symbol="🥇" label="1st place" />
+        </div>
+      );
+    case 1:
+      return (
+        <div>
+          <Emoji symbol="🥈" label="2nd place" />
+        </div>
+      );
+    case 2:
+      return (
+        <div>
+          <Emoji symbol="🥉" label="3rd place" />
+        </div>
+      );
+    default:
+      return (
+        <div>
+          <Emoji symbol="🂠" label="cards left" />: {cardsLeft}
+        </div>
+      );
+  }
 }
 
 PlayerStatus.propTypes = {
   playerName: PropTypes.string,
   cardsLeft: PropTypes.number,
   className: PropTypes.string,
+  winner: PropTypes.number,
 };

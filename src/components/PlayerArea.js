@@ -12,6 +12,9 @@ export default class PlayerArea extends Component {
     const playerID = this.props.playerID;
 
     if (playerID && !this.props.ctx.gameover) {
+      const winner = this.props.G.winners.findIndex(
+        x => x === playerID.toString()
+      );
       playerArea.push(
         <div className="center-container">
           <PlayerStatus
@@ -20,34 +23,43 @@ export default class PlayerArea extends Component {
             className={
               getClassName(this.props, playerID, "player-status") + " no-shadow"
             }
+            winner={winner}
           />
         </div>
       );
-      playerArea.push(
-        <div className="center-container" key="stagingArea">
-          <CardArea
-            className={getClassName(
-              this.props,
-              this.props.playerID,
-              "staging-area"
-            )}
-            listName="stagingArea"
-            cards={this.props.G.players[playerID].stagingArea}
-            setList={this.props.moves.relocateCards}
-          />
-        </div>
-      );
-      playerArea.push(<Buttons {...this.props} />);
-      playerArea.push(
-        <div className="center-container" key="hand">
-          <CardArea
-            className={getClassName(this.props, playerID, "hand")}
-            listName="hand"
-            cards={this.props.G.players[playerID].hand}
-            setList={this.props.moves.relocateCards}
-          />
-        </div>
-      );
+      if (winner === -1) {
+        playerArea.push(
+          <div className="center-container" key="stagingArea">
+            <CardArea
+              className={getClassName(
+                this.props,
+                this.props.playerID,
+                "staging-area"
+              )}
+              listName="stagingArea"
+              cards={this.props.G.players[playerID].stagingArea}
+              setList={this.props.moves.relocateCards}
+            />
+          </div>
+        );
+        playerArea.push(<Buttons {...this.props} />);
+        playerArea.push(
+          <div className="center-container" key="hand">
+            <CardArea
+              className={getClassName(this.props, playerID, "hand")}
+              listName="hand"
+              cards={this.props.G.players[playerID].hand}
+              setList={this.props.moves.relocateCards}
+            />
+          </div>
+        );
+      } else {
+        playerArea.push(
+          <div key="congratulations" className="center-container">
+            Congratulations!
+          </div>
+        );
+      }
     }
     return (
       <div className={getClassName(this.props, playerID, "player-area")}>

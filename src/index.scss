@@ -50,12 +50,16 @@ code {
   padding: 2vw;
   margin: 0vw 0vw 1vw;
   text-align: center;
+  font-weight: bold;
+  width: 6vw;
 }
 
 %player-area {
   @extend %shadow;
   border-radius: 1em;
   margin: 1vw;
+  font-weight: bold;
+  font-variant: small-caps;
 }
 
 /* card related */

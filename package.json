@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "a11y-react-emoji": "^1.1.2",
     "boardgame.io": "^0.39.16",
     "esm": "^3.2.25",
     "koa-static": "^5.0.0",

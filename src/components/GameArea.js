@@ -13,7 +13,11 @@ export default class GameArea extends Component {
     let centerRow = [];
     for (let i of [2, 3, "center", 1, 0]) {
       if (i === "center") {
-        centerRow.push(
+        const center = this.props.ctx.gameover ? (
+          <div key="center" className="round-type">
+            Game Over!
+          </div>
+        ) : (
           <div key="center" className="round-type">
             {this.props.G.roundType}
             <CardArea
@@ -25,30 +29,34 @@ export default class GameArea extends Component {
             />
           </div>
         );
+        centerRow.push(center);
       } else {
         const index = (i + pID) % 4;
+        const indexString = index.toString();
         const playerStatusClassName = getClassName(
           this.props,
-          index.toString(),
+          indexString,
           "player-status"
         );
         if (i === 2 || (i === 0 && !playerID)) {
           gameArea.push(
-            <div className="center-container" key={index.toString()}>
+            <div className="center-container" key={indexString}>
               <PlayerStatus
-                playerName={index.toString()}
+                playerName={indexString}
                 cardsLeft={this.props.G.cardsLeft[index]}
                 className={playerStatusClassName}
+                winner={this.props.G.winners.findIndex(x => x === indexString)}
               />
             </div>
           );
         } else if (i % 2 === 1) {
           centerRow.push(
-            <div key={index.toString()}>
+            <div key={indexString}>
               <PlayerStatus
-                playerName={index.toString()}
+                playerName={indexString}
                 cardsLeft={this.props.G.cardsLeft[index]}
                 className={playerStatusClassName}
+                winner={this.props.G.winners.findIndex(x => x === indexString)}
               />
             </div>
           );
@@ -62,11 +70,7 @@ export default class GameArea extends Component {
         }
       }
     }
-    return (
-      <div className="game-area">
-        {!this.props.ctx.gameover ? gameArea : <h2>Game Over!</h2>}
-      </div>
-    );
+    return <div className="game-area">{gameArea}</div>;
   }
 }
 

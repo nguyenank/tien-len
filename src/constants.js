@@ -21,7 +21,7 @@ export const Ranks = [
 export const Combinations = {
   SINGLE: "single",
   PAIR: "pair",
-  TRIPLE: "triple",
+  TRIPLE: "three-of-a-kind",
   STRAIGHT: "straight",
   THREEPAIR: "three-pair",
   FOUROFAKIND: "four-of-a-kind",
