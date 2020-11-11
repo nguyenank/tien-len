@@ -48,6 +48,7 @@ code {
   @extend %shadow;
   border-radius: 1em;
   padding: 2vw;
+  margin: 0vw 0vw 1vw;
   text-align: center;
 }
 
@@ -85,6 +86,10 @@ code {
 
 .no-shadow {
   box-shadow: 0vw 0vw;
+}
+
+.game-area {
+  margin: 1vw;
 }
 
 .center {

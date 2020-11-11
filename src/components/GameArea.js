@@ -63,7 +63,7 @@ export default class GameArea extends Component {
       }
     }
     return (
-      <div className="gameArea">
+      <div className="game-area">
         {!this.props.ctx.gameover ? gameArea : <h2>Game Over!</h2>}
       </div>
     );
