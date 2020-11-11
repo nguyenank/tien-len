@@ -34,7 +34,7 @@ export default class GameArea extends Component {
         );
         if (i === 2 || (i === 0 && !playerID)) {
           gameArea.push(
-            <div className="center-container">
+            <div className="center-container" key={index.toString()}>
               <PlayerStatus
                 playerName={index.toString()}
                 cardsLeft={this.props.G.cardsLeft[index]}
@@ -44,14 +44,20 @@ export default class GameArea extends Component {
           );
         } else if (i % 2 === 1) {
           centerRow.push(
-            <PlayerStatus
-              playerName={index.toString()}
-              cardsLeft={this.props.G.cardsLeft[index]}
-              className={playerStatusClassName}
-            />
+            <div key={index.toString()}>
+              <PlayerStatus
+                playerName={index.toString()}
+                cardsLeft={this.props.G.cardsLeft[index]}
+                className={playerStatusClassName}
+              />
+            </div>
           );
           if (i === 1) {
-            gameArea.push(<div className="center-row">{centerRow}</div>);
+            gameArea.push(
+              <div key="centerRow" className="center-row">
+                {centerRow}
+              </div>
+            );
           }
         }
       }

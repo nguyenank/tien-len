@@ -17,7 +17,9 @@ export default class PlayerArea extends Component {
           <PlayerStatus
             playerName={playerID.toString()}
             cardsLeft={this.props.G.cardsLeft[playerID]}
-            className={getClassName(this.props, playerID, "player-status")}
+            className={
+              getClassName(this.props, playerID, "player-status") + " no-shadow"
+            }
           />
         </div>
       );

@@ -6,6 +6,7 @@ $red: #bd4a39;
 $grey: #dbd8d5;
 $darkgrey: #a6a09f;
 $darkergrey: #615b5a;
+$shadow: rgba(0, 0, 0, 0.2);
 
 body {
   margin: 0;
@@ -22,7 +23,12 @@ code {
 }
 
 /* placeholder classes */
+%shadow {
+  box-shadow: 0.5vw 0.5vw 0.25vw $shadow;
+}
+
 %card-area {
+  @extend %shadow;
   border-radius: 0.5em;
   padding: 0.75vw;
   margin: 1vw;
@@ -35,16 +41,18 @@ code {
 
 %hand {
   @extend %card-area;
-  // width: 95vw;
+  margin: 1vw 1vw 2vw;
 }
 
 %player-status {
+  @extend %shadow;
   border-radius: 1em;
   padding: 2vw;
   text-align: center;
 }
 
 %player-area {
+  @extend %shadow;
   border-radius: 1em;
   margin: 1vw;
 }
@@ -73,6 +81,10 @@ code {
   display: flex;
   justify-content: center;
   width: 100%;
+}
+
+.no-shadow {
+  box-shadow: 0vw 0vw;
 }
 
 .center {
@@ -156,6 +168,7 @@ code {
 
 /* button related */
 button {
+  @extend %shadow;
   margin: 0.5em;
   background-color: $cornsilk;
   font-weight: bold;
