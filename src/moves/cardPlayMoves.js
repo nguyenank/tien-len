@@ -8,7 +8,6 @@ import {
 const _ = require("lodash");
 
 export function validPlay(stagingArea, roundType, center, threeSpadesInHand) {
-  console.log(threeSpadesInHand);
   const handType = validCombination(stagingArea);
   if (stagingArea.length === 0 || handType === undefined) {
     return "Invalid Combination";

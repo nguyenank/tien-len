@@ -13,7 +13,7 @@ const App = Client({
   numPlayers: 4,
   board: TienLenBoard,
   multiplayer: SocketIO({ server }),
-  // debug: true,
+  debug: true,
 });
 
 export default App;
