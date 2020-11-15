@@ -8,6 +8,7 @@
 
 import React from "react";
 import { Lobby } from "boardgame.io/react";
+import { GAME_SERVER_URL, WEB_SERVER_URL, APP_PRODUCTION } from "../config";
 import { default as BoardTienLen } from "../TienLenBoard";
 import { default as GameTienLen } from "../TienLen";
 import "./lobby.css";
@@ -15,7 +16,13 @@ import "./lobby.css";
 GameTienLen.minPlayers = GameTienLen.maxPlayers = 4;
 
 const { protocol, hostname, port } = window.location;
-const server = `${protocol}//${hostname}:${port}`;
+
+let gameServer = APP_PRODUCTION
+  ? `${protocol}//${hostname}:${port}`
+  : GAME_SERVER_URL;
+let lobbyServer = APP_PRODUCTION
+  ? `${protocol}//${hostname}:${port}`
+  : WEB_SERVER_URL;
 
 const importedGames = [{ game: GameTienLen, board: BoardTienLen }];
 
@@ -24,8 +31,8 @@ const LobbyView = () => (
     <h1>Lobby</h1>
 
     <Lobby
-      gameServer={server}
-      lobbyServer={server}
+      gameServer={gameServer}
+      lobbyServer={lobbyServer}
       gameComponents={importedGames}
     />
   </div>
