@@ -23,7 +23,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint . && prettier-eslint --list-different $PWD/'**/*.js'",
-    "format": "prettier-eslint --write $PWD'/**/*.js'"
+    "format": "prettier-eslint --write $PWD'/**/*.js'",
+    "server": "node -r esm server.js"
   },
   "eslintConfig": {
     "extends": "react-app"
