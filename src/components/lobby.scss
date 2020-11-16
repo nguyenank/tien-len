@@ -20,19 +20,26 @@ $shadow: rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
   width: 90%;
-  background-color: $orange;
-  box-shadow: 0.25em 0.25em 0.125em $shadow;
-  border-radius: 0.5em;
 }
 
 .phase-title {
-  margin-top: 40px;
+  padding-top: 1em;
   font-weight: bold;
-  background-color: $darkorange;
+  background-color: $orange;
+  margin-bottom: 0px;
+  padding-bottom: 1em;
   box-shadow: 0.25em 0.25em 0.125em $shadow;
-  border-radius: 0.25em;
-  padding-left: 5px;
+  padding-left: 0.5em;
+  border-radius: 0.5em;
   flex-basis: 0;
+}
+
+#instances {
+  background-color: $orange;
+  border-radius: 0.5em;
+  position: relative;
+  top: -0.75em;
+  box-shadow: 0.25em 0.25em 0.125em $shadow;
 }
 
 a {
@@ -85,17 +92,17 @@ h4 {
   list-style: none;
   border: 0px solid #eee;
   border-top: none;
-  height: 30px;
-  line-height: 30px;
+  height: 2em;
+  line-height: 2em;
   text-align: left;
-  font-size: 14px;
-  padding-left: 10px;
-  padding-right: 10px;
+  font-size: 12px;
+  padding-left: 0.8em;
+  padding-right: 0.8em;
 }
 
 #instances table {
   height: 100%;
-  width: 500px;
+  width: 100%;
   white-space: nowrap;
 }
 
@@ -106,9 +113,9 @@ h4 {
 .error-msg {
   font-size: 12px;
   color: red;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 0.8em;
   display: block;
+  border-radius: 0.5em;
 }
 
 .buttons button {
