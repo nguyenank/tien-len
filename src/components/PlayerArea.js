@@ -11,12 +11,12 @@ export default class PlayerArea extends Component {
     let playerArea = [];
     const playerID = this.props.playerID;
 
-    if (playerID && !this.props.ctx.gameover) {
+    if (playerID) {
       const winner = this.props.G.winners.findIndex(
         x => x === playerID.toString()
       );
       playerArea.push(
-        <div className="center-container">
+        <div className="center-container" key="winScreen">
           <PlayerStatus
             playerName={playerID.toString()}
             cardsLeft={this.props.G.cardsLeft[playerID]}
@@ -27,7 +27,7 @@ export default class PlayerArea extends Component {
           />
         </div>
       );
-      if (winner === -1) {
+      if (winner === -1 && !this.props.ctx.gameover) {
         playerArea.push(
           <div className="center-container" key="stagingArea">
             <CardArea
@@ -42,7 +42,11 @@ export default class PlayerArea extends Component {
             />
           </div>
         );
-        playerArea.push(<Buttons {...this.props} />);
+        playerArea.push(
+          <div key="buttons">
+            <Buttons {...this.props} />
+          </div>
+        );
         playerArea.push(
           <div className="center-container" key="hand">
             <CardArea
@@ -73,5 +77,5 @@ PlayerArea.propTypes = {
   G: PropTypes.object,
   ctx: PropTypes.object,
   moves: PropTypes.object,
-  playerID: PropTypes.number,
+  playerID: PropTypes.string,
 };

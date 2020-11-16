@@ -77,5 +77,5 @@ export default class GameArea extends Component {
 GameArea.propTypes = {
   G: PropTypes.object,
   ctx: PropTypes.object,
-  playerID: PropTypes.number,
+  playerID: PropTypes.string,
 };

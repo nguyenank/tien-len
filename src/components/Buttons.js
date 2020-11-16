@@ -37,7 +37,7 @@ function clearStagingAreaButton(props) {
     <button
       className="button"
       key="clearStagingArea"
-      onClick={props.moves.clearStagingArea}
+      onClick={() => props.moves.clearStagingArea()}
     >
       Clear Staging Area
     </button>
@@ -72,7 +72,7 @@ function tienLenButton(props) {
       className={classList}
       disabled={invalidPlay}
       key="tienLenPlay"
-      onClick={invalidPlay ? () => null : props.moves.tienLenPlay}
+      onClick={invalidPlay ? () => null : () => props.moves.tienLenPlay()}
     >
       {text}
     </button>
@@ -107,7 +107,7 @@ function playCardsButton(props) {
     );
   } else {
     return (
-      <button key="playcards" onClick={props.moves.cardsToCenter}>
+      <button key="playcards" onClick={() => props.moves.cardsToCenter()}>
         {stagingArea.length === 1 ? "Play Card" : "Play Cards"}
       </button>
     );
@@ -116,7 +116,11 @@ function playCardsButton(props) {
 
 function passTurnButton(props) {
   return (
-    <button className="button" key="passTurn" onClick={props.moves.passTurn}>
+    <button
+      className="button"
+      key="passTurn"
+      onClick={() => props.moves.passTurn()}
+    >
       Pass Turn
     </button>
   );
@@ -126,5 +130,5 @@ Buttons.propTypes = {
   G: PropTypes.object,
   ctx: PropTypes.object,
   moves: PropTypes.object,
-  playerID: PropTypes.number,
+  playerID: PropTypes.string,
 };
