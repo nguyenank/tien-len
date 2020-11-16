@@ -1,5 +1,7 @@
 This is an online implementation of the popular Vietnamese card game Tiến Lên, featuring a multiplayer lobby, and a full English ruleset by the rules I learned to play with. You can try out the game at [tienlen-en.herokuapp.com](http://tienlen-en.herokuapp.com/). The rules can be found on the website or [here](https://github.com/nguyenank/tien-len/wiki/Rules).
 
+![Image of Game in Progress](./public/game-preview.png)
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). This project uses the [boardgame.io](https://boardgame.io) framework. This project was initially created for HMC CSCI189, Fall 2020.
 
 ## Available Scripts
