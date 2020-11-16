@@ -6,14 +6,61 @@
  * https://opensource.org/licenses/MIT.
  */
 
+$cornsilk: #f7f3dc;
+$yellow: #f4d666;
+$orange: #f7b88b;
+$darkorange: #e8775a;
+$red: #bd4a39;
+$grey: #dbd8d5;
+$darkgrey: #a6a09f;
+$darkergrey: #615b5a;
+$shadow: rgba(0, 0, 0, 0.2);
+
 #lobby-view {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 90%;
+  background-color: $orange;
+  box-shadow: 0.25em 0.25em 0.125em $shadow;
+  border-radius: 0.5em;
 }
 
 .phase-title {
   margin-top: 40px;
+  font-weight: bold;
+  background-color: $darkorange;
+  box-shadow: 0.25em 0.25em 0.125em $shadow;
+  border-radius: 0.25em;
+  padding-left: 5px;
+  flex-basis: 0;
+}
+
+a {
+  color: black;
+  text-decoration: none;
+  font-size: 1.5em;
+}
+
+h1 {
+  color: $red;
+  font-variant: small-caps;
+  text-align: center;
+  font-size: 2em;
+  text-shadow: 0.075em 0.075em 0.025em $shadow;
+}
+
+h2 {
+  color: $red;
+  text-shadow: 0.075em 0.075em 0.025em $shadow;
+}
+
+h3 {
+  color: $darkorange;
+  text-shadow: 0.05em 0.05em 0.025em $shadow;
+}
+
+h4 {
+  color: $darkorange;
 }
 
 .hidden {

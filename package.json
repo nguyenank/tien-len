@@ -12,6 +12,8 @@
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-github-corner": "^2.5.0",
+    "react-router-dom": "^5.2.0",
     "react-sortablejs": "^6.0.0",
     "sortablejs": "^1.12.0"
   },
