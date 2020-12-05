@@ -19,14 +19,16 @@ export default function Rules() {
         card in the game, and the 2<span className="red-suit">♥</span> is the
         highest ranked card in the game. When ranking cards, rank takes priority
         over suit: a 3<span className="red-suit">♥</span> is higher than a 3
-        <span className="red-suit">♦</span>, but a 4♠ is higher than both of them.
+        <span className="red-suit">♦</span>, but a 4♠ is higher than both of
+        them.
       </p>
       <h2 id="setup">Setup</h2>
       <p>
         For the first game, the player with the 3♠ starts, and must start play
-        using the 3♠. For every game after, the winner of the previous game
+        using the 3♠.
+        {/* For every game after, the winner of the previous game
         starts, with no restrictions on their starting play. Play then continues
-        counter-clockwise from whoever started.
+        counter-clockwise from whoever started. */}
       </p>
       <h2 id="playing-the-game">Playing the Game</h2>
       <p>
@@ -46,13 +48,15 @@ export default function Rules() {
         </li>
         <li>
           <strong>triple</strong> - three cards of the same rank (ex. 8♠ 8
-          <span className="red-suit">♦</span> 8<span className="red-suit">♥</span>)
+          <span className="red-suit">♦</span> 8
+          <span className="red-suit">♥</span>)
         </li>
         <li>
           <strong>straight</strong> - at least three cards of consecutive rank
           (9♠ 10<span className="red-suit">♥</span> J
-          <span className="red-suit">♦</span> Q<span className="red-suit">♦</span>);
-          2&#39;s cannot be included in straights
+          <span className="red-suit">♦</span> Q
+          <span className="red-suit">♦</span>); 2&#39;s cannot be included in
+          straights
         </li>
       </ul>
       <p>
@@ -64,9 +68,9 @@ export default function Rules() {
         A combination can only be beat by a combination of the same type with a
         higher highest-ranked card in the combination. For example, the pair 7♠
         7<span className="red-suit">♥</span> beats the pair 7♣ 7
-        <span className="red-suit">♦</span>, because the highest card of the former
-        pair (7<span className="red-suit">♥</span>) is higher than the highest
-        card of the latter pair (7<span className="red-suit">♦</span>).
+        <span className="red-suit">♦</span>, because the highest card of the
+        former pair (7<span className="red-suit">♥</span>) is higher than the
+        highest card of the latter pair (7<span className="red-suit">♦</span>).
       </p>
       <p>
         For straights, the number of cards in the straight is part of the kind
@@ -112,23 +116,29 @@ export default function Rules() {
       <ul>
         <li>
           <strong>3 consecutive pairs</strong> - three pairs of cards, with the
-          pairs being of consecutive rank (ex. 6<span className="red-suit">♦</span>{" "}
-          6<span className="red-suit">♥</span> 7<span className="red-suit">♦</span>{" "}
-          7<span className="red-suit">♥</span> 8♠ 8
+          pairs being of consecutive rank (ex. 6
+          <span className="red-suit">♦</span> 6
+          <span className="red-suit">♥</span> 7
+          <span className="red-suit">♦</span> 7
+          <span className="red-suit">♥</span> 8♠ 8
           <span className="red-suit">♦</span>); beats any single 2
         </li>
         <li>
           <strong>4 of a kind</strong> - four cards of the same rank (ex. 5♠ 5♣
-          5<span className="red-suit">♦</span> 5<span className="red-suit">♥</span>
+          5<span className="red-suit">♦</span> 5
+          <span className="red-suit">♥</span>
           ), beats any single 2
         </li>
         <li>
           <strong>4 consecutive pairs</strong> - four pairs of cards, with the
-          pairs being of consecutive rank (ex. 6<span className="red-suit">♦</span>{" "}
-          6<span className="red-suit">♥</span> 7<span className="red-suit">♦</span>{" "}
-          7<span className="red-suit">♥</span> 8♠ 8
-          <span className="red-suit">♦</span> 9♣ 9<span className="red-suit">♦</span>),
-          beats any single 2 or any pair of 2&#39;s
+          pairs being of consecutive rank (ex. 6
+          <span className="red-suit">♦</span> 6
+          <span className="red-suit">♥</span> 7
+          <span className="red-suit">♦</span> 7
+          <span className="red-suit">♥</span> 8♠ 8
+          <span className="red-suit">♦</span> 9♣ 9
+          <span className="red-suit">♦</span>), beats any single 2 or any pair
+          of 2&#39;s
         </li>
       </ul>
       <p>
