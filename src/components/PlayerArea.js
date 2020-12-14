@@ -5,6 +5,7 @@ import Buttons from "./Buttons";
 import { getClassName } from "./_helperFunctions";
 import CardArea from "./CardArea";
 import PlayerStatus from "./PlayerStatus";
+const _ = require("lodash");
 
 export default class PlayerArea extends Component {
   render() {
@@ -12,13 +13,15 @@ export default class PlayerArea extends Component {
     const playerID = this.props.playerID;
 
     if (playerID) {
-      const winner = this.props.G.winners.findIndex(
-        x => x === playerID.toString()
-      );
+      const winner = this.props.G.winners.findIndex(x => x === playerID);
+      const player = _.find(this.props.gameMetadata, {
+        id: parseInt(playerID),
+      });
+      const playerName = player ? player.name : playerID;
       playerArea.push(
         <div className="center-container" key="winScreen">
           <PlayerStatus
-            playerName={playerID.toString()}
+            playerName={playerName}
             cardsLeft={this.props.G.cardsLeft[playerID]}
             className={
               getClassName(this.props, playerID, "player-status") + " no-shadow"
@@ -78,4 +81,5 @@ PlayerArea.propTypes = {
   ctx: PropTypes.object,
   moves: PropTypes.object,
   playerID: PropTypes.string,
+  gameMetadata: PropTypes.array,
 };
