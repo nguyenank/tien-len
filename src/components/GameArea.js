@@ -25,6 +25,7 @@ export default class GameArea extends Component {
             {this.props.G.roundType}
             <CardArea
               className="center"
+              listName="center"
               cards={this.props.G.center}
               onClick={() => null}
               setList={() => null}

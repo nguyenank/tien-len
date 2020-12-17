@@ -1,32 +1,45 @@
 // src/Card.js
 import React from "react";
 import Card from "./Card";
-import { ReactSortable } from "react-sortablejs";
+import { Droppable, Draggable } from "react-beautiful-dnd";
 import PropTypes from "prop-types";
 
-export default function CardArea({
-  cards,
-  className,
-  listName,
-  setList,
-  disabled,
-}) {
+export default function CardArea({ cards, className, listName, disabled }) {
   return (
-    <ReactSortable
-      multiDrag={false}
-      group={"shared"}
-      dragoverBubble={true}
-      selectedClass={"selected-card"}
-      list={cards}
-      setList={newCards => setList(newCards, listName)}
-      className={className}
-      ghostClass={"ghost-card"}
-      disabled={disabled}
+    <Droppable
+      droppableId={listName}
+      direction="horizontal"
+      isDropDisabled={disabled}
     >
-      {cards.map(card => (
-        <Card rank={card.rank} suit={card.suit} key={card.rank + card.suit} />
-      ))}
-    </ReactSortable>
+      {provided => (
+        <ul
+          className={className}
+          {...provided.droppableProps}
+          ref={provided.innerRef}
+        >
+          {cards.map((card, index) => {
+            return (
+              <Draggable
+                key={card.rank + card.suit}
+                draggableId={card.rank + card.suit}
+                index={index}
+              >
+                {provided => (
+                  <li
+                    ref={provided.innerRef}
+                    {...provided.draggableProps}
+                    {...provided.dragHandleProps}
+                  >
+                    <Card rank={card.rank} suit={card.suit} />
+                  </li>
+                )}
+              </Draggable>
+            );
+          })}
+          {provided.placeholder}
+        </ul>
+      )}
+    </Droppable>
   );
 }
 

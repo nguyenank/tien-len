@@ -79,6 +79,10 @@ code {
   color: #d20000;
 }
 
+ul {
+  list-style-type: none;
+}
+
 @media screen and (max-width: 992px) {
   .card {
     height: 5.5em;
