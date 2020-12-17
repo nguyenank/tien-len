@@ -35,13 +35,15 @@ export function compareHighest(cards1, cards2) {
     is higher than the highest cards of cards2, -1 if opposite,
     and undefined if card lists are empty or malformed
   */
+  const cards1Copy = _.cloneDeep(cards1);
+  const cards2Copy = _.cloneDeep(cards2);
   if (cards1.length === 0) {
     return -1;
   } else if (cards2.length === 0) {
     return 1;
   } else {
-    const card1 = _.last(cards1.sort(compareCards));
-    const card2 = _.last(cards2.sort(compareCards));
+    const card1 = _.last(cards1Copy.sort(compareCards));
+    const card2 = _.last(cards2Copy.sort(compareCards));
     return compareCards(card1, card2);
   }
 }
@@ -69,8 +71,9 @@ export function validCombination(cards) {
     return Combinations.TRIPLE;
   } else if (cards.length >= 3 && cards.every(card => card.rank !== "2")) {
     // straight
-    cards.sort(compareCards);
-    let ranks = cards.map(card => card.rank);
+    const cardsCopy = _.cloneDeep(cards);
+    cardsCopy.sort(compareCards);
+    let ranks = cardsCopy.map(card => card.rank);
     if (consecutive(ranks)) {
       return Combinations.STRAIGHT;
     }
@@ -88,8 +91,9 @@ export function validCombination(cards) {
     return card.length === 2;
   });
   // consecutiveSuits
-  cards.sort(compareCards);
-  let ranks = _.uniq(cards.map(card => card.rank));
+  const cardsCopy = _.cloneDeep(cards);
+  cardsCopy.sort(compareCards);
+  let ranks = _.uniq(cardsCopy.map(card => card.rank));
   let consecutiveSuits = consecutive(ranks);
 
   if (onlyPairs && consecutiveSuits) {
