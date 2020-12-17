@@ -10,7 +10,7 @@ class TienLenBoard extends Component {
   render() {
     return (
       <div className="game">
-        <DragDropContext>
+        <DragDropContext onDragEnd={this.props.moves.relocateCards}>
           <GameArea {...this.props} />
           <PlayerArea {...this.props} />
         </DragDropContext>
