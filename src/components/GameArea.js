@@ -4,11 +4,14 @@ import React, { Component } from "react";
 import { getClassName } from "./_helperFunctions";
 import CardArea from "./CardArea";
 import PlayerStatus from "./PlayerStatus";
+const _ = require("lodash");
 
 export default class GameArea extends Component {
   render() {
     const playerID = this.props.playerID;
     const pID = playerID ? parseInt(playerID) : 0;
+    let player;
+    let playerName;
     let gameArea = [];
     let centerRow = [];
     for (let i of [2, 3, "center", 1, 0]) {
@@ -39,10 +42,12 @@ export default class GameArea extends Component {
           "player-status"
         );
         if (i === 2 || (i === 0 && !playerID)) {
+          player = _.find(this.props.gameMetadata, { id: index });
+          playerName = player ? player.name : indexString;
           gameArea.push(
             <div className="center-container" key={indexString}>
               <PlayerStatus
-                playerName={indexString}
+                playerName={playerName}
                 cardsLeft={this.props.G.cardsLeft[index]}
                 className={playerStatusClassName}
                 winner={this.props.G.winners.findIndex(x => x === indexString)}
@@ -50,10 +55,12 @@ export default class GameArea extends Component {
             </div>
           );
         } else if (i % 2 === 1) {
+          player = _.find(this.props.gameMetadata, { id: index });
+          playerName = player ? player.name : indexString;
           centerRow.push(
             <div key={indexString}>
               <PlayerStatus
-                playerName={indexString}
+                playerName={playerName}
                 cardsLeft={this.props.G.cardsLeft[index]}
                 className={playerStatusClassName}
                 winner={this.props.G.winners.findIndex(x => x === indexString)}
@@ -78,4 +85,5 @@ GameArea.propTypes = {
   G: PropTypes.object,
   ctx: PropTypes.object,
   playerID: PropTypes.string,
+  gameMetadata: PropTypes.array,
 };
