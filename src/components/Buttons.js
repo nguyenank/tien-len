@@ -1,4 +1,4 @@
-import React from "react";
+import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import {
   validCombination,
@@ -9,28 +9,52 @@ import { validPlay } from "../moves/cardPlayMoves";
 
 const _ = require("lodash");
 
-export default function Buttons(props) {
-  const currentPlayer = props.ctx.currentPlayer === props.playerID;
-  const tienLen =
-    props.ctx.activePlayers[props.ctx.currentPlayer] === "tienLen";
-  let buttons = [];
+export default class Buttons extends PureComponent {
+  render() {
+    const currentPlayer = this.props.ctx.currentPlayer === this.props.playerID;
+    const tienLen =
+      this.props.ctx.activePlayers[this.props.ctx.currentPlayer] === "tienLen";
+    let buttons = [];
 
-  buttons.push(clearStagingAreaButton(props));
+    buttons.push(clearStagingAreaButton(this.props));
 
-  if (currentPlayer && tienLen) {
-    buttons.push(tienLenButton(props));
-  } else {
-    buttons.push(playCardsButton(props));
-    if (currentPlayer && !tienLen) {
-      buttons.push(passTurnButton(props));
+    if (currentPlayer && tienLen) {
+      buttons.push(tienLenButton(this.props));
+    } else {
+      buttons.push(playCardsButton(this.props));
+      if (currentPlayer && !tienLen) {
+        buttons.push(passTurnButton(this.props));
+      }
     }
+    return (
+      <div className="center-container" key="buttons">
+        {buttons}
+      </div>
+    );
   }
-  return (
-    <div className="center-container" key="buttons">
-      {buttons}
-    </div>
-  );
 }
+// export default function Buttons(props) {
+//   const currentPlayer = props.ctx.currentPlayer === props.playerID;
+//   const tienLen =
+//     props.ctx.activePlayers[props.ctx.currentPlayer] === "tienLen";
+//   let buttons = [];
+//
+//   buttons.push(clearStagingAreaButton(props));
+//
+//   if (currentPlayer && tienLen) {
+//     buttons.push(tienLenButton(props));
+//   } else {
+//     buttons.push(playCardsButton(props));
+//     if (currentPlayer && !tienLen) {
+//       buttons.push(passTurnButton(props));
+//     }
+//   }
+//   return (
+//     <div className="center-container" key="buttons">
+//       {buttons}
+//     </div>
+//   );
+// }
 
 function clearStagingAreaButton(props) {
   return (
