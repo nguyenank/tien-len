@@ -27,8 +27,6 @@ export default class GameArea extends Component {
               className="center"
               listName="center"
               cards={this.props.G.center}
-              onClick={() => null}
-              setList={() => null}
               disabled={true}
             />
           </div>

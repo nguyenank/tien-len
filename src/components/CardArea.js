@@ -1,6 +1,6 @@
 // src/Card.js
 import React from "react";
-import CardList from "./CardList";
+import Card from "./Card";
 import { Droppable } from "react-beautiful-dnd";
 import PropTypes from "prop-types";
 
@@ -11,13 +11,25 @@ export default function CardArea({ cards, className, listName, disabled }) {
       direction="horizontal"
       isDropDisabled={disabled}
     >
-      {provided => (
+      {(provided, snapshot) => (
         <ul
-          className={className}
+          className={
+            snapshot.isDraggingOver ? className + " dragging" : className
+          }
           {...provided.droppableProps}
           ref={provided.innerRef}
         >
-          <CardList cards={cards} disabled={disabled} />
+          {cards.map((card, index) => {
+            return (
+              <Card
+                rank={card.rank}
+                suit={card.suit}
+                key={card.rank + card.suit}
+                index={index}
+                disabled={disabled}
+              />
+            );
+          })}
           {provided.placeholder}
         </ul>
       )}
