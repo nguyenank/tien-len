@@ -3,7 +3,11 @@
 import { PlayerView, Stage } from "boardgame.io/core";
 import { Suits, Ranks, Combinations } from "./constants";
 import { cardsToCenter, passTurn, tienLenPlay } from "./moves/cardPlayMoves";
-import { relocateCards, clearStagingArea } from "./moves/cardAreaMoves";
+import {
+  relocateCards,
+  clearStagingArea,
+  sortStagingArea,
+} from "./moves/cardAreaMoves";
 import { compareCards } from "./moves/helper-functions/cardComparison";
 const _ = require("lodash");
 
@@ -16,11 +20,12 @@ const TienLen = {
     cardsToCenter: cardsToCenter,
     passTurn: passTurn,
     tienLenPlay: tienLenPlay,
+    sortStagingArea: sortStagingArea,
   },
   stages: {
     tienLen: { moves: { tienLenPlay } },
     notTurn: {
-      moves: { relocateCards, clearStagingArea },
+      moves: { relocateCards, clearStagingArea, sortStagingArea },
     },
   },
   turn: {

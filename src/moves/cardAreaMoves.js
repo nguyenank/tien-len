@@ -1,5 +1,5 @@
 // src/moves/cardAreaMoves.js
-
+import { compareCards } from "./helper-functions/cardComparison";
 const _ = require("lodash");
 
 export function relocateCards(G, ctx, result) {
@@ -30,4 +30,10 @@ export function clearStagingArea(G, ctx) {
     players[playerID].stagingArea
   );
   players[playerID].stagingArea = [];
+}
+
+export function sortStagingArea(G, ctx) {
+  const players = G.players;
+  const playerID = ctx.playerID;
+  players[playerID].stagingArea.sort(compareCards);
 }

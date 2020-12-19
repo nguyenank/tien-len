@@ -14,21 +14,34 @@ export default class Buttons extends PureComponent {
     const currentPlayer = this.props.ctx.currentPlayer === this.props.playerID;
     const tienLen =
       this.props.ctx.activePlayers[this.props.ctx.currentPlayer] === "tienLen";
-    let buttons = [];
+    let stagingAreaButtons = [];
 
-    buttons.push(clearStagingAreaButton(this.props));
+    stagingAreaButtons.push(clearStagingAreaButton(this.props));
+    stagingAreaButtons.push(sortStagingAreaButton(this.props));
+
+    let playButtons = [];
 
     if (currentPlayer && tienLen) {
-      buttons.push(tienLenButton(this.props));
+      playButtons.push(tienLenButton(this.props));
     } else {
-      buttons.push(playCardsButton(this.props));
+      playButtons.push(playCardsButton(this.props));
       if (currentPlayer && !tienLen) {
-        buttons.push(passTurnButton(this.props));
+        playButtons.push(passTurnButton(this.props));
       }
     }
     return (
-      <div className="center-container" key="buttons">
-        {buttons}
+      <div>
+        <div className="center-container" key="stagingAreaButtons">
+          {stagingAreaButtons}
+        </div>
+        <div className="center-container" key="buttons">
+          {currentPlayer && tienLen
+            ? tienLenButton(this.props)
+            : playCardsButton(this.props)}
+        </div>
+        <div className="center-container" key="buttons">
+          {passTurnButton(this.props)}
+        </div>
       </div>
     );
   }
@@ -63,7 +76,19 @@ function clearStagingAreaButton(props) {
       key="clearStagingArea"
       onClick={() => props.moves.clearStagingArea()}
     >
-      Clear Staging Area
+      Clear
+    </button>
+  );
+}
+
+function sortStagingAreaButton(props) {
+  return (
+    <button
+      className="button"
+      key="sortStagingArea"
+      onClick={() => props.moves.sortStagingArea()}
+    >
+      Sort
     </button>
   );
 }
