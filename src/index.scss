@@ -42,7 +42,7 @@ code {
   border-radius: 0.5em;
   padding: 0.5em;
   margin: 0.5em;
-  min-width: 4.75em;
+  min-width: 3.75em;
   height: 5.84375em;
 }
 
@@ -95,7 +95,7 @@ ul {
   %card-area {
     @include shadow;
     @include card-area;
-    min-width: 3.25em;
+    min-width: 2.5em;
     height: 4.125em;
   }
 }
@@ -110,7 +110,7 @@ ul {
   %card-area {
     @include shadow;
     @include card-area;
-    min-width: 2.75em;
+    min-width: 2em;
     height: 3.45em;
   }
 }
@@ -227,6 +227,18 @@ button {
   font-variant: normal;
   border-radius: 1em;
   border: 0.25em solid $yellow;
+}
+
+.staging-area-btn {
+  font-size: 0.75em;
+  background-color: $orange;
+  border-color: $darkorange;
+}
+
+.current-staging-area-btn {
+  font-size: 0.75em;
+  background-color: $darkorange;
+  border-color: $red;
 }
 
 .tien-len {
