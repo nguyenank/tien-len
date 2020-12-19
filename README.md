@@ -6,11 +6,13 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
+To run the project initially, run `npm install` to install all of the dependencies.
+
 In the project directory, you can run:
 
 ### `npm start`
 
-Runs the app in the development mode.<br /> Be sure to change `APP_PRODUCTION` to `false` in `src/config.js`.
+Runs the app in the development mode.<br /> Be sure to change `APP_PRODUCTION` to `false` in `src/config.js`. If you wish to experiment with the game, and not necessarily the Lobby, I would recommend setting `LOBBY` to `false` in `src/config.js,` which runs just the game with the boardgame.io debug panel.
 
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 

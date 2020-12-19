@@ -27,21 +27,23 @@ code {
   box-shadow: 0.25em 0.25em 0.125em $shadow;
 }
 
-%shadow {
-  @include shadow;
-}
-
-%card-area {
-  @extend %shadow;
+@mixin card-area {
   border-radius: 0.5em;
   padding: 0.5em;
   margin: 0.5em;
-  flex-wrap: wrap;
-  min-width: 11em;
-  height: auto;
-  min-height: 7em;
+  flex-wrap: nowrap;
   display: flex;
-  justify-content: center;
+  overflow: scroll;
+}
+
+%card-area {
+  @include card-area;
+  @include shadow;
+  border-radius: 0.5em;
+  padding: 0.5em;
+  margin: 0.5em;
+  min-width: 3.75em;
+  height: 5.84375em;
 }
 
 %hand {
@@ -50,7 +52,7 @@ code {
 }
 
 %player-status {
-  @extend %shadow;
+  @include shadow;
   border-radius: 1em;
   padding: 0.75em;
   text-align: center;
@@ -61,7 +63,7 @@ code {
 }
 
 %player-area {
-  @extend %shadow;
+  @include shadow;
   border-radius: 1em;
   margin: 0.5em;
   font-weight: bold;
@@ -70,54 +72,46 @@ code {
 
 /* card related */
 .card {
-  height: 6.25em;
+  height: 5.84375em;
   width: 4.25em;
-  margin: 0.1em;
+  margin: 0.2em;
 }
 
 .red-suit {
   color: #d20000;
 }
 
+ul {
+  list-style-type: none;
+}
+
 @media screen and (max-width: 992px) {
   .card {
-    height: 5.5em;
-    width: 3.75em;
+    height: 4.125em;
+    width: 3em;
     margin: 0.1em;
   }
 
   %card-area {
     @include shadow;
-    border-radius: 0.5em;
-    padding: 0.5em;
-    margin: 0.5em;
-    flex-wrap: wrap;
-    min-width: 8em;
-    height: auto;
-    min-height: 5.75em;
-    display: flex;
-    justify-content: center;
+    @include card-area;
+    min-width: 2.5em;
+    height: 4.125em;
   }
 }
 
 @media screen and (max-width: 600px) {
   .card {
-    height: 4.5em;
-    width: 3.25em;
+    height: 3.45em;
+    width: 2.5em;
     margin: 0.1em;
   }
 
   %card-area {
     @include shadow;
-    border-radius: 0.5em;
-    padding: 0.5em;
-    margin: 0.5em;
-    flex-wrap: wrap;
-    min-width: 8em;
-    height: auto;
-    min-height: 4.75em;
-    display: flex;
-    justify-content: center;
+    @include card-area;
+    min-width: 2em;
+    height: 3.45em;
   }
 }
 
@@ -125,10 +119,10 @@ code {
   opacity: 0;
 }
 
-.selected-card {
-  position: relative;
-  top: -0.5em;
-}
+// .selected-card {
+//   position: relative;
+//   top: -0.5em;
+// }
 
 /* board related */
 
@@ -226,12 +220,25 @@ code {
 
 /* button related */
 button {
-  @extend %shadow;
+  @include shadow;
   margin: 0.5em;
   background-color: $cornsilk;
   font-weight: bold;
+  font-variant: normal;
   border-radius: 1em;
   border: 0.25em solid $yellow;
+}
+
+.staging-area-btn {
+  font-size: 0.75em;
+  background-color: $orange;
+  border-color: $darkorange;
+}
+
+.current-staging-area-btn {
+  font-size: 0.75em;
+  background-color: $darkorange;
+  border-color: $red;
 }
 
 .tien-len {

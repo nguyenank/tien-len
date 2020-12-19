@@ -4,6 +4,7 @@ import {
   validCombination,
   validChop,
   compareHighest,
+  compareCards,
 } from "./helper-functions/cardComparison";
 const _ = require("lodash");
 
@@ -50,7 +51,7 @@ export function cardsToCenter(G, ctx) {
   let stagingArea = G.players[currentPlayer].stagingArea;
   G.roundType = validCombination(stagingArea);
 
-  G.center = _.cloneDeep(stagingArea);
+  G.center = _.cloneDeep(stagingArea).sort(compareCards);
   G.players[currentPlayer].stagingArea = [];
   G.cardsLeft[currentPlayer] -= G.center.length;
   if (G.cardsLeft[currentPlayer] === 0) {

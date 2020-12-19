@@ -41,7 +41,6 @@ export default class PlayerArea extends Component {
               )}
               listName="stagingArea"
               cards={this.props.G.players[playerID].stagingArea}
-              setList={this.props.moves.relocateCards}
             />
           </div>
         );
@@ -56,7 +55,6 @@ export default class PlayerArea extends Component {
               className={getClassName(this.props, playerID, "hand")}
               listName="hand"
               cards={this.props.G.players[playerID].hand}
-              setList={this.props.moves.relocateCards}
             />
           </div>
         );

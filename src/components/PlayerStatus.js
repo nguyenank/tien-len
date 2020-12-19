@@ -1,20 +1,17 @@
 // src/PlayerStatus.js
-import React from "react";
+import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import Emoji from "a11y-react-emoji";
 
-export default function PlayerStatus({
-  playerName,
-  cardsLeft,
-  className,
-  winner,
-}) {
-  return (
-    <div className={className}>
-      {playerName}
-      {winners(winner, cardsLeft)}
-    </div>
-  );
+export default class PlayerStatus extends PureComponent {
+  render() {
+    return (
+      <div className={this.props.className}>
+        {this.props.playerName}
+        {winners(this.props.winner, this.props.cardsLeft)}
+      </div>
+    );
+  }
 }
 
 function winners(winner, cardsLeft) {
